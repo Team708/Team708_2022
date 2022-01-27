@@ -17,6 +17,7 @@ import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstrai
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.auto.doNothingCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -56,6 +57,8 @@ public class RobotContainer {
                                                 m_robotDrive));
 
                 m_chooser.addOption("s - curve", Ramsete(makeSTrajectory()));
+                m_chooser.addOption("drive straight", Ramsete(driveStraightTrajectory()));
+                m_chooser.setDefaultOption("do nothing", new doNothingCommand());
         }
 
         /**
@@ -67,14 +70,44 @@ public class RobotContainer {
                 return m_chooser.getSelected();
         }
 
+        public Trajectory driveStraightTrajectory(){
+                // Create a voltage constraint to ensure we don't accelerate too fast
+                var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+                                new SimpleMotorFeedforward(
+                                DriveConstants.ksVolts,
+                                DriveConstants.kvVoltSecondsPerMeter,
+                                DriveConstants.kaVoltSecondsSquaredPerMeter),
+                                DriveConstants.kDriveKinematics,
+                                10);
+
+                // Create config for trajectory
+                TrajectoryConfig config = new TrajectoryConfig(
+                                AutoConstants.kMaxSpeedMetersPerSecond,
+                                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                                                // Add kinematics to ensure max speed is actually obeyed
+                                                .setKinematics(DriveConstants.kDriveKinematics)
+                                                // Apply the voltage constraint
+                                                .addConstraint(autoVoltageConstraint);
+
+                // An example trajectory to follow. All units in meters.
+                Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+                                new Pose2d(0, 0, new Rotation2d(0)),
+                                List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
+                                new Pose2d(3, 0, new Rotation2d(0)),
+                                config);
+
+                return exampleTrajectory;
+        }
+
+
         public Trajectory makeSTrajectory() {
 
                 // Create a voltage constraint to ensure we don't accelerate too fast
                 var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
                                 new SimpleMotorFeedforward(
-                                                DriveConstants.ksVolts,
-                                                DriveConstants.kvVoltSecondsPerMeter,
-                                                DriveConstants.kaVoltSecondsSquaredPerMeter),
+                                DriveConstants.ksVolts,
+                                DriveConstants.kvVoltSecondsPerMeter,
+                                DriveConstants.kaVoltSecondsSquaredPerMeter),
                                 DriveConstants.kDriveKinematics,
                                 10);
 
