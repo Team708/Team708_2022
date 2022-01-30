@@ -32,12 +32,12 @@ public final class Constants {
 
     public static int kIntakeMotorPort = 21;
 
-        public static final double kTrackwidthMeters = 0.69;
+        public static final double kTrackwidthMeters = 0.6604;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
-    public static final int kEncoderCPR                 = 1024;
-    public static final double kWheelDiameterMeters     = 0.15;
+    public static final int kEncoderCPR                 = 42; //1024
+    public static final double kWheelDiameterMeters     = 0.105; //.15
     public static final double kEncoderDistancePerPulse =
                     // Assumes the encoders are directly mounted on the wheel shafts
                               (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
@@ -54,7 +54,9 @@ public final class Constants {
     public static final double kaVoltSecondsSquaredPerMeter = 0.2;
 
     // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 8.5;
+    public static final double kPDriveVel = 48; //8.5, 16, 24
+    public static final double KIDriveVel = 0; //0
+    public static final double KDDriveVel = 0; //
   }
 
   public static final class ControllerConstants {
@@ -69,8 +71,8 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond               = 3;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kMaxSpeedMetersPerSecond               = 3; //TIM - 18ft/s
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3; //TIM - No idea
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and
     // seconds
@@ -82,6 +84,9 @@ public final class Constants {
 
     public static final int kVisionLedOn  = 0;
     public static final int kVisionLedOff = 1;
+
+    //(50*38)/(12*20) - Lowspeed
+    //(44*38)/(12*26) - Highspeed
 
   }
 }

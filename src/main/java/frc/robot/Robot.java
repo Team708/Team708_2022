@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.auto.doNothingCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -58,12 +62,21 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
+    m_robotContainer.getDriveSubsystem().resetOdometry(new Pose2d());
+
+    String autoSelected = SmartDashboard.getString("Auto Selector","do nothing"); //CHECK
+
+    // switch(autoSelected) { 
+    //   case "s - curve": 
+    //     m_autonomousCommand = m_robotContainer.Ramsete(m_robotContainer.makeSTrajectory());
+    //     break;
+    //   case "drive straight":
+    //     m_autonomousCommand = m_robotContainer.Ramsete(m_robotContainer.driveStraightTrajectory());
+    //     break;
+    //   case "Default Auto": default:
+    //     m_autonomousCommand = new doNothingCommand();
+    //     break; 
+    // }
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -81,6 +94,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -88,7 +102,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    m_robotContainer.sendToDashboard();
+  }
 
   @Override
   public void testInit() {

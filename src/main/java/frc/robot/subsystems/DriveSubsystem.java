@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
@@ -61,8 +62,8 @@ public class DriveSubsystem extends SubsystemBase {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightMotors.setInverted(false);
-    m_leftMotors.setInverted(true);
+    m_rightMotors.setInverted(false); //false - true
+    m_leftMotors.setInverted(true); //true
 
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -93,8 +94,17 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @return The current wheel speeds.
    */
-  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+  public DifferentialDriveWheelSpeeds getWheelSpeedsTeleop() {
     return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
+  }
+
+  /**
+    * Returns the current wheel speeds of the robot. (MODIFIED)
+    *
+    * @return The current wheel speeds.
+    */
+  public DifferentialDriveWheelSpeeds getWheelSpeedsAuto() {
+    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), -m_rightEncoder.getVelocity());
   }
 
   /**
@@ -163,6 +173,24 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /**
+   * Sets the Left Encoder to a certain inversion state
+   * 
+   * @param inverted Boolean value for inverted or not
+   */
+  public void setLeftEncoderInverted(boolean inverted){
+    m_leftEncoder.setInverted(inverted);
+  }
+
+  /**
+   * Sets the right encoder to a certain inversion state
+   * 
+   * @param inverted Boolean value for inverted or not
+   */
+  public void setRightEncoderInverted(boolean inverted){
+    m_rightEncoder.setInverted(inverted);
+  }
+
+  /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more
    * slowly.
    *
@@ -216,4 +244,10 @@ public class DriveSubsystem extends SubsystemBase {
   public void liftWheels() {
     dropSolenoid.set(false);
   }
+
+  public void sendToDashboard(){
+    SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+  }
+
 }
