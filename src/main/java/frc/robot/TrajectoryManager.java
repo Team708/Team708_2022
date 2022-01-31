@@ -112,15 +112,18 @@ public class TrajectoryManager {
                         .setKinematics(DriveConstants.kDriveKinematics)
                         // Apply the voltage constraint
                         .addConstraint(autoVoltageConstraint);
+        config.setReversed(true);
+        
 
         // An example trajectory to follow. All units in meters.
         Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
                 // Pass through these two interior waypoints, making an 's' curve path
-                List.of(new Translation2d(2, 0), new Translation2d(3, 1), new Translation2d(4, 2)),
+                List.of(/*new Translation2d(1,1), new Translation2d(2, 2), new Translation2d(3,3),
+                        new Translation2d(2,4), new Translation2d(1,5)*/),
                 // End 3 meters straight ahead of where we started, facing forward
-                new Pose2d(6, 2, new Rotation2d(0)),
+                new Pose2d(2, -2, new Rotation2d(0)),
                 // Pass config
                 config);
 

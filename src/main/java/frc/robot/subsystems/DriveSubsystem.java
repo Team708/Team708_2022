@@ -104,7 +104,8 @@ public class DriveSubsystem extends SubsystemBase {
     * @return The current wheel speeds.
     */
   public DifferentialDriveWheelSpeeds getWheelSpeedsAuto() {
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), -m_rightEncoder.getVelocity());
+    System.out.println("LEFT: " + m_leftEncoder.getVelocity() + "     RIGHT: " + m_rightEncoder.getVelocity());
+    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
   }
 
   /**
@@ -114,6 +115,7 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
+    m_gyro.setAngle(0.0);
     m_odometry.resetPosition(pose, m_gyro.getAngle());
   }
 
@@ -248,6 +250,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void sendToDashboard(){
     SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
     SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+    SmartDashboard.putNumber("Raw Angle", m_gyro.getRawAngle());
   }
 
 }
