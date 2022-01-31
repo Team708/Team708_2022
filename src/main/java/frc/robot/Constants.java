@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -29,7 +30,7 @@ public final class Constants {
     public static int kShiftLSolenoidPort = 1;
     public static int kDriveSolenoidPort = 6;
     public static int kIntakeSolenoidPort = 6;
-
+    
     public static int kIntakeMotorPort = 21;
 
         public static final double kTrackwidthMeters = 0.6604;
@@ -68,6 +69,9 @@ public final class Constants {
     public static final double kDriverDeadBandRightX  = 0.2;
     public static final double kDriverDeadBandLeftY   = 0.1;
     public static final double kDriverDeadBandRightY  = 0.2;
+
+    public static final int IncrementPipelineButton = XboxController.Button.kRightBumper.value;
+
   }
 
   public static final class AutoConstants {
@@ -81,6 +85,8 @@ public final class Constants {
   }
 
   public static final class VisionProcessorConstants {
+
+    public static final int CANdleID = 1;
 
     public static final int kVisionLedOn  = 0;
     public static final int kVisionLedOff = 1;
