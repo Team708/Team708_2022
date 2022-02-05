@@ -35,7 +35,7 @@ public class RobotContainer {
         private final TrajectoryManager m_trajectoryManager = new TrajectoryManager();
 
         private final CANdleSystem m_candleSystem = new CANdleSystem(OI.driverGamepad);
-        private final Limelight m_limelight = new Limelight(m_candleSystem);
+        private final Limelight m_limelight = new Limelight(m_candleSystem, m_robotDrive);
 
         public static final SendableChooser<Command> m_chooser = new SendableChooser<>();
 

@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * @deprecated
+ */
 public class VisionProcessor extends SubsystemBase {
 
 	// public static Drivetrain drivetrain;
@@ -33,6 +36,10 @@ public class VisionProcessor extends SubsystemBase {
 	private NetworkTableInstance limeLightInstance = NetworkTableInstance.getDefault();
 	private NetworkTable limeLightTable = limeLightInstance.getTable("/limelight");
 
+	public VisionProcessor() {
+		setName("Vision Processor");
+	}
+
 	// Method for getting different data from a Network Table
 	public double getNTInfo(String tableInfo) {
 		NetworkTableEntry limeLightEntry = limeLightTable.getEntry(tableInfo);
@@ -43,10 +50,6 @@ public class VisionProcessor extends SubsystemBase {
 	public void setNTInfo(String tableInfo, int setValue) {
 		NetworkTableEntry limeLightEntry = limeLightTable.getEntry(tableInfo);
 		limeLightEntry.setNumber(setValue);
-	}
-
-	public VisionProcessor() {
-		setName("Vision Processor");
 	}
 
 	public boolean seesTarget() {
@@ -70,16 +73,6 @@ public class VisionProcessor extends SubsystemBase {
 		// return getNTInfo("tx");
 		return -getNTInfo("ty");
 	}
-
-	// public void findTarget() { //drivetrain vision processing
-	// double angle = getRotate();
-	// if (Math.abs(angle) > 1.0) {
-	// Swerve.getInstance().rotateDegreesfromPosition(angle);
-	// targetFound = false;
-	// }
-	// else
-	// targetFound = true;
-	// }
 
 	public double getDistance() {
 		if (seesTarget())

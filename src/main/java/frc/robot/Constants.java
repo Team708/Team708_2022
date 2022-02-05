@@ -34,10 +34,13 @@ public final class Constants {
     public static int kIntakeMotorPort = 21;
 
         public static final double kTrackwidthMeters = 0.6604;
+        public static final double kWheelRadiusFromCenter = 0.3; //TODO EDIT
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
-    public static final int kEncoderCPR                 = 42; //1024
+    //1 rev of wheel is .33 meters
+
+    public static final int kEncoderCPR                 = 42; //1024, 406
     public static final double kWheelDiameterMeters     = 0.105; //.15
     public static final double kEncoderDistancePerPulse =
                     // Assumes the encoders are directly mounted on the wheel shafts
@@ -58,6 +61,13 @@ public final class Constants {
     public static final double kPDriveVel = 48; //8.5, 16, 24
     public static final double KIDriveVel = 0; //0
     public static final double KDDriveVel = 0; //
+
+    //Might be same values as another thing we will see:
+    public static final double kDriveP                   = 0;
+    public static final double kDriveI                   = 0;
+    public static final double kDriveD                   = 0;
+    public static final double kTurnToleranceDeg         = 1;
+    public static final double kTurnRateToleranceDegPerS = 5; //?
   }
 
   public static final class ControllerConstants {

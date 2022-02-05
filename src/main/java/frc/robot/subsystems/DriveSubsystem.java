@@ -9,15 +9,19 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
@@ -42,9 +46,11 @@ public class DriveSubsystem extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The left-side drive encoder
+  // private final RelativeEncoder m_leftEncoder = m_leftPrimary.getEncoder(Type.kHallSensor, Constants.DriveConstants.kEncoderCPR);
   private final RelativeEncoder m_leftEncoder = m_leftPrimary.getEncoder();
 
   // The right-side drive encoder
+  // private final RelativeEncoder m_rightEncoder = m_rightPrimary.getEncoder(Type.kHallSensor, Constants.DriveConstants.kEncoderCPR);
   private final RelativeEncoder m_rightEncoder = m_rightPrimary.getEncoder();
 
   private final Solenoid shiftHSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kShiftHSolenoidPort);
@@ -62,6 +68,9 @@ public class DriveSubsystem extends SubsystemBase {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
+    // m_leftEncoder.setInverted(true);
+    // m_rightEncoder.setInverted(false);
+
     m_rightMotors.setInverted(false); //false - true
     m_leftMotors.setInverted(true); //true
 
@@ -73,11 +82,23 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
   }
 
+  public double getRawLeftEncoderCount(){
+    return -m_leftEncoder.getPosition() * m_leftEncoder.getCountsPerRevolution();
+  }
+
+  public double getRawRightEncoderCount(){
+    return m_rightEncoder.getPosition() * m_rightEncoder.getCountsPerRevolution();
+  }
+
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
     m_odometry.update(
         m_gyro.getAngle(), m_leftEncoder.getPosition(), m_rightEncoder.getPosition());
+  }
+
+  public Pigeon getGyro(){
+    return m_gyro;
   }
 
   /**
@@ -89,13 +110,12 @@ public class DriveSubsystem extends SubsystemBase {
     return m_odometry.getPoseMeters();
   }
 
-  /**
-   * Returns the current wheel speeds of the robot.
-   *
-   * @return The current wheel speeds.
-   */
-  public DifferentialDriveWheelSpeeds getWheelSpeedsTeleop() {
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
+  public MotorControllerGroup getLeft(){
+    return m_leftMotors;
+  }
+
+  public MotorControllerGroup getRight(){
+    return m_rightMotors;
   }
 
   /**
@@ -104,8 +124,8 @@ public class DriveSubsystem extends SubsystemBase {
     * @return The current wheel speeds.
     */
   public DifferentialDriveWheelSpeeds getWheelSpeedsAuto() {
-    System.out.println("LEFT: " + m_leftEncoder.getVelocity() + "     RIGHT: " + m_rightEncoder.getVelocity());
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
+    // System.out.println("LEFT: " + m_leftEncoder.getVelocity() + "     RIGHT: " + m_rightEncoder.getVelocity());
+    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), -m_rightEncoder.getVelocity());
   }
 
   /**
@@ -248,8 +268,10 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void sendToDashboard(){
-    SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
-    SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+    SmartDashboard.putNumber("Wheel Rotation Left", -m_leftEncoder.getPosition());
+    SmartDashboard.putNumber("Wheel Rotation Right", m_rightEncoder.getPosition());
+    SmartDashboard.putNumber("Left Encoder Raw", getRawLeftEncoderCount());
+    SmartDashboard.putNumber("Right Encoder Raw", getRawRightEncoderCount());
     SmartDashboard.putNumber("Raw Angle", m_gyro.getRawAngle());
   }
 

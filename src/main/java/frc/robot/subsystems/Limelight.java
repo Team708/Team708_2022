@@ -1,9 +1,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+
+import java.math.*;
 
 import com.ctre.phoenix.led.CANdle;
 
@@ -38,15 +42,18 @@ public class Limelight extends SubsystemBase{
      * @see CANdleSystem
      */
     private CANdle m_candle;
+    
+    private DriveSubsystem m_driveSubsystem;
 
     /**
      * Constructor for LimeLight class
      * @param candle CANdleSystem used on robot
      */
-    public Limelight(CANdleSystem candle){
+    public Limelight(CANdleSystem candle, DriveSubsystem m_driveSubsystem){
         limeLight = NetworkTableInstance.getDefault().getTable("limelight");
         setPipeline(currPipeline);
         this.m_candleSystem = candle;
+        this.m_driveSubsystem = m_driveSubsystem;
         m_candle = m_candleSystem.getCANdle();
     }
 
@@ -169,6 +176,25 @@ public class Limelight extends SubsystemBase{
      */
     public double getA(){
         return getTa().getDouble(0.0);
+    }
+
+    //TODO FIX?
+    public double getDistance() {
+		if (areValidTargets())
+			return 72.5 / Math.tan(Math.PI * (getX() + 40) / 180); // target 94" - camera height 21.5"
+																	// ty = camera angle + Ty
+		else
+			return 0;
+	}
+
+    public double turnToTarget(){
+        double horiz = getX();
+        double distance = getDistance();
+        System.out.println(horiz);
+        System.out.println(distance);
+        double thetaRadians = Math.atan2(horiz, distance); //MORE REASONABLE THEN (distance, horiz)
+        // return thetaRadians * (180 / Math.PI);
+        return Math.toDegrees(thetaRadians);
     }
 
     @Override
