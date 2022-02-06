@@ -1,99 +1,101 @@
-package frc.robot.subsystems;
+//delete later
 
-import frc.robot.Constants.VisionProcessorConstants;
+// package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.networktables.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import frc.robot.Constants.VisionProcessorConstants;
 
-public class VisionProcessor extends SubsystemBase {
+// import edu.wpi.first.wpilibj2.command.SubsystemBase;
+// import edu.wpi.first.networktables.*;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-	// public static Drivetrain drivetrain;
-	// private static Intake intake;
+// public class VisionProcessor extends SubsystemBase {
 
-	private boolean led = false;
-	// private boolean isAtY = false;
-	public double robotSide;
-	public boolean targetFound = false;
-	// private boolean isCentered = false;
-	// private boolean isAtArea = false;
+// 	// public static Drivetrain drivetrain;
+// 	// private static Intake intake;
 
-	// Required Network Table Data
-	private boolean seesTarget; // Get from Network Table
-	private double tv;
-	// private double yAngle;
-	// private double difference;
+// 	private boolean led = false;
+// 	// private boolean isAtY = false;
+// 	public double robotSide;
+// 	public boolean targetFound = false;
+// 	// private boolean isCentered = false;
+// 	// private boolean isAtArea = false;
 
-	// private double xAngle; //Get from Network Table
-	// private double area;
-	// private double rotate = 0.0;
-	// private double move = 0.0;
+// 	// Required Network Table Data
+// 	private boolean seesTarget; // Get from Network Table
+// 	private double tv;
+// 	// private double yAngle;
+// 	// private double difference;
 
-	// Accessing the Limelight's Network Table
-	private NetworkTableInstance limeLightInstance = NetworkTableInstance.getDefault();
-	private NetworkTable limeLightTable = limeLightInstance.getTable("/limelight");
+// 	// private double xAngle; //Get from Network Table
+// 	// private double area;
+// 	// private double rotate = 0.0;
+// 	// private double move = 0.0;
 
-	// Method for getting different data from a Network Table
-	public double getNTInfo(String tableInfo) {
-		NetworkTableEntry limeLightEntry = limeLightTable.getEntry(tableInfo);
-		return limeLightEntry.getDouble(0);
-	}
+// 	// Accessing the Limelight's Network Table
+// 	private NetworkTableInstance limeLightInstance = NetworkTableInstance.getDefault();
+// 	private NetworkTable limeLightTable = limeLightInstance.getTable("/limelight");
 
-	// Method for setting different data into a Network Table
-	public void setNTInfo(String tableInfo, int setValue) {
-		NetworkTableEntry limeLightEntry = limeLightTable.getEntry(tableInfo);
-		limeLightEntry.setNumber(setValue);
-	}
+// 	// Method for getting different data from a Network Table
+// 	public double getNTInfo(String tableInfo) {
+// 		NetworkTableEntry limeLightEntry = limeLightTable.getEntry(tableInfo);
+// 		return limeLightEntry.getDouble(0);
+// 	}
 
-	public VisionProcessor() {
-		setName("Vision Processor");
-	}
+// 	// Method for setting different data into a Network Table
+// 	public void setNTInfo(String tableInfo, int setValue) {
+// 		NetworkTableEntry limeLightEntry = limeLightTable.getEntry(tableInfo);
+// 		limeLightEntry.setNumber(setValue);
+// 	}
 
-	public boolean seesTarget() {
-		tv = getNTInfo("tv");
-		if (tv != 0.0)
-			seesTarget = true;
-		else
-			seesTarget = false;
-		return seesTarget;
-	}
+// 	public VisionProcessor() {
+// 		setName("Vision Processor");
+// 	}
 
-	public void toggleLEDMode() {
-		led = !led;
-		if (led)
-			setNTInfo("ledMode", VisionProcessorConstants.kVisionLedOn);
-		else
-			setNTInfo("ledMode", VisionProcessorConstants.kVisionLedOff);
-	}
+// 	public boolean seesTarget() {
+// 		tv = getNTInfo("tv");
+// 		if (tv != 0.0)
+// 			seesTarget = true;
+// 		else
+// 			seesTarget = false;
+// 		return seesTarget;
+// 	}
 
-	public double getRotate() {
-		// return getNTInfo("tx");
-		return -getNTInfo("ty");
-	}
+// 	public void toggleLEDMode() {
+// 		led = !led;
+// 		if (led)
+// 			setNTInfo("ledMode", VisionProcessorConstants.kVisionLedOn);
+// 		else
+// 			setNTInfo("ledMode", VisionProcessorConstants.kVisionLedOff);
+// 	}
 
-	// public void findTarget() { //drivetrain vision processing
-	// double angle = getRotate();
-	// if (Math.abs(angle) > 1.0) {
-	// Swerve.getInstance().rotateDegreesfromPosition(angle);
-	// targetFound = false;
-	// }
-	// else
-	// targetFound = true;
-	// }
+// 	public double getRotate() {
+// 		// return getNTInfo("tx");
+// 		return -getNTInfo("ty");
+// 	}
 
-	public double getDistance() {
-		if (seesTarget())
-			// return 74/Math.tan(Math.PI*((getNTInfo("ty")+20)/180));
-			return 72.5 / Math.tan(Math.PI * ((getNTInfo("tx") + 40) / 180)); // target 94" - camera height 21.5"
-																				// ty = camera angle + Ty
-		else
-			return 0;
-	}
+// 	// public void findTarget() { //drivetrain vision processing
+// 	// double angle = getRotate();
+// 	// if (Math.abs(angle) > 1.0) {
+// 	// Swerve.getInstance().rotateDegreesfromPosition(angle);
+// 	// targetFound = false;
+// 	// }
+// 	// else
+// 	// targetFound = true;
+// 	// }
 
-	public void sendToDashboard() {
-		SmartDashboard.putBoolean("Vision Has Target", targetFound);
-		SmartDashboard.putNumber("Vision_Distance ", getDistance());
-		SmartDashboard.putNumber("Vision tx", getRotate());
-	}
+// 	public double getDistance() {
+// 		if (seesTarget())
+// 			// return 74/Math.tan(Math.PI*((getNTInfo("ty")+20)/180));
+// 			return 72.5 / Math.tan(Math.PI * ((getNTInfo("tx") + 40) / 180)); // target 94" - camera height 21.5"
+// 																				// ty = camera angle + Ty
+// 		else
+// 			return 0;
+// 	}
 
-}
+// 	public void sendToDashboard() {
+// 		SmartDashboard.putBoolean("Vision Has Target", targetFound);
+// 		SmartDashboard.putNumber("Vision_Distance ", getDistance());
+// 		SmartDashboard.putNumber("Vision tx", getRotate());
+// 	}
+
+// }

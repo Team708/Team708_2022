@@ -4,8 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.XboxController;
+import java.util.List;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -21,66 +27,53 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public final class Constants {
   public static final class DriveConstants {
-    public static final int kLeftMotor1Port   = 12;
-    // public static final int kLeftMotor2Port   = 1;
-    public static final int kRightMotor1Port  = 14;
-    // public static final int kRightMotor2Port  = 3;
+    public static final int kLeftMotor1Port = 12;
+    // public static final int kLeftMotor2Port = 1;
+    public static final int kRightMotor1Port = 14;
+    // public static final int kRightMotor2Port = 3;
 
     public static int kShiftHSolenoidPort = 0;
     public static int kShiftLSolenoidPort = 1;
     public static int kDriveSolenoidPort = 6;
     public static int kIntakeSolenoidPort = 6;
-    
+
     public static int kIntakeMotorPort = 21;
 
-        public static final double kTrackwidthMeters = 0.6604;
+    public static final double kTrackwidthMeters = 0.6604;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
-    public static final int kEncoderCPR                 = 42; //1024
-    public static final double kWheelDiameterMeters     = 0.105; //.15
+    public static final int kEncoderCPR = 42; // 1024
+    public static final double kWheelDiameterMeters = 0.105; // .15
     public static final double kEncoderDistancePerPulse =
-                    // Assumes the encoders are directly mounted on the wheel shafts
-                              (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+        // Assumes the encoders are directly mounted on the wheel shafts
+        (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
-    // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-    // These characterization values MUST be determined either experimentally or
-    // theoretically
-    // for *your* robot's drive.
-    // The Robot Characterization Toolsuite provides a convenient tool for obtaining
-    // these
-    // values for your robot.
-    public static final double ksVolts                      = 0.22;
-    public static final double kvVoltSecondsPerMeter        = 1.98;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.2;
+    public static final double kPDriveVel = 10;
 
-    // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 48; //8.5, 16, 24
-    public static final double KIDriveVel = 0; //0
-    public static final double KDDriveVel = 0; //
+    public static final boolean kLeftEncoderInverted = true;
+    public static final boolean kRightEncoderInverted = false;
   }
 
   public static final class ControllerConstants {
 
-    public static final int kDriverControllerPort     = 0;
-    public static final int kOperatorControllerPort   = 1;
+    public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
 
-    public static final double kDriverDeadBandLeftX   = 0.1;
-    public static final double kDriverDeadBandRightX  = 0.2;
-    public static final double kDriverDeadBandLeftY   = 0.1;
-    public static final double kDriverDeadBandRightY  = 0.2;
-
-    public static final int IncrementPipelineButton = XboxController.Button.kRightBumper.value;
+    public static final double kDriverDeadBandLeftX = 0.1;
+    public static final double kDriverDeadBandRightX = 0.2;
+    public static final double kDriverDeadBandLeftY = 0.1;
+    public static final double kDriverDeadBandRightY = 0.2;
 
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond               = 3; //5.48; //TIM - 18ft/s
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3; //2.24; //TIM - No idea
+    public static final double kMaxSpeedMetersPerSecond = 3; // 5.48; //TIM - 18ft/s
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 2.24; //TIM - No idea
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and
     // seconds
-    public static final double kRamseteB    = 2;
+    public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
   }
 
@@ -88,11 +81,45 @@ public final class Constants {
 
     public static final int CANdleID = 1;
 
-    public static final int kVisionLedOn  = 0;
+    public static final int kVisionLedOn = 0;
     public static final int kVisionLedOff = 1;
 
-    //(50*38)/(12*20) - Lowspeed
-    //(44*38)/(12*26) - Highspeed
+    // (50*38)/(12*20) - Lowspeed
+    // (44*38)/(12*26) - Highspeed
 
+  }
+
+  public static final class TrajectoryConstants {
+    public static final Trajectory driveStraightTrajectory() {
+
+      TrajectoryConfig config = new TrajectoryConfig(
+          AutoConstants.kMaxSpeedMetersPerSecond,
+          AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+              .setKinematics(DriveConstants.kDriveKinematics);
+
+      Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+          new Pose2d(0, 0, new Rotation2d(0)),
+          List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
+          new Pose2d(3, 0, new Rotation2d(0)),
+          config);
+
+      return exampleTrajectory;
+    }
+
+    public static final Trajectory makeSTrajectory() {
+
+      TrajectoryConfig config = new TrajectoryConfig(
+          AutoConstants.kMaxSpeedMetersPerSecond,
+          AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+              .setKinematics(DriveConstants.kDriveKinematics);
+
+      Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+          new Pose2d(0, 0, new Rotation2d(0)),
+          List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+          new Pose2d(3, 0, new Rotation2d(0)),
+          config);
+
+      return exampleTrajectory;
+    }
   }
 }

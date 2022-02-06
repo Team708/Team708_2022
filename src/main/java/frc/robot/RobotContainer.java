@@ -11,10 +11,10 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.TrajectoryConstants;
 import frc.robot.commands.auto.doNothingCommand;
-import frc.robot.subsystems.CANdleSystem;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Drive.DriveSubsystem;
+import frc.robot.subsystems.Vision.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -32,10 +32,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotContainer {
         // The robot's subsystems
         private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-        private final TrajectoryManager m_trajectoryManager = new TrajectoryManager();
 
-        private final CANdleSystem m_candleSystem = new CANdleSystem(OI.driverGamepad);
-        private final Limelight m_limelight = new Limelight(m_candleSystem);
+        private final Limelight m_limelight = new Limelight();
 
         public static final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -56,39 +54,26 @@ public class RobotContainer {
                                                                 -OI.getDriverLeftY(), OI.getDriverRightX()),
                                                 m_robotDrive));
 
-                m_chooser.addOption("s - curve", Ramsete(m_trajectoryManager.makeSTrajectory()));
-                m_chooser.addOption("drive straight", Ramsete(m_trajectoryManager.driveStraightTrajectory()));
+                m_chooser.addOption("s - curve", Ramsete(TrajectoryConstants.makeSTrajectory()));
+                m_chooser.addOption("drive straight", Ramsete(TrajectoryConstants.driveStraightTrajectory()));
                 m_chooser.setDefaultOption("do nothing", new doNothingCommand());
                 SmartDashboard.putData("Auto Chooser", m_chooser);
         }
 
-        /**
-         * Use this to pass the autonomous command to the main {@link Robot} class.
-         *
-         * @return the command to run in autonomous
-         */
         public Command getAutonomousCommand() {
                 return m_chooser.getSelected();
         }
 
-        //ISSUE IN HERE?
         public Command Ramsete(Trajectory exampleTrajectory) {
                 RamseteCommand ramseteCommand = new RamseteCommand(
                                 exampleTrajectory,
                                 m_robotDrive::getPose,
                                 new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
-                                new SimpleMotorFeedforward(
-                                                DriveConstants.ksVolts,
-                                                DriveConstants.kvVoltSecondsPerMeter,
-                                                DriveConstants.kaVoltSecondsSquaredPerMeter),
+                                new SimpleMotorFeedforward(0.2, 2, 0.2),
                                 DriveConstants.kDriveKinematics,
-                                m_robotDrive::getWheelSpeedsAuto,
-                                new PIDController(DriveConstants.kPDriveVel,
-                                                  DriveConstants.KIDriveVel, 
-                                                  DriveConstants.KDDriveVel),
-                                new PIDController(DriveConstants.kPDriveVel, 
-                                                  DriveConstants.KIDriveVel, 
-                                                  DriveConstants.KDDriveVel),
+                                m_robotDrive::getWheelSpeeds,
+                                new PIDController(DriveConstants.kPDriveVel, 0, 0),
+                                new PIDController(DriveConstants.kPDriveVel, 0, 0),
                                 // RamseteCommand passes volts to the callback
                                 m_robotDrive::tankDriveVolts,
                                 m_robotDrive);
@@ -100,7 +85,7 @@ public class RobotContainer {
                 return ramseteCommand.andThen(() -> m_robotDrive.tankDriveVolts(0, 0));
         }
 
-        public DriveSubsystem getDriveSubsystem(){
+        public DriveSubsystem getDriveSubsystem() {
                 return m_robotDrive;
         }
 

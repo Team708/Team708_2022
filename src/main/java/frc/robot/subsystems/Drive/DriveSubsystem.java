@@ -2,13 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.Drive;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -23,20 +26,22 @@ public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
 
   private final CANSparkMax m_leftPrimary = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
-  // private final CANSparkMax m_leftSecondary = new CANSparkMax(DriveConstants.kLeftMotor2Port, MotorType.kBrushless);
+  // private final CANSparkMax m_leftSecondary = new
+  // CANSparkMax(DriveConstants.kLeftMotor2Port, MotorType.kBrushless);
 
   private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(
       m_leftPrimary);
-      // m_leftSecondary);
+  // m_leftSecondary);
 
   // The motors on the right side of the drive.
 
   private final CANSparkMax m_rightPrimary = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
-  // private final CANSparkMax m_rightSecondary = new CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless);
+  // private final CANSparkMax m_rightSecondary = new
+  // CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless);
 
   private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(
       m_rightPrimary);
-      // m_rightSecondary);
+  // m_rightSecondary);
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
@@ -47,8 +52,8 @@ public class DriveSubsystem extends SubsystemBase {
   // The right-side drive encoder
   private final RelativeEncoder m_rightEncoder = m_rightPrimary.getEncoder();
 
-  private final Solenoid shiftHSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kShiftHSolenoidPort);
-  private final Solenoid shiftLSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kShiftLSolenoidPort);
+  private final DoubleSolenoid shiftSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
+      DriveConstants.kShiftHSolenoidPort, DriveConstants.kShiftLSolenoidPort);
   private final Solenoid dropSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kDriveSolenoidPort);
 
   // The gyro sensor
@@ -62,12 +67,15 @@ public class DriveSubsystem extends SubsystemBase {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightMotors.setInverted(false); //false - true
-    m_leftMotors.setInverted(true); //true
+    m_rightMotors.setInverted(false); // false - true
+    m_leftMotors.setInverted(true); // true
 
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    m_leftEncoder.setInverted(DriveConstants.kLeftEncoderInverted);
+
     m_rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    m_rightEncoder.setInverted(DriveConstants.kRightEncoderInverted);
 
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
@@ -77,7 +85,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     // Update the odometry in the periodic block
     m_odometry.update(
-        m_gyro.getAngle(), m_leftEncoder.getPosition(), m_rightEncoder.getPosition());
+        Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(), m_rightEncoder.getPosition());
   }
 
   /**
@@ -94,17 +102,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @return The current wheel speeds.
    */
-  public DifferentialDriveWheelSpeeds getWheelSpeedsTeleop() {
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
-  }
-
-  /**
-    * Returns the current wheel speeds of the robot. (MODIFIED)
-    *
-    * @return The current wheel speeds.
-    */
-  public DifferentialDriveWheelSpeeds getWheelSpeedsAuto() {
-    System.out.println("LEFT: " + m_leftEncoder.getVelocity() + "     RIGHT: " + m_rightEncoder.getVelocity());
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
   }
 
@@ -175,24 +173,6 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /**
-   * Sets the Left Encoder to a certain inversion state
-   * 
-   * @param inverted Boolean value for inverted or not
-   */
-  public void setLeftEncoderInverted(boolean inverted){
-    m_leftEncoder.setInverted(inverted);
-  }
-
-  /**
-   * Sets the right encoder to a certain inversion state
-   * 
-   * @param inverted Boolean value for inverted or not
-   */
-  public void setRightEncoderInverted(boolean inverted){
-    m_rightEncoder.setInverted(inverted);
-  }
-
-  /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more
    * slowly.
    *
@@ -213,7 +193,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the robot's heading in degrees, from -180 to 180
    */
   public double getHeading() {
-    return m_gyro.getAngle().getDegrees();
+    return (Math.floorMod((long) m_gyro.getAngle().getDegrees(), (long) 360));
   }
 
   /**
@@ -227,14 +207,12 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Shifts the robot into high gear. */
   public void shiftGearHigh() {
-    shiftHSolenoid.set(true);
-    shiftLSolenoid.set(false);
+    shiftSolenoid.set(Value.kForward);
   }
 
   /** Shifts the robot into low gear. */
   public void shiftGearLow() {
-    shiftHSolenoid.set(false);
-    shiftLSolenoid.set(true);
+    shiftSolenoid.set(Value.kReverse);
   }
 
   /** Drops the omni wheels. */
@@ -247,10 +225,9 @@ public class DriveSubsystem extends SubsystemBase {
     dropSolenoid.set(false);
   }
 
-  public void sendToDashboard(){
+  public void sendToDashboard() {
     SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
     SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
-    SmartDashboard.putNumber("Raw Angle", m_gyro.getRawAngle());
   }
 
 }

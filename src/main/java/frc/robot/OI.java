@@ -1,8 +1,8 @@
 package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Drive.DriveSubsystem;
+import frc.robot.subsystems.Vision.Limelight;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,7 +29,8 @@ public class OI {
 	}
 
 	public static double getDriverRightX() {
-		// return deadBand(driverGamepad.getLeftX(), ControllerConstants.kDriverDeadBandRightX);
+		// return deadBand(driverGamepad.getLeftX(),
+		// ControllerConstants.kDriverDeadBandRightX);
 		return deadBand(driverGamepad.getRightX(), ControllerConstants.kDriverDeadBandRightX);
 	}
 
@@ -38,7 +39,8 @@ public class OI {
 	}
 
 	public static double getDriverRightY() {
-		// return deadBand(driverGamepad.getLeftY(), ControllerConstants.kDriverDeadBandRightY);
+		// return deadBand(driverGamepad.getLeftY(),
+		// ControllerConstants.kDriverDeadBandRightY);
 		return deadBand(driverGamepad.getRightY(), ControllerConstants.kDriverDeadBandRightY);
 	}
 
@@ -51,6 +53,6 @@ public class OI {
 		new JoystickButton(driverGamepad, Button.kLeftBumper.value)
 				.whenPressed(() -> m_robotDrive.dropWheels())
 				.whenReleased(() -> m_robotDrive.liftWheels());
-		new JoystickButton(driverGamepad, Constants.ControllerConstants.IncrementPipelineButton).whenPressed(m_limeLight::incrementPipeline, m_limeLight);
+		new JoystickButton(driverGamepad, Button.kX.value).whenPressed(m_limeLight::incrementPipeline, m_limeLight);
 	}
 }
