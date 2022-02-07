@@ -44,7 +44,7 @@ public class RobotContainer {
          */
         public RobotContainer() {
                 // Configure the button bindings
-                OI.configureButtonBindings(m_robotDrive, m_limelight);
+                OI.configureButtonBindings(m_robotDrive, m_limelight, m_shooter);
 
                 // Configure default commands
                 // Set the default drive command to split-stick arcade drive

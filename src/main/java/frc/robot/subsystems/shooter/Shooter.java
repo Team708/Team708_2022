@@ -35,7 +35,7 @@ public class Shooter extends SubsystemBase{
         shooterMotor.stopMotor();
     }
     
-    public void shootLong() {
+    public void shoot() {
         targetSpeed = ShooterConstants.kShooterWheelSpeed;
         shooterPIDController.setReference(ShooterConstants.kShooterWheelSpeed, CANSparkMax.ControlType.kVelocity);
     }
@@ -48,7 +48,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void sendToDashboard() {
-        SmartDashboard.putNumber("Shooter1 velocity", shooterEncoder.getVelocity());
+        SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());
         SmartDashboard.putBoolean("Shooter Target Speed Achieved", isShooterAtSpeed());
     }
 

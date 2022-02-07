@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.Limelight;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -44,7 +45,7 @@ public class OI {
 		return deadBand(driverGamepad.getRightY(), ControllerConstants.kDriverDeadBandRightY);
 	}
 
-	public static void configureButtonBindings(DriveSubsystem m_robotDrive, Limelight m_limeLight) {
+	public static void configureButtonBindings(DriveSubsystem m_robotDrive, Limelight m_limeLight, Shooter m_shooter) {
 		// Drive at half speed when the right bumper is held
 		new JoystickButton(driverGamepad, Button.kRightBumper.value)
 				.whenPressed(() -> m_robotDrive.shiftGearHigh())
@@ -53,7 +54,9 @@ public class OI {
 		new JoystickButton(driverGamepad, Button.kLeftBumper.value)
 				.whenPressed(() -> m_robotDrive.dropWheels())
 				.whenReleased(() -> m_robotDrive.liftWheels());
-		new JoystickButton(driverGamepad, Button.kX.value).whenPressed(m_limeLight::incrementPipeline, m_limeLight);
-		new JoystickButton(driverGamepad, Button.kY.value).whenPressed(m_shooter.)
+
+		new JoystickButton(driverGamepad, Button.kY.value)
+				.whenPressed(() -> m_shooter.shoot())
+				.whenReleased(() -> m_shooter.stopShooter());
 	}
 }
