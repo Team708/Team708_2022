@@ -174,6 +174,24 @@ public class Limelight extends SubsystemBase {
         return getTa().getDouble(0.0);
     }
 
+    public double getDistance() {
+		if (areValidTargets())
+			return 72.5 / Math.tan(Math.PI * (getX() + 40) / 180); // target 94" - camera height 21.5"
+																	// ty = camera angle + Ty
+		else
+			return 0;
+	}
+
+    public double turnToTarget(){
+        double horiz = getX();
+        double distance = getDistance();
+        System.out.println(horiz);
+        System.out.println(distance);
+        double thetaRadians = Math.atan2(horiz, distance); //MORE REASONABLE THEN (distance, horiz)
+        // return thetaRadians * (180 / Math.PI);
+        return Math.toDegrees(thetaRadians);
+    }
+
     @Override
     public void periodic() {
         if (areValidTargets()) {
