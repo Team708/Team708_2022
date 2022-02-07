@@ -190,10 +190,22 @@ public class DriveSubsystem extends SubsystemBase {
   /**
    * Returns the heading of the robot.
    *
-   * @return the robot's heading in degrees, from -180 to 180
+   * @return the robot's heading in degrees, from -180 to 180 (0 - 360)
    */
   public double getHeading() {
     return (Math.floorMod((long) m_gyro.getAngle().getDegrees(), (long) 360));
+  }
+
+  public double getAngleYaw() {
+    return m_gyro.getAngle().getDegrees();
+  }
+
+  public double getAnglePitch() {
+    return m_gyro.getPitch().getDegrees();
+  }
+
+  public double getAngleRoll() {
+    return m_gyro.getRoll().getDegrees();
   }
 
   /**
@@ -201,9 +213,18 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @return The turn rate of the robot, in degrees per second
    */
-  public double getTurnRate() {
-    return -m_gyro.getRate();
+  public double getTurnRateX() {
+    return -m_gyro.getRateX();
   }
+
+  public double getTurnRateY() {
+    return -m_gyro.getRateY();
+  }
+
+  public double getTurnRateZ() {
+    return -m_gyro.getRateZ();
+  }
+
 
   /** Shifts the robot into high gear. */
   public void shiftGearHigh() {

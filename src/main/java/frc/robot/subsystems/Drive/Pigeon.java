@@ -42,7 +42,31 @@ public class Pigeon {
 		return Rotation2d.fromDegrees(ypr[0]);
 	}
 
-	public double getRate() {
+	public Rotation2d getPitch() {
+		double[] ypr = new double[3];
+		pigeon.getYawPitchRoll(ypr);
+		return Rotation2d.fromDegrees(ypr[1]);
+	}
+
+	public Rotation2d getRoll() {
+		double[] ypr = new double[3];
+		pigeon.getYawPitchRoll(ypr);
+		return Rotation2d.fromDegrees(ypr[2]);
+	}
+
+	public double getRateX() {
+		double[] ypr = new double[3];
+		pigeon.getRawGyro(ypr);
+		return ypr[0];
+	}
+
+	public double getRateY() {
+		double[] ypr = new double[3];
+		pigeon.getRawGyro(ypr);
+		return ypr[1];
+	}
+
+	public double getRateZ() {
 		double[] ypr = new double[3];
 		pigeon.getRawGyro(ypr);
 		return ypr[2];
