@@ -7,7 +7,7 @@ import frc.robot.subsystems.Limelight;
 /**
  *
  */
-public class TurnToDegreeVision extends CommandBase {
+public class TurnToTargetEncoder extends CommandBase {
 	
 	private double rotationSpeed;
 	private double goalDegrees;
@@ -15,7 +15,7 @@ public class TurnToDegreeVision extends CommandBase {
     DriveSubsystem m_DriveSubsystem;
     Limelight m_Limelight;
 
-    public TurnToDegreeVision(double rotationSpeed, DriveSubsystem m_DriveSubsystem, Limelight m_Limelight) {
+    public TurnToTargetEncoder(double rotationSpeed, DriveSubsystem m_DriveSubsystem, Limelight m_Limelight) {
         this.m_DriveSubsystem = m_DriveSubsystem;
         this.rotationSpeed = rotationSpeed;
         this.m_Limelight = m_Limelight;

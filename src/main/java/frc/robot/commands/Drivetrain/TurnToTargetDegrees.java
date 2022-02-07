@@ -10,7 +10,7 @@ import frc.robot.subsystems.Limelight;
 /**
  *
  */
-public class TurnToDegreePID extends PIDCommand {
+public class TurnToTargetDegrees extends PIDCommand {
 	
 	private double rotationSpeed;
 	private double goalDegrees;
@@ -18,7 +18,7 @@ public class TurnToDegreePID extends PIDCommand {
     DriveSubsystem m_DriveSubsystem;
     Limelight m_Limelight;
 
-    public TurnToDegreePID(double rotationSpeed, DriveSubsystem m_DriveSubsystem, Limelight m_Limelight) {
+    public TurnToTargetDegrees(double rotationSpeed, DriveSubsystem m_DriveSubsystem, Limelight m_Limelight) {
         super(
         new PIDController(DriveConstants.kDriveP, DriveConstants.kDriveI, DriveConstants.kDriveD),
         // Close loop on heading
