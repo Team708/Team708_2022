@@ -23,14 +23,11 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import com.ctre.phoenix.sensors.BasePigeon;
-
-
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
 
   private final CANSparkMax m_leftPrimary = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
-
+  
   private final CANSparkMax m_leftSecondary = new CANSparkMax(DriveConstants.kLeftMotor2Port, MotorType.kBrushless);
 
   private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(
@@ -39,7 +36,7 @@ public class DriveSubsystem extends SubsystemBase {
   // The motors on the right side of the drive.
 
   private final CANSparkMax m_rightPrimary = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
-
+  
   private final CANSparkMax m_rightSecondary = new CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless);
 
   private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(
@@ -139,6 +136,10 @@ public class DriveSubsystem extends SubsystemBase {
 		m_drive.curvatureDrive(xSpeed, zRotation, isQuickTurn);
 	}
 
+  public void stop() {
+    m_drive.arcadeDrive(0,0);
+  }
+
   /**
    * Controls the left and right sides of the drive directly with voltages.
    *
@@ -208,16 +209,8 @@ public class DriveSubsystem extends SubsystemBase {
     return (Math.floorMod((long) m_gyro.getAngle().getDegrees(), (long) 360));
   }
 
-  public double getAngleYaw() {
+  public double getAngle() {
     return m_gyro.getAngle().getDegrees();
-  }
-
-  public double getAnglePitch() {
-    return m_gyro.getPitch().getDegrees();
-  }
-
-  public double getAngleRoll() {
-    return m_gyro.getRoll().getDegrees();
   }
 
   /**
@@ -227,14 +220,6 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getTurnRateX() {
     return -m_gyro.getRateX();
-  }
-
-  public double getTurnRateY() {
-    return -m_gyro.getRateY();
-  }
-
-  public double getTurnRateZ() {
-    return -m_gyro.getRateZ();
   }
 
 
@@ -285,8 +270,8 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Wheel Rotation Right", m_rightEncoder.getPosition());
     SmartDashboard.putNumber("Raw Angle",            m_gyro.getRawAngle());
   
-    //SmartDashboard.putNumber("Roll",          m_gyro..getRoll()); - needs gyro to change to BasePigeon
-    //SmartDashboard.putNumber("Pitch",         m_gyro.getPitch());
+    SmartDashboard.putNumber("Roll",          m_gyro.getRoll().getDegrees());
+    SmartDashboard.putNumber("Pitch",         m_gyro.getPitch().getDegrees());
 
     SmartDashboard.putBoolean("Gear High",    gearHigh);			//Drivetrain Gear mode
     SmartDashboard.putBoolean("Climb enaged", climberEngaged);		//Drivetrain Climb Engaged

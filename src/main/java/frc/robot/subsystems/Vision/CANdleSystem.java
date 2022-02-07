@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.Vision;
 
-import frc.robot.Constants;
+import frc.robot.Constants.VisionProcessorConstants;
 
 // import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.led.*;
@@ -49,7 +49,7 @@ public class CANdleSystem {
     }
 
     public CANdleSystem() {
-        m_candle = new CANdle(Constants.VisionProcessorConstants.CANdleID);
+        m_candle = new CANdle(VisionProcessorConstants.CANdleID);
         changeAnimation(AnimationTypes.SetAll);
         CANdleConfiguration configAll = new CANdleConfiguration();
         configAll.statusLedOffWhenActive = true;
