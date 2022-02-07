@@ -13,8 +13,9 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.TrajectoryConstants;
 import frc.robot.commands.auto.doNothingCommand;
-import frc.robot.subsystems.Drive.DriveSubsystem;
-import frc.robot.subsystems.Vision.Limelight;
+import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.vision.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -32,6 +33,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotContainer {
         // The robot's subsystems
         private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+        private final Shooter m_shooter = new Shooter();
 
         private final Limelight m_limelight = new Limelight();
 
@@ -46,6 +48,7 @@ public class RobotContainer {
 
                 // Configure default commands
                 // Set the default drive command to split-stick arcade drive
+                m_shooter.setDefaultCommand(new RunCommand(() -> m_shooter.stopShooter(), m_shooter));
                 m_robotDrive.setDefaultCommand(
                                 // A split-stick arcade command, with forward/backward controlled by the left
                                 // hand, and turning controlled by the right.

@@ -67,6 +67,13 @@ public final class Constants {
 
   }
 
+  public static final class ShooterConstants{
+
+    public static final int kShooterShootMotor = 0;
+    public static final double kShooterWheelSpeed = 0;
+
+  }
+
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = 3; // 5.48; //TIM - 18ft/s
     public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 2.24; //TIM - No idea
