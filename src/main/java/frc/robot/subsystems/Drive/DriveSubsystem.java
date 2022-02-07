@@ -20,28 +20,46 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import com.ctre.phoenix.sensors.BasePigeon;
+
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
 
   private final CANSparkMax m_leftPrimary = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
+<<<<<<< Updated upstream:src/main/java/frc/robot/subsystems/Drive/DriveSubsystem.java
   // private final CANSparkMax m_leftSecondary = new
   // CANSparkMax(DriveConstants.kLeftMotor2Port, MotorType.kBrushless);
 
   private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(
       m_leftPrimary);
   // m_leftSecondary);
+=======
+  private final CANSparkMax m_leftSecondary = new CANSparkMax(DriveConstants.kLeftMotor2Port, MotorType.kBrushless);
+
+  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(
+      m_leftPrimary, m_leftSecondary);
+>>>>>>> Stashed changes:src/main/java/frc/robot/subsystems/DriveSubsystem.java
 
   // The motors on the right side of the drive.
 
   private final CANSparkMax m_rightPrimary = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
+<<<<<<< Updated upstream:src/main/java/frc/robot/subsystems/Drive/DriveSubsystem.java
   // private final CANSparkMax m_rightSecondary = new
   // CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless);
 
   private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(
       m_rightPrimary);
   // m_rightSecondary);
+=======
+  private final CANSparkMax m_rightSecondary = new CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless);
+
+  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(
+      m_rightPrimary, m_rightSecondary);
+>>>>>>> Stashed changes:src/main/java/frc/robot/subsystems/DriveSubsystem.java
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
@@ -62,6 +80,10 @@ public class DriveSubsystem extends SubsystemBase {
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
 
+  private boolean gearHigh       = false;
+  private boolean brake          = true;
+  private boolean climberEngaged = false;
+
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     // We need to invert one side of the drivetrain so that positive voltages
@@ -79,6 +101,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
+
+
   }
 
   @Override
@@ -126,6 +150,10 @@ public class DriveSubsystem extends SubsystemBase {
   public void arcadeDrive(double fwd, double rot) {
     m_drive.arcadeDrive(fwd, rot);
   }
+
+  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
+		m_drive.curvatureDrive(xSpeed, zRotation, isQuickTurn);
+	}
 
   /**
    * Controls the left and right sides of the drive directly with voltages.
@@ -228,13 +256,42 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Shifts the robot into high gear. */
   public void shiftGearHigh() {
+<<<<<<< Updated upstream:src/main/java/frc/robot/subsystems/Drive/DriveSubsystem.java
     shiftSolenoid.set(Value.kForward);
+=======
+    gearHigh = true;
+    shiftHSolenoid.set(true);
+    shiftLSolenoid.set(false);
+>>>>>>> Stashed changes:src/main/java/frc/robot/subsystems/DriveSubsystem.java
   }
 
   /** Shifts the robot into low gear. */
   public void shiftGearLow() {
+<<<<<<< Updated upstream:src/main/java/frc/robot/subsystems/Drive/DriveSubsystem.java
     shiftSolenoid.set(Value.kReverse);
+=======
+    gearHigh = false;
+    shiftHSolenoid.set(false);
+    shiftLSolenoid.set(true);
+>>>>>>> Stashed changes:src/main/java/frc/robot/subsystems/DriveSubsystem.java
   }
+
+  public void setBrakeMode(boolean setBrake) {
+		brake = setBrake;
+		if (brake) {
+			m_leftPrimary.setIdleMode(IdleMode.kBrake);
+			m_leftSecondary.setIdleMode(IdleMode.kBrake);
+			m_rightPrimary.setIdleMode(IdleMode.kBrake);
+			m_rightSecondary.setIdleMode(IdleMode.kBrake);
+		} 
+		else {
+			m_leftPrimary.setIdleMode(IdleMode.kCoast);
+			m_leftSecondary.setIdleMode(IdleMode.kCoast);
+			m_rightPrimary.setIdleMode(IdleMode.kCoast);
+			m_rightSecondary.setIdleMode(IdleMode.kCoast);
+		}
+	}
+
 
   /** Drops the omni wheels. */
   public void dropWheels() {
@@ -246,9 +303,26 @@ public class DriveSubsystem extends SubsystemBase {
     dropSolenoid.set(false);
   }
 
+<<<<<<< Updated upstream:src/main/java/frc/robot/subsystems/Drive/DriveSubsystem.java
   public void sendToDashboard() {
     SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
     SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+=======
+  public void sendToDashboard(){
+    SmartDashboard.putNumber("Wheel Rotation Left", -m_leftEncoder.getPosition());
+    SmartDashboard.putNumber("Wheel Rotation Right", m_rightEncoder.getPosition());
+    SmartDashboard.putNumber("Left Encoder Raw",     getRawLeftEncoderCount());
+    SmartDashboard.putNumber("Right Encoder Raw",    getRawRightEncoderCount());
+    SmartDashboard.putNumber("Raw Angle",            m_gyro.getRawAngle());
+  
+    //SmartDashboard.putNumber("Roll",          m_gyro..getRoll()); - needs gyro to change to BasePigeon
+    //SmartDashboard.putNumber("Pitch",         m_gyro.getPitch());
+
+    SmartDashboard.putBoolean("Gear High",    gearHigh);			//Drivetrain Gear mode
+    SmartDashboard.putBoolean("Climb enaged", climberEngaged);		//Drivetrain Climb Engaged
+    SmartDashboard.putBoolean("Brake",        brake);			// Brake or Coast
+>>>>>>> Stashed changes:src/main/java/frc/robot/subsystems/DriveSubsystem.java
   }
+
 
 }
