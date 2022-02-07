@@ -32,6 +32,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void stopShooter() {
+        targetSpeed = 0;
         shooterMotor.stopMotor();
     }
     

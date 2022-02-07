@@ -94,5 +94,6 @@ public class RobotContainer {
 
         public void sendToDashboard() {
                 m_robotDrive.sendToDashboard();
+                m_shooter.sendToDashboard();
         }
 }

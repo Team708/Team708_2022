@@ -70,7 +70,7 @@ public final class Constants {
   public static final class ShooterConstants{
 
     public static final int kShooterShootMotor = 0;
-    public static final double kShooterWheelSpeed = 0;
+    public static final double kShooterWheelSpeed = 3900;
 
   }
 
