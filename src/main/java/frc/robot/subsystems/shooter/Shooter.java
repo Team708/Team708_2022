@@ -12,6 +12,10 @@ import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase{
     
+    //3:1 reduction
+    //1:1 for Shooter - might modify
+    //2 Pistons operate concurrently
+
     private final CANSparkMax shooterMotor = new CANSparkMax(ShooterConstants.kShooterShootMotor, MotorType.kBrushless);
     public RelativeEncoder shooterEncoder = shooterMotor.getEncoder();
     private SparkMaxPIDController shooterPIDController = shooterMotor.getPIDController();
