@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.commands.drivetrain.TurnToTargetDegrees;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.Limelight;
@@ -58,5 +59,8 @@ public class OI {
 		new JoystickButton(driverGamepad, Button.kY.value)
 				.whenPressed(() -> m_shooter.shoot())
 				.whenReleased(() -> m_shooter.stopShooter());
+
+		new JoystickButton(driverGamepad, Button.kX.value)
+				.whenPressed(new TurnToTargetDegrees(m_robotDrive, m_limeLight));
 	}
 }
