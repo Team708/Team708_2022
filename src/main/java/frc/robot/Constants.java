@@ -27,17 +27,11 @@ import java.util.List;
  */
 public final class Constants {
   public static final class DriveConstants {
-<<<<<<< Updated upstream
-    public static final int kLeftMotor1Port = 12;
-    // public static final int kLeftMotor2Port = 1;
-    public static final int kRightMotor1Port = 14;
-    // public static final int kRightMotor2Port = 3;
-=======
+
     public static final int kLeftMotor1Port   = 12;
     public static final int kLeftMotor2Port   = 11;
     public static final int kRightMotor1Port  = 14;
     public static final int kRightMotor2Port  = 15;
->>>>>>> Stashed changes
 
     public static int kShiftHSolenoidPort = 0;
     public static int kShiftLSolenoidPort = 1;
