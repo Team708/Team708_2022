@@ -87,6 +87,21 @@ public class IntakeFeeder extends SubsystemBase {
     // Feeder
 
     // start feeder motor
+
+    /**
+     * Feeder should automatically pull ball from feeder into shooter
+     * Out of contact with bottom wheel, in contact with top wheel
+     * CANNOT contact shooter wheel
+     * 
+     * Detect using voltage if top wheel is in contact, POSSIBLY detect voltage of the bottom
+     * motor to see same thing; 
+     * 
+     * If top is contacted and bottom isnt, stop both
+     * Ball shouldn't contact more than one thing at a time
+     * Ball should not collide - two booleans for voltage detection/sensor detection(?)
+     */
+
+
     public void startFeeder() {
         m_feederMotor.set(feederMotorSpeed);
     }
@@ -112,10 +127,5 @@ public class IntakeFeeder extends SubsystemBase {
     public boolean isIntakeDown() {
         return isIntakeDown;
     }
-
-
-
-
-
 
 }
