@@ -75,10 +75,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-    m_leftEncoder.setInverted(DriveConstants.kLeftEncoderInverted);
+    // m_leftEncoder.setInverted(DriveConstants.kLeftEncoderInverted);
 
     m_rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setInverted(DriveConstants.kRightEncoderInverted);
+    // m_rightEncoder.setInverted(DriveConstants.kRightEncoderInverted);
 
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
