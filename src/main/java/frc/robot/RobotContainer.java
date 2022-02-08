@@ -14,6 +14,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.TrajectoryConstants;
 import frc.robot.commands.auto.doNothingCommand;
 import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,6 +38,8 @@ public class RobotContainer {
 
         private final Limelight m_limelight = new Limelight();
 
+        private final IntakeFeeder m_intakeFeeder = new IntakeFeeder();
+
         public static final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
         /**
@@ -44,7 +47,7 @@ public class RobotContainer {
          */
         public RobotContainer() {
                 // Configure the button bindings
-                OI.configureButtonBindings(m_robotDrive, m_limelight, m_shooter);
+                OI.configureButtonBindings(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder);
 
                 // Configure default commands
                 // Set the default drive command to split-stick arcade drive

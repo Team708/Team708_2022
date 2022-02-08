@@ -1,0 +1,121 @@
+package frc.robot.subsystems.intakeFeeder;
+
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+
+public class IntakeFeeder extends SubsystemBase {
+
+
+    // intake
+    private CANSparkMax m_intakeMotor;
+    private Solenoid m_intakeSolenoid;
+
+    private boolean isIntakeDown;
+    private double intakeMotorSpeed;
+
+    int solenoidChannel = 1; // set actual solenoid channel later
+
+    // feeder
+    private CANSparkMax m_feederMotor;
+
+    private double feederMotorSpeed;
+
+
+    private int direction; // intake/feeder direction
+
+    int feederCANid = 0; // set actual feeder CAN id later
+    
+
+    public IntakeFeeder() {
+        // intake
+        m_intakeMotor = new CANSparkMax(DriveConstants.kIntakeMotorPort, MotorType.kBrushless);
+        m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, solenoidChannel);
+        isIntakeDown = false; // intake starts up
+        intakeMotorSpeed = .5; // set proper motor speed later
+        direction = 1;
+
+        // feeder
+        m_feederMotor = new CANSparkMax(feederCANid, MotorType.kBrushless);
+        feederMotorSpeed = .5; // set proper motor speed later
+        
+
+
+    }
+
+    // Intake
+
+    // lower intake
+    public void intakeDown() {
+        m_intakeSolenoid.set(true);
+        isIntakeDown = m_intakeSolenoid.get();
+    }
+
+    // raise intake
+    public void intakeUp() {
+        m_intakeSolenoid.set(false);
+        isIntakeDown = m_intakeSolenoid.get();
+    }
+
+    public void toggleIntakeState() {
+        m_intakeSolenoid.toggle();
+        isIntakeDown = m_intakeSolenoid.get();
+    }
+
+    // start intake motor
+    public void startIntake() {
+        m_intakeMotor.set(intakeMotorSpeed);
+    }
+
+    // stop intake motor
+    public void stopMotor() {
+        m_intakeMotor.set(0);
+    }
+
+    // reverse intake direction
+    public void reverseIntake() {
+        
+    }
+
+
+
+    // Feeder
+
+    // start feeder motor
+    public void startFeeder() {
+        m_feederMotor.set(feederMotorSpeed);
+    }
+
+    // stop feeder motor
+    public void stopFeeder() {
+        m_feederMotor.set(0);
+    }
+
+    // toggle intake/feeder direction
+    public void toggleIntakeFeeder() {
+        m_feederMotor.set(-feederMotorSpeed);
+        m_intakeMotor.set(-intakeMotorSpeed);
+        direction = -direction;
+    }
+
+    // returns intake/feeder direction
+    public int getDirection() {
+        return direction;
+    }
+
+    // returns intake state
+    public boolean isIntakeDown() {
+        return isIntakeDown;
+    }
+
+
+
+
+
+
+}
