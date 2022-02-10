@@ -69,8 +69,30 @@ public final class Constants {
 
   public static final class ShooterConstants{
 
-    public static final int kShooterShootMotor = 0;
+    //Mappings
+    public static final int kShooterShootMotor  = 31;
+    public static final int kShooterFollowMotor = 32;
+
+    //Speed constants
     public static final double kShooterWheelSpeed = 3900;
+    public static final double kThreshold         = 0.9;
+
+    //PID Values
+    public static final double kP       = 0.0005;
+    public static final double kI       = 0.0000002;
+    public static final double kD       = 0.0; // .00006
+    public static final double kFF      = 0.0002;
+    public static final double kIZone   = 0;
+    public static final double kMin     = -1;
+    public static final double kMax     = 1;
+
+    // public static final double kP       = 0.000;
+    // public static final double kI       = 0.000000;
+    // public static final double kD       = 0.0; // .00006
+    // public static final double kFF      = 0.000;
+    // public static final double kIZone   = 0;
+    // public static final double kMin     = -1;
+    // public static final double kMax     = 1;
 
   }
 
