@@ -20,7 +20,6 @@ public class IntakeFeeder extends SubsystemBase {
     private boolean isIntakeDown;
     private double intakeMotorSpeed;
 
-    int solenoidChannel = 1; // set actual solenoid channel later
 
     // feeder
     private CANSparkMax m_feederMotor;
@@ -48,13 +47,13 @@ public class IntakeFeeder extends SubsystemBase {
 
         // intake
         m_intakeMotor = new CANSparkMax(DriveConstants.kIntakeMotorPort, MotorType.kBrushless);
-        m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, solenoidChannel);
+        m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPort);
         isIntakeDown = false; // intake starts up
         intakeMotorSpeed = .5; // set proper motor speed later
         direction = 1;
 
         // feeder
-        m_feederMotor = new CANSparkMax(feederCANid, MotorType.kBrushless);
+        m_feederMotor = new CANSparkMax(DriveConstants.kFeederMotorPort, MotorType.kBrushless);
         feederMotorSpeed = .5; // set proper motor speed later
         
     }
@@ -90,6 +89,7 @@ public class IntakeFeeder extends SubsystemBase {
         m_intakeMotor.set(0);
     }
 
+    // returns intake motor speed
     public double getIntakeSpeed() {
         return m_intakeMotor.get();
     }
