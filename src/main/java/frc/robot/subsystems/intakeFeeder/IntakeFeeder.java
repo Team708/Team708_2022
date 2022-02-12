@@ -160,6 +160,13 @@ public class IntakeFeeder extends SubsystemBase {
     }
 
     /**
+     * returns feeder motor speed
+     */
+    public double getFeederSpeed() {
+        return m_feederMotor.get();
+    }
+
+    /**
      * returns true if ball is detected in feeder
      */
     public boolean feederContactingBall(){
