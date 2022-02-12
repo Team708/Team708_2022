@@ -33,7 +33,6 @@ public class ReverseIntakeFeeder extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
-        System.out.println("Intake and Feeder toggled");
     }
 
 }

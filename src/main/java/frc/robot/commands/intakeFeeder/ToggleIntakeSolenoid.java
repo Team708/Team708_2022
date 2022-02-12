@@ -32,6 +32,5 @@ public class ToggleIntakeSolenoid extends CommandBase {
 
     @Override
     public void end(boolean interrupted){
-        System.out.println("Intake Solenoid Toggled");
     }
 }
