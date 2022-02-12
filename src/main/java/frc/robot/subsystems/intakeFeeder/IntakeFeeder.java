@@ -1,5 +1,6 @@
 package frc.robot.subsystems.intakeFeeder;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,9 +31,21 @@ public class IntakeFeeder extends SubsystemBase {
     private int direction; // intake/feeder direction
 
     int feederCANid = 0; // set actual feeder CAN id later
+
+    //IF USING VOLTAGE
+    // private double normVoltage = 12.54; //Assign to legitimate feeder typical voltage
+    // private double threshold = 0.5; //Redefine through testing
+
+    //IF USING SENSORS
+    private DigitalInput dIOFeeder;
+    private DigitalInput dIOIntake;
     
 
-    public IntakeFeeder() {
+    public IntakeFeeder(DigitalInput dIO1, DigitalInput dIO2) {
+
+        this.dIOFeeder = dIO1;
+        this.dIOIntake = dIO2;
+
         // intake
         m_intakeMotor = new CANSparkMax(DriveConstants.kIntakeMotorPort, MotorType.kBrushless);
         m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, solenoidChannel);
@@ -44,8 +57,6 @@ public class IntakeFeeder extends SubsystemBase {
         m_feederMotor = new CANSparkMax(feederCANid, MotorType.kBrushless);
         feederMotorSpeed = .5; // set proper motor speed later
         
-
-
     }
 
     // Intake
@@ -126,6 +137,14 @@ public class IntakeFeeder extends SubsystemBase {
     // returns intake state
     public boolean isIntakeDown() {
         return isIntakeDown;
+    }
+
+    public boolean feederContactingBall(){
+        return !dIOFeeder.get();
+    }
+
+    public boolean intakeContactingBall(){
+        return !dIOIntake.get();
     }
 
 }

@@ -8,6 +8,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -32,13 +33,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+        //Sensors
+        private final DigitalInput dIOFeeder = new DigitalInput(4); //Change channel
+        private final DigitalInput dIOIntake = new DigitalInput(3); //Change channel
+
         // The robot's subsystems
         private final DriveSubsystem m_robotDrive = new DriveSubsystem();
         private final Shooter m_shooter = new Shooter();
 
         private final Limelight m_limelight = new Limelight();
 
-        private final IntakeFeeder m_intakeFeeder = new IntakeFeeder();
+        private final IntakeFeeder m_intakeFeeder = new IntakeFeeder(dIOFeeder, dIOIntake);
 
         public static final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
