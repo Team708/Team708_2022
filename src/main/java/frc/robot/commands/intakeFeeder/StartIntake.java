@@ -3,28 +3,25 @@ package frc.robot.commands.intakeFeeder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 
-public class ReverseIntakeFeeder extends CommandBase{
-    
-    private IntakeFeeder m_if;
-    private int previousDirection;
+public class StartIntake extends CommandBase {
+    private IntakeFeeder m_intakeFeeder;
 
-    public ReverseIntakeFeeder(IntakeFeeder m_if){
-        this.m_if = m_if;
+    public StartIntake (IntakeFeeder m_intakeFeeder) {
+        this.m_intakeFeeder = m_intakeFeeder;
     }
 
     @Override
     public void initialize(){
-        previousDirection = m_if.getDirection();
     }
 
     @Override
     public void execute(){
-        m_if.toggleIntakeFeeder();
+        m_intakeFeeder.startIntake();
     }
 
     @Override
-    public boolean isFinished(){
-        if (m_if.getDirection() != previousDirection) {
+    public boolean isFinished() {
+        if (m_intakeFeeder.getIntakeSpeed() != 0) {
             return true;
         } else {
             return false;
@@ -34,5 +31,4 @@ public class ReverseIntakeFeeder extends CommandBase{
     @Override
     public void end(boolean interrupted){
     }
-
 }

@@ -2,7 +2,7 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.drivetrain.TurnToTargetDegrees;
-import frc.robot.commands.intakeFeeder.ReverseIntakeFeeder;
+import frc.robot.commands.intakeFeeder.ToggleIntakeFeeder;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
@@ -70,6 +70,6 @@ public class OI {
 				.whenPressed(new TurnToTargetDegrees(m_robotDrive, m_limeLight));
 
 		new JoystickButton(operatorGamepad, Button.kA.value)
-		.whenPressed(new ReverseIntakeFeeder(m_intakeFeeder));
+		.whenPressed(new ToggleIntakeFeeder(m_intakeFeeder));
 	}
 }

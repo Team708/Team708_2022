@@ -69,10 +69,12 @@ public class IntakeFeeder extends SubsystemBase {
 
     // raise intake
     public void intakeUp() {
+        stopIntake();
         m_intakeSolenoid.set(false);
         isIntakeDown = m_intakeSolenoid.get();
     }
 
+    // toggles intake position
     public void toggleIntakeState() {
         m_intakeSolenoid.toggle();
         isIntakeDown = m_intakeSolenoid.get();
@@ -84,15 +86,13 @@ public class IntakeFeeder extends SubsystemBase {
     }
 
     // stop intake motor
-    public void stopMotor() {
+    public void stopIntake() {
         m_intakeMotor.set(0);
     }
 
-    // reverse intake direction
-    public void reverseIntake() {
-        
+    public double getIntakeSpeed() {
+        return m_intakeMotor.get();
     }
-
 
 
     // Feeder
@@ -113,6 +113,7 @@ public class IntakeFeeder extends SubsystemBase {
      */
 
 
+    //  start feeder motor
     public void startFeeder() {
         m_feederMotor.set(feederMotorSpeed);
     }
@@ -139,10 +140,12 @@ public class IntakeFeeder extends SubsystemBase {
         return isIntakeDown;
     }
 
+    // returns true if ball is detected in feeder
     public boolean feederContactingBall(){
         return !dIOFeeder.get();
     }
 
+    // returns true if ball is detected in intake
     public boolean intakeContactingBall(){
         return !dIOIntake.get();
     }
