@@ -137,6 +137,16 @@ public class IntakeFeeder extends SubsystemBase {
     }
 
     /**
+     * returns feeder motor speed
+     */
+    public double getFeederSpeed() {
+        return m_feederMotor.get();
+    }
+
+
+    // General use
+
+    /**
      * toggles intake/feeder direction
      */
     public void toggleIntakeFeeder() {
@@ -160,24 +170,28 @@ public class IntakeFeeder extends SubsystemBase {
     }
 
     /**
-     * returns feeder motor speed
-     */
-    public double getFeederSpeed() {
-        return m_feederMotor.get();
-    }
-
-    /**
      * returns true if ball is detected in feeder
      */
-    public boolean feederContactingBall(){
+    public boolean feederContactingBall() {
         return !dIOFeeder.get();
     }
 
     /**
      * returns true if ball is detected in intake
      */
-    public boolean intakeContactingBall(){
+    public boolean intakeContactingBall() {
         return !dIOIntake.get();
+    }
+
+    /**
+     * returns true if both intake and feeder sensors detect balls
+     */
+    public boolean twoBallsPresent() {
+        if (intakeContactingBall() && feederContactingBall()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
