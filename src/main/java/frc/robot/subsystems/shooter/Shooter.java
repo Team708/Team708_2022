@@ -29,6 +29,9 @@ public class Shooter extends SubsystemBase{
 
     public double targetSpeed = 0;
 
+    private boolean hoodUp = false;
+    private boolean followerUp = false;
+
     /**
      * Shooter Constructor
      */
@@ -60,6 +63,9 @@ public class Shooter extends SubsystemBase{
         shooterPIDController.setIZone(ShooterConstants.kIZone);
         shooterPIDController.setOutputRange(ShooterConstants.kMin, ShooterConstants.kMax);
     
+        hoodUp = solenoidLeft.get();
+        followerUp = solenoidRight.get();
+        if(hoodUp != followerUp) System.out.println("ERR"); //TESTING
     }
 
     @Override
@@ -108,9 +114,31 @@ public class Shooter extends SubsystemBase{
         }
     }
 
+    public void shooterHoodUp(){
+        if(!hoodUp && !followerUp){
+            solenoidLeft.set(true); //SEE IF TRUE MEANS EXTENDED OR RETRACTED
+            solenoidRight.set(true);
+            hoodUp = true;
+            followerUp = true;
+        }
+    }
+
+    public void shooterHoodDown(){
+        if(hoodUp && followerUp){
+            solenoidLeft.set(false);
+            solenoidRight.set(false);
+        }
+    }
+
+    public boolean getHoodUp(){
+        return solenoidLeft.get() && solenoidRight.get();
+    } 
+
     public void sendToDashboard() {
         SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());
         SmartDashboard.putBoolean("Shooter Target Speed Achieved", isShooterAtSpeed());
+        SmartDashboard.putBoolean("Left Solenoid", solenoidLeft.get());
+        SmartDashboard.putBoolean("Right Solenoid", solenoidRight.get());
     }
 
 }
