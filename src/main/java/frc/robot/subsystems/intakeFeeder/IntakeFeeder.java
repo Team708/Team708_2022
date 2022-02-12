@@ -29,8 +29,6 @@ public class IntakeFeeder extends SubsystemBase {
 
     private int direction; // intake/feeder direction
 
-    int feederCANid = 0; // set actual feeder CAN id later
-
     //IF USING VOLTAGE
     // private double normVoltage = 12.54; //Assign to legitimate feeder typical voltage
     // private double threshold = 0.5; //Redefine through testing
@@ -60,44 +58,55 @@ public class IntakeFeeder extends SubsystemBase {
 
     // Intake
 
-    // lower intake
+    /**
+     * lowers intake
+     */
     public void intakeDown() {
         m_intakeSolenoid.set(true);
         isIntakeDown = m_intakeSolenoid.get();
     }
 
-    // raise intake
+    /**
+     * stops intake motor and raises intake
+     */
     public void intakeUp() {
+        // stops intake before raising
         stopIntake();
         m_intakeSolenoid.set(false);
         isIntakeDown = m_intakeSolenoid.get();
     }
 
-    // toggles intake position
+    /**
+     * toggles intake position
+     */
     public void toggleIntakeState() {
         m_intakeSolenoid.toggle();
         isIntakeDown = m_intakeSolenoid.get();
     }
 
-    // start intake motor
+    /**
+     * starts intake motor
+     */
     public void startIntake() {
         m_intakeMotor.set(intakeMotorSpeed);
     }
 
-    // stop intake motor
+    /**
+     * stop intake motor
+     */
     public void stopIntake() {
         m_intakeMotor.set(0);
     }
 
-    // returns intake motor speed
+    /**
+     * returns intake motor speed
+     */
     public double getIntakeSpeed() {
         return m_intakeMotor.get();
     }
 
 
     // Feeder
-
-    // start feeder motor
 
     /**
      * Feeder should automatically pull ball from feeder into shooter
@@ -113,39 +122,53 @@ public class IntakeFeeder extends SubsystemBase {
      */
 
 
-    //  start feeder motor
+    /**
+     * starts feeder motor
+     */
     public void startFeeder() {
         m_feederMotor.set(feederMotorSpeed);
     }
 
-    // stop feeder motor
+    /**
+     * stops feeder motor
+     */
     public void stopFeeder() {
         m_feederMotor.set(0);
     }
 
-    // toggle intake/feeder direction
+    /**
+     * toggles intake/feeder direction
+     */
     public void toggleIntakeFeeder() {
         m_feederMotor.set(-feederMotorSpeed);
         m_intakeMotor.set(-intakeMotorSpeed);
         direction = -direction;
     }
 
-    // returns intake/feeder direction
+    /**
+     * returns intake/feeder direction
+     */
     public int getDirection() {
         return direction;
     }
 
-    // returns intake state
+    /**
+     * returns intake state
+     */
     public boolean isIntakeDown() {
         return isIntakeDown;
     }
 
-    // returns true if ball is detected in feeder
+    /**
+     * returns true if ball is detected in feeder
+     */
     public boolean feederContactingBall(){
         return !dIOFeeder.get();
     }
 
-    // returns true if ball is detected in intake
+    /**
+     * returns true if ball is detected in intake
+     */
     public boolean intakeContactingBall(){
         return !dIOIntake.get();
     }
