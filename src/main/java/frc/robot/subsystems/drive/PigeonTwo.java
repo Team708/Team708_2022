@@ -148,10 +148,6 @@ public class PigeonTwo {
         return faultLog.BootIntoMotion;
     }
 
-    public boolean getDataAquiredLateError(){
-        return faultLog.DataAcquiredLate;
-    }
-
     public boolean getGyroError(){
         return faultLog.GyroFault;
     }
@@ -165,7 +161,7 @@ public class PigeonTwo {
     }
 
     public boolean getMotionDriverError(){
-        return faultLog.MotionDriverTookTooLong;
+        return faultLog.BootIntoMotion;
     }
 
     public boolean getResetError(){
