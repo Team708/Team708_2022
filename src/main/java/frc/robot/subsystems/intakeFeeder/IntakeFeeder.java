@@ -194,4 +194,15 @@ public class IntakeFeeder extends SubsystemBase {
         }
     }
 
+    /**
+     * returns number of balls present in system
+     */
+    public int getNumberOfBalls() {
+        if (intakeContactingBall() && feederContactingBall()) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
 }

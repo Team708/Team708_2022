@@ -30,7 +30,16 @@ public class Shoot extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){
-        if (m_shooter.isShooterAtSpeed()) {
+        // if (m_shooter.isShooterAtSpeed()) {
+        //     m_intakeFeeder.startFeeder();
+        //     hasShot = true;
+        // }
+        
+        if (m_intakeFeeder.getNumberOfBalls() == 2 && m_shooter.isShooterAtSpeed()) {
+            m_intakeFeeder.startFeeder();
+            m_intakeFeeder.startIntake();
+            hasShot = true;
+        } else if (m_intakeFeeder.getNumberOfBalls() == 1 && m_shooter.isShooterAtSpeed()) {
             m_intakeFeeder.startFeeder();
             hasShot = true;
         }
