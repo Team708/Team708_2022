@@ -38,30 +38,27 @@ public class Shooter extends SubsystemBase{
     public Shooter() {
 
         shooterMotorPrimary = new CANSparkMax(ShooterConstants.kShooterShootMotor, MotorType.kBrushless);
-
         // shooterMotorPrimary.setInverted(false);
         shooterMotorPrimary.setIdleMode(IdleMode.kCoast);
-
-        shooterMotorFollower = new CANSparkMax(ShooterConstants.kShooterFollowMotor, MotorType.kBrushless);
-
-        // shooterMotorFollower.setInverted(false);
-        // shooterMotorFollower.setIdleMode(IdleMode.kCoast);
-        // shooterMotorFollower.follow(shooterMotorPrimary); 
-        
-        //Give shooterMotorFollower encoder?
+        shooterMotorPrimary.setInverted(false);
 
         shooterEncoder = shooterMotorPrimary.getEncoder();
+
         shooterPIDController = shooterMotorPrimary.getPIDController();
-    
-        shooterMotorPrimary.setInverted(false);
-        shooterMotorPrimary.setIdleMode(IdleMode.kCoast);
-        
         shooterPIDController.setP(ShooterConstants.kP);
         shooterPIDController.setI(ShooterConstants.kI);
         shooterPIDController.setD(ShooterConstants.kD);
         shooterPIDController.setFF(ShooterConstants.kFF);
         shooterPIDController.setIZone(ShooterConstants.kIZone);
         shooterPIDController.setOutputRange(ShooterConstants.kMin, ShooterConstants.kMax);
+
+
+        shooterMotorFollower = new CANSparkMax(ShooterConstants.kShooterFollowMotor, MotorType.kBrushless);
+        // shooterMotorFollower.setInverted(false);
+        shooterMotorFollower.setIdleMode(IdleMode.kCoast);
+        shooterMotorFollower.follow(shooterMotorPrimary); 
+        
+        //Give shooterMotorFollower encoder?
     
         hoodUp = solenoidLeft.get();
         followerUp = solenoidRight.get();
@@ -127,6 +124,16 @@ public class Shooter extends SubsystemBase{
         if(hoodUp && followerUp){
             solenoidLeft.set(false);
             solenoidRight.set(false);
+            hoodUp = false;
+            followerUp = false;
+        }
+    }
+
+    public void toggleShooterHood(){
+        if(hoodUp && followerUp){
+            shooterHoodDown();
+        }else{
+            shooterHoodUp();
         }
     }
 
