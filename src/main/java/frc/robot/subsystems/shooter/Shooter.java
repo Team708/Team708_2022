@@ -6,6 +6,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,13 +25,9 @@ public class Shooter extends SubsystemBase{
 
     private CANSparkMax shooterMotorFollower;
 
-    private Solenoid solenoidLeft;
-    private Solenoid solenoidRight;
+    private Solenoid hoodSolenoid;
 
     public double targetSpeed = 0;
-
-    private boolean hoodUp = false;
-    private boolean followerUp = false;
 
     /**
      * Shooter Constructor
@@ -59,10 +56,7 @@ public class Shooter extends SubsystemBase{
         shooterMotorFollower.follow(shooterMotorPrimary); 
         
         //Give shooterMotorFollower encoder?
-    
-        hoodUp = solenoidLeft.get();
-        followerUp = solenoidRight.get();
-        if(hoodUp != followerUp) System.out.println("ERR"); //TESTING
+        hoodSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ShooterConstants.kShooterSolenoid);
     }
 
     @Override
@@ -96,7 +90,7 @@ public class Shooter extends SubsystemBase{
     public void fullSpeed(){
         targetSpeed = ShooterConstants.kShooterWheelSpeed;
         shooterMotorPrimary.set(1.0);
-        System.out.println(shooterMotorPrimary.getBusVoltage());
+        // System.out.println(shooterMotorPrimary.getBusVoltage());
     }
 
     /**
@@ -112,25 +106,15 @@ public class Shooter extends SubsystemBase{
     }
 
     public void shooterHoodUp(){
-        if(!hoodUp && !followerUp){
-            solenoidLeft.set(true); //SEE IF TRUE MEANS EXTENDED OR RETRACTED
-            solenoidRight.set(true);
-            hoodUp = true;
-            followerUp = true;
-        }
+        hoodSolenoid.set(true); //SEE IF TRUE MEANS EXTENDED OR RETRACTED
     }
 
     public void shooterHoodDown(){
-        if(hoodUp && followerUp){
-            solenoidLeft.set(false);
-            solenoidRight.set(false);
-            hoodUp = false;
-            followerUp = false;
-        }
+        hoodSolenoid.set(false);
     }
 
     public void toggleShooterHood(){
-        if(hoodUp && followerUp){
+        if(hoodSolenoid.get()){
             shooterHoodDown();
         }else{
             shooterHoodUp();
@@ -138,14 +122,13 @@ public class Shooter extends SubsystemBase{
     }
 
     public boolean getHoodUp(){
-        return solenoidLeft.get() && solenoidRight.get();
+        return hoodSolenoid.get();
     } 
 
     public void sendToDashboard() {
         SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());
         SmartDashboard.putBoolean("Shooter Target Speed Achieved", isShooterAtSpeed());
-        SmartDashboard.putBoolean("Left Solenoid", solenoidLeft.get());
-        SmartDashboard.putBoolean("Right Solenoid", solenoidRight.get());
+        SmartDashboard.putBoolean("Hood up", hoodSolenoid.get());
     }
 
 }

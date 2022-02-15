@@ -73,6 +73,8 @@ public final class Constants {
     public static final int kShooterShootMotor  = 31;
     public static final int kShooterFollowMotor = 32;
 
+    public static final int kShooterSolenoid = 1;
+
     //Speed constants
     public static final double kShooterWheelSpeed = 3900;
     public static final double kThreshold         = 0.9;
