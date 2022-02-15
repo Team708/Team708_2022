@@ -6,6 +6,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -124,6 +125,19 @@ public class Shooter extends SubsystemBase{
     public boolean getHoodUp(){
         return hoodSolenoid.get();
     } 
+
+    public void eject(){
+        targetSpeed = ShooterConstants.kShooterWheelSpeed;
+        shooterPIDController.setReference(ShooterConstants.kShooterEjectSpeed, CANSparkMax.ControlType.kVelocity);
+    }
+
+    public CANSparkMax getEncoder(){
+        return (CANSparkMax) shooterEncoder;
+    }
+
+    public SparkMaxPIDController getPID(){
+        return shooterPIDController;
+    }
 
     public void sendToDashboard() {
         SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());

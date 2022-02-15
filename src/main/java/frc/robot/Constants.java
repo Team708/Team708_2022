@@ -77,6 +77,7 @@ public final class Constants {
 
     //Speed constants
     public static final double kShooterWheelSpeed = 3900;
+    public static final double kShooterEjectSpeed = 500;
     public static final double kThreshold         = 0.9;
 
     //PID Values
