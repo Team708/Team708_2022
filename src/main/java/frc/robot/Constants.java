@@ -35,11 +35,13 @@ public final class Constants {
     public static int kShiftHSolenoidPort = 0;
     public static int kShiftLSolenoidPort = 1;
     public static int kDriveSolenoidPort = 6;
-    public static int kIntakeSolenoidPort = 6;
+
+    public static int kIntakeSolenoidPortForward = 1; //fix port number
+    public static int kIntakeSolenoidPortReverse = 0; //fix port number
 
     public static int kIntakeMotorPort = 21; // fix port number
 
-    public static int kFeederMotorPort = 31; // fix port number
+    public static int kFeederMotorPort = 23; // fix port number
 
     public static final double kTrackwidthMeters = 0.6604;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(

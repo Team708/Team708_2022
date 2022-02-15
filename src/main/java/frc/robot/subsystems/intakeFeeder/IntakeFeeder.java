@@ -2,7 +2,7 @@ package frc.robot.subsystems.intakeFeeder;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -15,7 +15,7 @@ public class IntakeFeeder extends SubsystemBase {
 
     // intake
     private CANSparkMax m_intakeMotor;
-    private Solenoid m_intakeSolenoid;
+    private DoubleSolenoid m_intakeSolenoid;
 
     private boolean isIntakeDown;
     private double intakeMotorSpeed;
@@ -45,7 +45,8 @@ public class IntakeFeeder extends SubsystemBase {
 
         // intake
         m_intakeMotor = new CANSparkMax(DriveConstants.kIntakeMotorPort, MotorType.kBrushless);
-        m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPort);
+        // m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPort);
+        m_intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPortForward, DriveConstants.kIntakeSolenoidPortReverse);
         isIntakeDown = false; // intake starts up
         intakeMotorSpeed = .5; // set proper motor speed later
         direction = 1;
@@ -62,8 +63,8 @@ public class IntakeFeeder extends SubsystemBase {
      * lowers intake
      */
     public void intakeDown() {
-        m_intakeSolenoid.set(true);
-        isIntakeDown = m_intakeSolenoid.get();
+        m_intakeSolenoid.set(DoubleSolenoid.Value.kForward);
+        isIntakeDown = true;
     }
 
     /**
@@ -72,8 +73,8 @@ public class IntakeFeeder extends SubsystemBase {
     public void intakeUp() {
         // stops intake before raising
         stopIntake();
-        m_intakeSolenoid.set(false);
-        isIntakeDown = m_intakeSolenoid.get();
+        m_intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+        isIntakeDown = false;
     }
 
     /**
@@ -81,7 +82,11 @@ public class IntakeFeeder extends SubsystemBase {
      */
     public void toggleIntakeState() {
         m_intakeSolenoid.toggle();
-        isIntakeDown = m_intakeSolenoid.get();
+        if (m_intakeSolenoid.get() == DoubleSolenoid.Value.kForward) {
+            isIntakeDown = true;
+        } else if (m_intakeSolenoid.get() == DoubleSolenoid.Value.kReverse) {
+            isIntakeDown = false;
+        }
     }
 
     /**
