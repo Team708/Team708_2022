@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
@@ -45,15 +46,17 @@ public class IntakeFeeder extends SubsystemBase {
 
         // intake
         m_intakeMotor = new CANSparkMax(DriveConstants.kIntakeMotorPort, MotorType.kBrushless);
+        m_intakeMotor.setIdleMode(IdleMode.kBrake);
         // m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPort);
         m_intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPortForward, DriveConstants.kIntakeSolenoidPortReverse);
         isIntakeDown = false; // intake starts up
-        intakeMotorSpeed = .5; // set proper motor speed later
+        intakeMotorSpeed = .1; // set proper motor speed later
         direction = 1;
 
         // feeder
         m_feederMotor = new CANSparkMax(DriveConstants.kFeederMotorPort, MotorType.kBrushless);
-        feederMotorSpeed = .5; // set proper motor speed later
+        m_feederMotor.setIdleMode(IdleMode.kBrake);
+        feederMotorSpeed = .1; // set proper motor speed later
         
     }
 
@@ -155,9 +158,11 @@ public class IntakeFeeder extends SubsystemBase {
      * toggles intake/feeder direction
      */
     public void toggleIntakeFeeder() {
-        m_feederMotor.set(-feederMotorSpeed);
-        m_intakeMotor.set(-intakeMotorSpeed);
         direction = -direction;
+        m_feederMotor.set(feederMotorSpeed * direction);
+        m_intakeMotor.set(intakeMotorSpeed * direction);
+        
+
     }
 
     /**
