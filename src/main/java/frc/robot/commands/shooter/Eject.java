@@ -1,10 +1,13 @@
-package frc.robot.subsystems.shooter;
+package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.shooter.Shooter;
 
 /**
- * Might have to just make this an executable, adding a timeout is not possible I think
- * except with commandgroups.
+ * When using the command linked with a controller button, you have to do
+ * new Eject().withTimeout(seconds);
+ * 
+ * Run with a .andThen(new StopShooterCommand())
  */
 public class Eject extends CommandBase{
     
@@ -16,12 +19,11 @@ public class Eject extends CommandBase{
 
     @Override
     public void initialize(){
-        this.withTimeout(2); //CHECK IF THIS WORKS
     }
 
     @Override
     public void execute(){
-        m_shooter.eject();
+        m_shooter.reverseShooter();
     }
 
     @Override
@@ -31,7 +33,6 @@ public class Eject extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
-        m_shooter.stopShooter();
     }
 
 }

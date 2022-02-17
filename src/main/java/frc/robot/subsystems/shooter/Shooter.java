@@ -6,7 +6,6 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -88,10 +87,20 @@ public class Shooter extends SubsystemBase{
         shooterPIDController.setReference(ShooterConstants.kShooterWheelSpeed, CANSparkMax.ControlType.kVelocity);
     }
 
+    public void shootAtVelocity(double velocity){
+        targetSpeed = velocity;
+        shooterPIDController.setReference(velocity, CANSparkMax.ControlType.kVelocity);
+    }
+
     public void fullSpeed(){
         targetSpeed = ShooterConstants.kShooterWheelSpeed;
         shooterMotorPrimary.set(1.0);
         // System.out.println(shooterMotorPrimary.getBusVoltage());
+    }
+
+    public void reverseShooter(){
+        targetSpeed = ShooterConstants.kShooterReverseSpeed;
+        shooterPIDController.setReference(ShooterConstants.kShooterReverseSpeed, CANSparkMax.ControlType.kVelocity);
     }
 
     /**

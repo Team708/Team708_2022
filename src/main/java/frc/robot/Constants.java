@@ -76,9 +76,14 @@ public final class Constants {
     public static final int kShooterSolenoid = 1;
 
     //Speed constants
-    public static final double kShooterWheelSpeed = 3900;
-    public static final double kShooterEjectSpeed = 500;
-    public static final double kThreshold         = 0.9;
+    public static final double kShooterWheelSpeed   = 3900;
+    public static final double kShooterEjectSpeed   = 500;  //TODO
+    public static final double kShooterHighClose    = 1000; //TODO
+    public static final double kShooterHighFar      = 2000; //TODO
+    public static final double kShooterLowClose     = 1000; //TODO
+    public static final double kShooterLowFar       = 2000; //TODO
+    public static final double kShooterReverseSpeed = -500; //TODO
+    public static final double kThreshold           = 0.95;
 
     //PID Values
     public static final double kP       = 0.0005;
