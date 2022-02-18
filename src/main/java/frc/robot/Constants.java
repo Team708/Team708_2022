@@ -67,6 +67,8 @@ public final class Constants {
 
     public static final boolean kLeftEncoderInverted  = true;
     public static final boolean kRightEncoderInverted = false;
+
+    public static final double kCountsPerDegree = 10;
   }
 
   public static final class ControllerConstants {
