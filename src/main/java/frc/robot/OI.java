@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class OI {
 
 	// Gamepads
-	public static final XboxController driverGamepad = new XboxController(ControllerConstants.kDriverControllerPort); // Driver
-	public static final XboxController operatorGamepad = new XboxController(ControllerConstants.kOperatorControllerPort);
+	public final static XboxController driverGamepad = new XboxController(ControllerConstants.kDriverControllerPort); // Driver
+	public final static XboxController operatorGamepad = new XboxController(ControllerConstants.kOperatorControllerPort);
 
 	/*
 	 * Driver JoystickButton
@@ -64,8 +64,12 @@ public class OI {
 				.whenPressed(() -> m_robotDrive.dropWheels())
 				.whenReleased(() -> m_robotDrive.liftWheels());
 
-		new JoystickButton(driverGamepad, Button.kY.value)
-				.whenPressed(() -> m_shooter.shoot())
+		// new JoystickButton(driverGamepad, Button.kY.value)
+		// 		.whenPressed(() -> m_shooter.shoot())
+		// 		.whenReleased(() -> m_shooter.stopShooter());
+
+		new JoystickButton(operatorGamepad, Button.kY.value)
+				.whileHeld(() -> m_shooter.fullSpeed())
 				.whenReleased(() -> m_shooter.stopShooter());
 
 		new JoystickButton(driverGamepad, Button.kX.value)
