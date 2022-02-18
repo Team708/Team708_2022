@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -17,6 +18,7 @@ public class IntakeFeeder extends SubsystemBase {
     // intake
     private CANSparkMax m_intakeMotor;
     private DoubleSolenoid m_intakeSolenoid;
+    private SparkMaxPIDController intakePIDCOntroller;
 
     private boolean isIntakeDown;
     private double intakeMotorSpeed;
@@ -24,9 +26,11 @@ public class IntakeFeeder extends SubsystemBase {
 
     // feeder
     private CANSparkMax m_feederMotor;
+    private SparkMaxPIDController feederPIDController;
 
     private double feederMotorSpeed;
 
+    private int maxVelocity;
 
     private int direction; // intake/feeder direction
 
@@ -47,16 +51,36 @@ public class IntakeFeeder extends SubsystemBase {
         // intake
         m_intakeMotor = new CANSparkMax(DriveConstants.kIntakeMotorPort, MotorType.kBrushless);
         m_intakeMotor.setIdleMode(IdleMode.kBrake);
+
+        intakePIDCOntroller = m_intakeMotor.getPIDController();
+        intakePIDCOntroller.setP(DriveConstants.kP);
+        intakePIDCOntroller.setI(DriveConstants.kI);
+        intakePIDCOntroller.setD(DriveConstants.kD);
+        intakePIDCOntroller.setFF(DriveConstants.kFF);
+        intakePIDCOntroller.setIZone(DriveConstants.kIZone);
+        intakePIDCOntroller.setOutputRange(DriveConstants.kMin, DriveConstants.kMax);
+
+        
         // m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPort);
         m_intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPortForward, DriveConstants.kIntakeSolenoidPortReverse);
         isIntakeDown = false; // intake starts up
-        intakeMotorSpeed = .1; // set proper motor speed later
+        intakeMotorSpeed = .8; // set proper motor speed later
         direction = 1;
 
         // feeder
         m_feederMotor = new CANSparkMax(DriveConstants.kFeederMotorPort, MotorType.kBrushless);
         m_feederMotor.setIdleMode(IdleMode.kBrake);
-        feederMotorSpeed = .1; // set proper motor speed later
+        feederMotorSpeed = .8; // set proper motor speed later
+
+        feederPIDController = m_feederMotor.getPIDController();
+        feederPIDController.setP(DriveConstants.kP);
+        feederPIDController.setI(DriveConstants.kI);
+        feederPIDController.setD(DriveConstants.kD);
+        feederPIDController.setFF(DriveConstants.kFF);
+        feederPIDController.setIZone(DriveConstants.kIZone);
+        feederPIDController.setOutputRange(DriveConstants.kMin, DriveConstants.kMax);
+
+        maxVelocity = 5600;
         
     }
 
@@ -96,23 +120,18 @@ public class IntakeFeeder extends SubsystemBase {
      * starts intake motor
      */
     public void startIntake() {
-        m_intakeMotor.set(intakeMotorSpeed);
+        // m_intakeMotor.set(intakeMotorSpeed);
+        intakePIDCOntroller.setReference(maxVelocity * intakeMotorSpeed, CANSparkMax.ControlType.kVelocity);
+        
     }
 
     /**
      * stop intake motor
      */
     public void stopIntake() {
-        m_intakeMotor.set(0);
+        // m_intakeMotor.set(0);
+        intakePIDCOntroller.setReference(0, CANSparkMax.ControlType.kVelocity);
     }
-
-    /**
-     * returns intake motor speed
-     */
-    public double getIntakeSpeed() {
-        return m_intakeMotor.get();
-    }
-
 
     // Feeder
 
@@ -134,23 +153,17 @@ public class IntakeFeeder extends SubsystemBase {
      * starts feeder motor
      */
     public void startFeeder() {
-        m_feederMotor.set(feederMotorSpeed);
+        // m_feederMotor.set(feederMotorSpeed);
+        feederPIDController.setReference(maxVelocity * feederMotorSpeed, CANSparkMax.ControlType.kVelocity);
     }
 
     /**
      * stops feeder motor
      */
     public void stopFeeder() {
-        m_feederMotor.set(0);
+        // m_feederMotor.set(0);
+        feederPIDController.setReference(0, CANSparkMax.ControlType.kVelocity);
     }
-
-    /**
-     * returns feeder motor speed
-     */
-    public double getFeederSpeed() {
-        return m_feederMotor.get();
-    }
-
 
     // General use
 
@@ -159,8 +172,11 @@ public class IntakeFeeder extends SubsystemBase {
      */
     public void toggleIntakeFeeder() {
         direction = -direction;
-        m_feederMotor.set(feederMotorSpeed * direction);
-        m_intakeMotor.set(intakeMotorSpeed * direction);
+        // m_feederMotor.set(feederMotorSpeed * direction);
+        // m_intakeMotor.set(intakeMotorSpeed * direction);
+        feederPIDController.setReference((feederMotorSpeed * direction) * maxVelocity, CANSparkMax.ControlType.kVelocity);
+        intakePIDCOntroller.setReference((intakeMotorSpeed * direction) * maxVelocity, CANSparkMax.ControlType.kVelocity);
+        
         
 
     }
