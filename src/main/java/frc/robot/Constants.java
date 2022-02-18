@@ -32,12 +32,26 @@ public final class Constants {
     public static final int kRightMotor1Port  = 14;
     public static final int kRightMotor2Port  = 15;
 
-    public static int kShiftHSolenoidPort = 0;
-    public static int kShiftLSolenoidPort = 1;
+    public static int kShiftHSolenoidPort = 5;
+    public static int kShiftLSolenoidPort = 4;
     public static int kDriveSolenoidPort  = 6;
-    public static int kIntakeSolenoidPort = 6;
+    public static int kIntakeSolenoidPort = 9;
 
-    public static int kIntakeMotorPort = 21;
+    public static int kIntakeSolenoidPortForward = 1; //fix port number
+    public static int kIntakeSolenoidPortReverse = 0; //fix port number
+
+    public static int kIntakeMotorPort = 31; // fix port number
+
+    public static int kFeederMotorPort = 21; // fix port number
+
+    //PID Values
+    public static final double kP       = 0.0005;
+    public static final double kI       = 0.0000001;
+    public static final double kD       = 0.0; // .00006
+    public static final double kFF      = 0.0002;
+    public static final double kIZone   = 0;
+    public static final double kMin     = -1;
+    public static final double kMax     = 1;
 
     public static final double kTrackwidthMeters = 0.6604;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
