@@ -8,12 +8,15 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.TrajectoryConstants;
 import frc.robot.commands.auto.doNothingCommand;
+import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
 import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,11 +34,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+        //Sensors
+        private final DigitalInput dIOFeeder = new DigitalInput(4); //Change channel
+        private final DigitalInput dIOIntake = new DigitalInput(3); //Change channel
+
         // The robot's subsystems
         private final DriveSubsystem m_robotDrive = new DriveSubsystem();
         private final Shooter m_shooter = new Shooter();
 
         private final Limelight m_limelight = new Limelight();
+
+        private final IntakeFeeder m_intakeFeeder = new IntakeFeeder(dIOFeeder, dIOIntake);
 
         public static final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -44,7 +54,7 @@ public class RobotContainer {
          */
         public RobotContainer() {
                 // Configure the button bindings
-                OI.configureButtonBindings(m_robotDrive, m_limelight, m_shooter);
+                OI.configureButtonBindings(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder);
 
                 // Configure default commands
                 // Set the default drive command to split-stick arcade drive
@@ -57,8 +67,9 @@ public class RobotContainer {
                                                                 -OI.getDriverLeftY(), OI.getDriverRightX()),
                                                 m_robotDrive));
 
-                m_chooser.addOption("s - curve", Ramsete(TrajectoryConstants.makeSTrajectory()));
+                m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
                 m_chooser.addOption("drive straight", Ramsete(TrajectoryConstants.driveStraightTrajectory()));
+                m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
                 m_chooser.setDefaultOption("do nothing", new doNothingCommand());
                 SmartDashboard.putData("Auto Chooser", m_chooser);
         }

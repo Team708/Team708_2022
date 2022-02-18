@@ -32,37 +32,51 @@ public final class Constants {
     public static final int kRightMotor1Port  = 14;
     public static final int kRightMotor2Port  = 15;
 
-    public static int kShiftHSolenoidPort = 0;
-    public static int kShiftLSolenoidPort = 1;
-    public static int kDriveSolenoidPort = 6;
-    public static int kIntakeSolenoidPort = 6;
+    public static int kShiftHSolenoidPort = 5;
+    public static int kShiftLSolenoidPort = 4;
+    public static int kDriveSolenoidPort  = 6;
+    public static int kIntakeSolenoidPort = 9;
 
-    public static int kIntakeMotorPort = 21;
+    public static int kIntakeSolenoidPortForward = 1; //fix port number
+    public static int kIntakeSolenoidPortReverse = 0; //fix port number
+
+    public static int kIntakeMotorPort = 31; // fix port number
+
+    public static int kFeederMotorPort = 21; // fix port number
+
+    //PID Values
+    public static final double kP       = 0.0005;
+    public static final double kI       = 0.0000001;
+    public static final double kD       = 0.0; // .00006
+    public static final double kFF      = 0.0002;
+    public static final double kIZone   = 0;
+    public static final double kMin     = -1;
+    public static final double kMax     = 1;
 
     public static final double kTrackwidthMeters = 0.6604;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
-    public static final int kEncoderCPR = 42; // 1024
-    public static final double kWheelDiameterMeters = 0.105; // .15
+    public static final int kEncoderCPR                 = 42; // 1024
+    public static final double kWheelDiameterMeters     = 0.105; // .15
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
     public static final double kPDriveVel = 10;
 
-    public static final boolean kLeftEncoderInverted = true;
+    public static final boolean kLeftEncoderInverted  = true;
     public static final boolean kRightEncoderInverted = false;
   }
 
   public static final class ControllerConstants {
 
-    public static final int kDriverControllerPort = 0;
+    public static final int kDriverControllerPort   = 0;
     public static final int kOperatorControllerPort = 1;
 
-    public static final double kDriverDeadBandLeftX = 0.1;
+    public static final double kDriverDeadBandLeftX  = 0.1;
     public static final double kDriverDeadBandRightX = 0.2;
-    public static final double kDriverDeadBandLeftY = 0.1;
+    public static final double kDriverDeadBandLeftY  = 0.1;
     public static final double kDriverDeadBandRightY = 0.2;
 
   }
@@ -101,12 +115,11 @@ public final class Constants {
     // public static final double kIZone   = 0;
     // public static final double kMin     = -1;
     // public static final double kMax     = 1;
-
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3; // 5.48; //TIM - 18ft/s
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 2.24; //TIM - No idea
+    public static final double kMaxSpeedMetersPerSecond = 4; // 3   5.48; //TIM - 18ft/s
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 3    2.24; //TIM - No idea
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and
     // seconds
@@ -136,8 +149,10 @@ public final class Constants {
 
       Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
           new Pose2d(0, 0, new Rotation2d(0)),
-          List.of(new Translation2d(1, 0), new Translation2d(2, 0)),
-          new Pose2d(3, 0, new Rotation2d(0)),
+          // List.of(new Translation2d(1, 0), new Translation2d(2,0)),
+          List.of(new Translation2d(1, 0)),
+          new Pose2d(1, 0, new Rotation2d(0)),
+          // new Pose2d(3, 0, new Rotation2d(0)),
           config);
 
       return exampleTrajectory;
@@ -152,8 +167,10 @@ public final class Constants {
 
       Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
           new Pose2d(0, 0, new Rotation2d(0)),
-          List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-          new Pose2d(3, 0, new Rotation2d(0)),
+          // List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+          List.of(new Translation2d(1, 1)),
+          // new Pose2d(3, 0, new Rotation2d(0)),
+          new Pose2d(1, 1, new Rotation2d(0)),
           config);
 
       return exampleTrajectory;

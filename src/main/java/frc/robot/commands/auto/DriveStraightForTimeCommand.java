@@ -1,18 +1,17 @@
 package frc.robot.commands.auto;
 
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveStraightCommand;
 import frc.robot.subsystems.drive.DriveSubsystem;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveStraightForTimeCommand extends SequentialCommandGroup{
     public final DriveSubsystem m_DriveSubsystem; // i had this as private
 
   public DriveStraightForTimeCommand(DriveSubsystem subsystem) {
     m_DriveSubsystem = subsystem;
-
-
 
     addCommands(
       new WaitCommand(2), 

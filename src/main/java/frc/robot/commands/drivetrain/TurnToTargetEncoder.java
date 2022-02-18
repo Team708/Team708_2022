@@ -18,6 +18,8 @@ public class TurnToTargetEncoder extends CommandBase {
 
     public TurnToTargetEncoder(double rotationSpeed, DriveSubsystem m_DriveSubsystem, Limelight m_Limelight) {
         addRequirements(m_DriveSubsystem);
+        this.m_DriveSubsystem = m_DriveSubsystem;
+        this.m_Limelight = m_Limelight;
     }
 
     // Called just before this Command runs the first time
