@@ -14,6 +14,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.TrajectoryConstants;
 import frc.robot.commands.auto.doNothingCommand;
+import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
@@ -66,8 +67,9 @@ public class RobotContainer {
                                                                 -OI.getDriverLeftY(), OI.getDriverRightX()),
                                                 m_robotDrive));
 
-                m_chooser.addOption("s - curve", Ramsete(TrajectoryConstants.makeSTrajectory()));
+                m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
                 m_chooser.addOption("drive straight", Ramsete(TrajectoryConstants.driveStraightTrajectory()));
+                m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
                 m_chooser.setDefaultOption("do nothing", new doNothingCommand());
                 SmartDashboard.putData("Auto Chooser", m_chooser);
         }

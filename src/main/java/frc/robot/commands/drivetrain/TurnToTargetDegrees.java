@@ -18,7 +18,7 @@ public class TurnToTargetDegrees extends PIDCommand {
         new PIDController(0.2,0,0),
         m_DriveSubsystem::getHeading,
         m_DriveSubsystem.getHeading() + m_Limelight.turnToTarget(),
-        output -> m_DriveSubsystem.arcadeDrive(0, 2 * output),
+        output -> m_DriveSubsystem.arcadeDrive(0, -2 * output),
         m_DriveSubsystem);
 
         getController().enableContinuousInput(-180, 180);

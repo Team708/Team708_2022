@@ -17,6 +17,7 @@ import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.SparkMaxPIDController;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -27,29 +28,28 @@ public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
 
   private final CANSparkMax m_leftPrimary = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
-  
   private final CANSparkMax m_leftSecondary = new CANSparkMax(DriveConstants.kLeftMotor2Port, MotorType.kBrushless);
 
-  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(
-      m_leftPrimary, m_leftSecondary);
+  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(m_leftPrimary, m_leftSecondary);
 
   // The motors on the right side of the drive.
 
   private final CANSparkMax m_rightPrimary = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
-  
   private final CANSparkMax m_rightSecondary = new CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless);
 
-  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(
-      m_rightPrimary, m_rightSecondary);
+  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(m_rightPrimary, m_rightSecondary);
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The left-side drive encoder
-  private final RelativeEncoder m_leftEncoder = m_leftPrimary.getEncoder();
+  private final SparkMaxPIDController m_leftPidController = m_leftPrimary.getPIDController();;
+  private final RelativeEncoder       m_leftEncoder       = m_leftPrimary.getEncoder();
+  
 
   // The right-side drive encoder
-  private final RelativeEncoder m_rightEncoder = m_rightPrimary.getEncoder();
+  private final RelativeEncoder       m_rightEncoder       = m_rightPrimary.getEncoder();
+  private final SparkMaxPIDController m_rightPidController = m_rightPrimary.getPIDController();;
 
   private final DoubleSolenoid shiftSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
       DriveConstants.kShiftHSolenoidPort, DriveConstants.kShiftLSolenoidPort);
@@ -75,10 +75,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-    m_leftEncoder.setInverted(DriveConstants.kLeftEncoderInverted);
+    // m_leftEncoder.setInverted(DriveConstants.kLeftEncoderInverted);
 
     m_rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setInverted(DriveConstants.kRightEncoderInverted);
+    // m_rightEncoder.setInverted(DriveConstants.kRightEncoderInverted);
 
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
