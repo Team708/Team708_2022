@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.led.CANdle;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -18,6 +20,7 @@ import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.vision.CANdleSystem;
 import frc.robot.subsystems.vision.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -43,7 +46,8 @@ public class RobotContainer {
         private final DriveSubsystem m_robotDrive = new DriveSubsystem();
         private final Shooter m_shooter = new Shooter();
 
-        private final Limelight m_limelight = new Limelight();
+        private final CANdleSystem m_candleSystem = new CANdleSystem();
+        private final Limelight m_limelight = new Limelight(m_candleSystem, m_robotDrive);
 
         private final IntakeFeeder m_intakeFeeder = new IntakeFeeder(dIOFeeder, dIOIntake);
 

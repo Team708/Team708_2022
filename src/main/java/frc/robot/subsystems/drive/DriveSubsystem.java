@@ -21,6 +21,7 @@ import com.revrobotics.SparkMaxPIDController;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -65,6 +66,8 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean brake          = true;
   private boolean climberEngaged = false;
 
+  private SparkMaxPIDController leftController, rightController;
+
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     // We need to invert one side of the drivetrain so that positive voltages
@@ -72,6 +75,9 @@ public class DriveSubsystem extends SubsystemBase {
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotors.setInverted(false); // false - true
     m_leftMotors.setInverted(true); // true
+
+    leftController = m_leftPrimary.getPIDController();
+    rightController = m_rightPrimary.getPIDController();
 
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -91,6 +97,11 @@ public class DriveSubsystem extends SubsystemBase {
     // Update the odometry in the periodic block
     m_odometry.update(
         Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(), m_rightEncoder.getPosition());
+  }
+
+  public void rotateWithEncoders(double counts){
+    leftController.setReference(counts, ControlType.kPosition);
+    rightController.setReference(-counts, ControlType.kPosition);
   }
 
   /**
