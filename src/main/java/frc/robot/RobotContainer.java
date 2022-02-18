@@ -30,6 +30,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+        public static PIDController leftController = new PIDController(DriveConstants.kPDriveVel,
+                                                                       DriveConstants.KIDriveVel, 
+                                                                       DriveConstants.KDDriveVel);
+        
+        public static PIDController rightController = new PIDController(DriveConstants.kPDriveVel,
+                                                                        DriveConstants.KIDriveVel, 
+                                                                        DriveConstants.KDDriveVel);
+
         // The robot's subsystems
         private final DriveSubsystem m_robotDrive = new DriveSubsystem();
         private final TrajectoryManager m_trajectoryManager = new TrajectoryManager();
@@ -45,6 +54,9 @@ public class RobotContainer {
         public RobotContainer() {
                 // Configure the button bindings
                 OI.configureButtonBindings(m_robotDrive, m_limelight);
+                rightController = new PIDController(DriveConstants.kPDriveVel,
+                                                    DriveConstants.KIDriveVel, 
+                                                    DriveConstants.KDDriveVel);
 
                 // Configure default commands
                 // Set the default drive command to split-stick arcade drive
@@ -83,12 +95,8 @@ public class RobotContainer {
                                                 DriveConstants.kaVoltSecondsSquaredPerMeter),
                                 DriveConstants.kDriveKinematics,
                                 m_robotDrive::getWheelSpeedsAuto,
-                                new PIDController(DriveConstants.kPDriveVel,
-                                                  DriveConstants.KIDriveVel, 
-                                                  DriveConstants.KDDriveVel),
-                                new PIDController(DriveConstants.kPDriveVel, 
-                                                  DriveConstants.KIDriveVel, 
-                                                  DriveConstants.KDDriveVel),
+                                leftController,
+                                rightController,
                                 // RamseteCommand passes volts to the callback
                                 m_robotDrive::tankDriveVolts,
                                 m_robotDrive);

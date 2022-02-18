@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -20,6 +21,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
@@ -63,6 +66,8 @@ public class DriveSubsystem extends SubsystemBase {
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
 
+  private SparkMaxPIDController leftPID, rightPID;
+
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     // We need to invert one side of the drivetrain so that positive voltages
@@ -73,6 +78,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     m_rightMotors.setInverted(false); //false - true
     m_leftMotors.setInverted(true); //true
+
+    leftPID = m_leftPrimary.getPIDController();
+    rightPID = m_rightPrimary.getPIDController();
 
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -95,6 +103,11 @@ public class DriveSubsystem extends SubsystemBase {
     // Update the odometry in the periodic block
     m_odometry.update(
         m_gyro.getAngle(), m_leftEncoder.getPosition(), m_rightEncoder.getPosition());
+  }
+
+  public void rotateWithEncoders(double counts){
+    leftPID.setReference(counts, ControlType.kPosition);
+    rightPID.setReference(-counts, ControlType.kPosition);
   }
 
   public Pigeon getGyro(){
