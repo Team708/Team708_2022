@@ -60,17 +60,16 @@ public class RobotContainer {
                 // Set the default drive command to split-stick arcade drive
                 m_shooter.setDefaultCommand(new RunCommand(() -> m_shooter.stopShooter(), m_shooter));
                 m_robotDrive.setDefaultCommand(
-                                // A split-stick arcade command, with forward/backward controlled by the left
-                                // hand, and turning controlled by the right.
-                                new RunCommand(
-                                                () -> m_robotDrive.arcadeDrive(
-                                                                -OI.getDriverLeftY(), OI.getDriverRightX()),
-                                                m_robotDrive));
+                        // A split-stick arcade command, with forward/backward controlled by the left
+                        // hand, and turning controlled by the right.
+                        new RunCommand(() -> m_robotDrive.arcadeDrive(
+                                                        -OI.getDriverLeftY(), OI.getDriverRightX()),m_robotDrive));
 
-                m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
-                m_chooser.addOption("drive straight", Ramsete(TrajectoryConstants.driveStraightTrajectory()));
-                m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
-                m_chooser.setDefaultOption("do nothing", new doNothingCommand());
+                        m_chooser.setDefaultOption("do nothing", new doNothingCommand());
+                        m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.4, 0, false, 3, m_robotDrive));
+                        
+                        m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
+                        m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
                 SmartDashboard.putData("Auto Chooser", m_chooser);
         }
 

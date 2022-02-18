@@ -176,9 +176,6 @@ public class IntakeFeeder extends SubsystemBase {
         // m_intakeMotor.set(intakeMotorSpeed * direction);
         feederPIDController.setReference((feederMotorSpeed * direction) * maxVelocity, CANSparkMax.ControlType.kVelocity);
         intakePIDCOntroller.setReference((intakeMotorSpeed * direction) * maxVelocity, CANSparkMax.ControlType.kVelocity);
-        
-        
-
     }
 
     /**
