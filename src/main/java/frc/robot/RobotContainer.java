@@ -10,7 +10,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PneumaticHub;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -38,18 +41,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RobotContainer {
 
+        //Pneumatics
+        private final PneumaticHub hub2 = new PneumaticHub(2);
+        private final PneumaticHub hub3 = new PneumaticHub(3);
+        private final Compressor compressor = new Compressor(hub2.getModuleNumber(), PneumaticsModuleType.REVPH);
+
         //Sensors
         private final DigitalInput dIOFeeder = new DigitalInput(4); //Change channel
         private final DigitalInput dIOIntake = new DigitalInput(3); //Change channel
 
         // The robot's subsystems
-        private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-        private final Shooter m_shooter = new Shooter();
+        private final DriveSubsystem m_robotDrive = new DriveSubsystem(hub2);
+        private final Shooter m_shooter = new Shooter(hub3);
 
         private final CANdleSystem m_candleSystem = new CANdleSystem();
         private final Limelight m_limelight = new Limelight(m_candleSystem, m_robotDrive);
 
-        private final IntakeFeeder m_intakeFeeder = new IntakeFeeder(dIOFeeder, dIOIntake);
+        private final IntakeFeeder m_intakeFeeder = new IntakeFeeder(dIOFeeder, dIOIntake, hub3);
 
         public static final SendableChooser<Command> m_chooser = new SendableChooser<>();
 

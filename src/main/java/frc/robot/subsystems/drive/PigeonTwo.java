@@ -17,7 +17,7 @@ public class PigeonTwo {
      * Method to get current instance of Pigeon2 (or establish one if one does not exist)
      * @return Pigeon2 Instance
      */
-    private static PigeonTwo getInstance(){
+    public static PigeonTwo getInstance(){
         if(instance == null){
             instance = new PigeonTwo();
         }

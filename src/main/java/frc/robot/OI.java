@@ -2,7 +2,13 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.drivetrain.TurnToTargetDegrees;
+import frc.robot.commands.intakeFeeder.IntakeFeederIn;
+import frc.robot.commands.intakeFeeder.IntakeFeederOut;
 import frc.robot.commands.intakeFeeder.ToggleIntakeFeeder;
+import frc.robot.commands.intakeFeeder.ToggleIntakeSolenoid;
+import frc.robot.commands.shooter.Eject;
+import frc.robot.commands.shooter.ReverseShooter;
+import frc.robot.commands.shooter.ToggleHood;
 import frc.robot.commands.vision.TurnTowardsTarget;
 import frc.robot.commands.drivetrain.TurnToTargetEncoder;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -58,6 +64,9 @@ public class OI {
 											   Limelight m_limeLight, 
 											   Shooter m_shooter,
 											   IntakeFeeder m_intakeFeeder) {
+
+		//DRIVER//
+
 		// Drive at half speed when the right bumper is held
 		new JoystickButton(driverGamepad, Button.kRightBumper.value)
 				.whenPressed(() -> m_robotDrive.shiftGearHigh())
@@ -67,31 +76,59 @@ public class OI {
 				.whenPressed(() -> m_robotDrive.dropWheels())
 				.whenReleased(() -> m_robotDrive.liftWheels());
 
-		// new JoystickButton(driverGamepad, Button.kY.value)
-		// 		.whenPressed(() -> m_shooter.shoot())
-		// 		.whenReleased(() -> m_shooter.stopShooter());
+		new JoystickButton(driverGamepad, Button.kY.value)
+				.whenPressed(new ToggleIntakeSolenoid(m_intakeFeeder));
+
+		new JoystickButton(driverGamepad, Button.kA.value)
+				.whenPressed(new ToggleHood(m_shooter));
+		
+
+		//OPERATOR//
+
+		new JoystickButton(operatorGamepad, Button.kLeftBumper.value)
+				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive));
+
+				//Shoot command group
+		// new JoystickButton(operatorGamepad, Button.kRightBumper.values)
+		// 		.whenPressed();
 
 		new JoystickButton(operatorGamepad, Button.kY.value)
-				.whileHeld(() -> m_shooter.fullSpeed())
-				.whenReleased(() -> m_shooter.stopShooter());
+		        .whenPressed(new IntakeFeederIn(m_intakeFeeder));
 
-		new JoystickButton(driverGamepad, Button.kX.value)
-				.whenPressed(new TurnToTargetDegrees(m_robotDrive, m_limeLight));
+		new JoystickButton(operatorGamepad, Button.kY.value)
+		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
+
+		new JoystickButton(operatorGamepad, Button.kX.value)
+		        .whenPressed(new Eject(m_shooter));
 
 		new JoystickButton(operatorGamepad, Button.kA.value)
-					.whenPressed(new ToggleIntakeFeeder(m_intakeFeeder));
+		        .whileHeld(new ReverseShooter(m_shooter));		
 
-		new JoystickButton(driverGamepad, Button.kBack.value)
-				.whenPressed(() -> m_robotDrive.resetEncoders());
+// 		// new JoystickButton(driverGamepad, Button.kY.value)
+// 		// 		.whenPressed(() -> m_shooter.shoot())
+// 		// 		.whenReleased(() -> m_shooter.stopShooter());
 
-		new JoystickButton(driverGamepad, Button.kStart.value)
-				.whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
+// 		new JoystickButton(operatorGamepad, Button.kY.value)
+// 				.whileHeld(() -> m_shooter.fullSpeed())
+// 				.whenReleased(() -> m_shooter.stopShooter());
+
+// 		new JoystickButton(driverGamepad, Button.kX.value)
+// 				.whenPressed(new TurnToTargetDegrees(m_robotDrive, m_limeLight));
+
+// 		new JoystickButton(operatorGamepad, Button.kA.value)
+// 					.whenPressed(new ToggleIntakeFeeder(m_intakeFeeder));
+
+// 		new JoystickButton(driverGamepad, Button.kBack.value)
+// 				.whenPressed(() -> m_robotDrive.resetEncoders());
+
+// 		new JoystickButton(driverGamepad, Button.kStart.value)
+// 				.whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
 
 
-//				.whenPressed(new TurnToTargetEncoder(.6, m_robotDrive, m_limeLight));
-		new JoystickButton(driverGamepad, Button.kB.value)
-				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
-				.withTimeout(1.0)
-		);
+// //				.whenPressed(new TurnToTargetEncoder(.6, m_robotDrive, m_limeLight));
+// 		new JoystickButton(driverGamepad, Button.kB.value)
+// 				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
+// 				.withTimeout(1.0)
+// 		);
 	}
 }

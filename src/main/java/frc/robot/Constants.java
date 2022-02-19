@@ -32,17 +32,20 @@ public final class Constants {
     public static final int kRightMotor1Port  = 14;
     public static final int kRightMotor2Port  = 15;
 
-    public static int kShiftHSolenoidPort = 5;
-    public static int kShiftLSolenoidPort = 4;
-    public static int kDriveSolenoidPort  = 6;
-    public static int kIntakeSolenoidPort = 9;
+    public static int kShiftHSolenoidPort = 1; //5
+    public static int kShiftLSolenoidPort = 0; //4
+    public static int kDriveSolenoidPort  = 2; //2
+    // public static int kIntakeSolenoidPort = 9;
 
-    public static int kIntakeSolenoidPortForward = 1; //fix port number
-    public static int kIntakeSolenoidPortReverse = 0; //fix port number
+    //CLIMBER: 3 - off, 4 - on
+    //ALSO CLIMBER: 4 - in, 5 - out, 6 - climber pin (single), 7 - break (single)
+
+    public static int kIntakeSolenoidPortForward = 1;
+    public static int kIntakeSolenoidPortReverse = 0;
 
     public static int kIntakeMotorPort = 21; // fix port number
 
-    public static int kFeederMotorPort = 22; // fix port number
+    public static int kFeederMotorPort = 23; // fix port number
 
     //PID Values
     public static final double kP       = 0.0005;
@@ -90,7 +93,8 @@ public final class Constants {
     public static final int kShooterShootMotor  = 31;
     public static final int kShooterFollowMotor = 32;
 
-    public static final int kShooterSolenoid = 3;
+    public static final int kShooterSolenoidDown = 2;
+    public static final int kShooterSolenoidUp = 3;
 
     //Speed constants
     public static final double kShooterWheelSpeed   = 3900;

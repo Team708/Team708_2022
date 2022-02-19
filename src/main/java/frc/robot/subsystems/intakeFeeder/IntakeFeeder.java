@@ -2,7 +2,9 @@ package frc.robot.subsystems.intakeFeeder;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -41,12 +43,16 @@ public class IntakeFeeder extends SubsystemBase {
     //IF USING SENSORS
     private DigitalInput dIOFeeder;
     private DigitalInput dIOIntake;
+
+    //Pneumatics
+    private PneumaticHub hub3;
     
 
-    public IntakeFeeder(DigitalInput dIO1, DigitalInput dIO2) {
+    public IntakeFeeder(DigitalInput dIO1, DigitalInput dIO2, PneumaticHub hub3) {
 
         this.dIOFeeder = dIO1;
         this.dIOIntake = dIO2;
+        this.hub3 = hub3;
 
         // intake
         m_intakeMotor = new CANSparkMax(DriveConstants.kIntakeMotorPort, MotorType.kBrushless);
@@ -61,9 +67,14 @@ public class IntakeFeeder extends SubsystemBase {
         intakePIDCOntroller.setOutputRange(DriveConstants.kMin, DriveConstants.kMax);
 
         
-        // m_intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPort);
-        m_intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kIntakeSolenoidPortForward, DriveConstants.kIntakeSolenoidPortReverse);
-        isIntakeDown = false; // intake starts up
+        // m_intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, DriveConstants.kIntakeSolenoidPort);
+        m_intakeSolenoid = new DoubleSolenoid(hub3.getModuleNumber(), 
+        PneumaticsModuleType.REVPH,
+        DriveConstants.kIntakeSolenoidPortForward, 
+        DriveConstants.kIntakeSolenoidPortReverse);
+        m_intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+        isIntakeDown = m_intakeSolenoid.get().equals(DoubleSolenoid.Value.kForward); // intake starts up
+        
         intakeMotorSpeed = .8; // set proper motor speed later
         direction = 1;
 

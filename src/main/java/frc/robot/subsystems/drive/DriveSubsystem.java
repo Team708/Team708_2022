@@ -8,7 +8,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.CompressorConfigType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -52,14 +55,17 @@ public class DriveSubsystem extends SubsystemBase {
 
   // The right-side drive encoder
   private final RelativeEncoder       m_rightEncoder       = m_rightPrimary.getEncoder();
-  private final SparkMaxPIDController m_rightPidController = m_rightPrimary.getPIDController();;
+  private final SparkMaxPIDController m_rightPidController = m_rightPrimary.getPIDController();
 
-  private final DoubleSolenoid shiftSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
-      DriveConstants.kShiftHSolenoidPort, DriveConstants.kShiftLSolenoidPort);
-  private final Solenoid dropSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, DriveConstants.kDriveSolenoidPort);
+  // private final DoubleSolenoid shiftSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
+  //     DriveConstants.kShiftHSolenoidPort, DriveConstants.kShiftLSolenoidPort);
+  private final DoubleSolenoid shiftSolenoid;
+  // private final Solenoid dropSolenoid = new Solenoid(PneumaticsModuleType.REVPH, DriveConstants.kDriveSolenoidPort);
+  Solenoid dropSolenoid;
 
   // The gyro sensor
-  private final Pigeon m_gyro = Pigeon.getInstance();
+  // private final Pigeon m_gyro = Pigeon.getInstance();
+  private final PigeonTwo m_gyro = PigeonTwo.getInstance();
 
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
@@ -68,24 +74,33 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean brake          = true;
   private boolean climberEngaged = false;
 
-
-  double kP = .00005; 
-  double kI = .000001;
-  double kD = 0; 
-  double kIz = 0; 
-  double kFF = 0.07; 
-  int kMaxOutput = 1; 
-  int kMinOutput = -1;
-  double maxRPM = 5700;
-
+  // double kP = .00005; //0.00005
+  // double kI = 0.000002; //0.000001
+  // double kD = 0.00002; //0.0
+  // double kIz = 0; 
+  // double kFF = 0.04; //2
+  // int kMaxOutput = 1; 
+  // int kMinOutput = -1;
+  // double maxRPM = 5700;
+  // double maxVel = 5700; // rpm
+  // double maxAcc = 2500;
+  // double allowedErr = 0.028;
 
   /** Creates a new DriveSubsystem. */
-  public DriveSubsystem() {
+  public DriveSubsystem(PneumaticHub hub2) {
+
+    shiftSolenoid = new DoubleSolenoid(hub2.getModuleNumber(), PneumaticsModuleType.REVPH,
+        DriveConstants.kShiftHSolenoidPort, DriveConstants.kShiftLSolenoidPort);
+
+    dropSolenoid = new Solenoid(hub2.getModuleNumber(), 
+        PneumaticsModuleType.REVPH, 
+        DriveConstants.kDriveSolenoidPort);
+
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightMotors.setInverted(false); // false - true
-    m_leftMotors.setInverted(true); // true
+    m_rightMotors.setInverted(true); // false - true
+    m_leftMotors.setInverted(false); // true
 
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -97,42 +112,106 @@ public class DriveSubsystem extends SubsystemBase {
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
 
+    // m_leftPidController.setP(kP);
+    // m_leftPidController.setI(kI);
+    // m_leftPidController.setD(kD);
+    // m_leftPidController.setIZone(kIz);
+    // m_leftPidController.setFF(kFF);
+    // m_leftPidController.setOutputRange(kMinOutput, kMaxOutput);
 
-    m_leftPidController.setP(kP);
-    m_leftPidController.setI(kI);
-    m_leftPidController.setD(kD);
-    m_leftPidController.setIZone(kIz);
-    m_leftPidController.setFF(kFF);
-    m_leftPidController.setOutputRange(kMinOutput, kMaxOutput);
+    // m_rightPidController.setP(kP);
+    // m_rightPidController.setI(kI);
+    // m_rightPidController.setD(kD);
+    // m_rightPidController.setIZone(kIz);
+    // m_rightPidController.setFF(kFF);
+    // m_rightPidController.setOutputRange(kMinOutput, kMaxOutput);
 
-    m_rightPidController.setP(kP);
-    m_rightPidController.setI(kI);
-    m_rightPidController.setD(kD);
-    m_rightPidController.setIZone(kIz);
-    m_rightPidController.setFF(kFF);
-    m_rightPidController.setOutputRange(kMinOutput, kMaxOutput);
+    // int smartMotionSlot = 0;
+    // m_leftPidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
+    // m_leftPidController.setSmartMotionMinOutputVelocity(0, smartMotionSlot);
+    // m_leftPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
+    // m_leftPidController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
 
-    double maxVel = 6000; // rpm
-    double maxAcc = 2500;
+    // m_rightPidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
+    // m_rightPidController.setSmartMotionMinOutputVelocity(0, smartMotionSlot);
+    // m_rightPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
+    // m_rightPidController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
 
-    int smartMotionSlot = 0;
-    m_leftPidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
-    m_leftPidController.setSmartMotionMinOutputVelocity(0, smartMotionSlot);
-    m_leftPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
-    m_leftPidController.setSmartMotionAllowedClosedLoopError(0.5, smartMotionSlot);
+    // // display PID coefficients on SmartDashboard
+    // SmartDashboard.putNumber("P Gain", kP);
+    // SmartDashboard.putNumber("I Gain", kI);
+    // SmartDashboard.putNumber("D Gain", kD);
+    // SmartDashboard.putNumber("I Zone", kIz);
+    // SmartDashboard.putNumber("Feed Forward", kFF);
+    // SmartDashboard.putNumber("Max Output", kMaxOutput);
+    // SmartDashboard.putNumber("Min Output", kMinOutput);
 
-    m_rightPidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
-    m_rightPidController.setSmartMotionMinOutputVelocity(0, smartMotionSlot);
-    m_rightPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
-    m_rightPidController.setSmartMotionAllowedClosedLoopError(0.5, smartMotionSlot);
+    // // display Smart Motion coefficients
+    // SmartDashboard.putNumber("Max Velocity", maxVel);
+    // SmartDashboard.putNumber("Min Velocity", 0);
+    // SmartDashboard.putNumber("Max Acceleration", maxAcc);
+    // SmartDashboard.putNumber("Allowed Closed Loop Error", allowedErr);
+    // SmartDashboard.putNumber("Set Position", 0);
+    // SmartDashboard.putNumber("Set Velocity", 0);
 
   }
+
+  
 
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
     m_odometry.update(
         Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(), m_rightEncoder.getPosition());
+
+    // read PID coefficients from SmartDashboard
+    // double p = SmartDashboard.getNumber("P Gain", 0);
+    // double i = SmartDashboard.getNumber("I Gain", 0);
+    // double d = SmartDashboard.getNumber("D Gain", 0);
+    // double iz = SmartDashboard.getNumber("I Zone", 0);
+    // double ff = SmartDashboard.getNumber("Feed Forward", 0);
+
+    // // if PID coefficients on SmartDashboard have changed, write new values to controller
+    // if((p != kP)) {
+    //   m_leftPidController.setP(p); 
+    //   m_rightPidController.setP(p); 
+    //   kP = p; 
+    // }
+    // if((i != kI)) {
+    //   m_leftPidController.setI(i);
+    //   m_rightPidController.setI(i);
+    //   kI = i;
+    // }
+    // if((d != kD)) { 
+    //   m_leftPidController.setD(d);
+    //   m_rightPidController.setD(d);
+    //   kD = d; 
+    // }
+    // if((iz != kIz)) { 
+    //   m_leftPidController.setIZone(iz); 
+    //   m_rightPidController.setIZone(iz); 
+    //   kIz = iz; 
+    // }
+    // if((ff != kFF)) { 
+    //   m_leftPidController.setFF(ff); 
+    //   m_rightPidController.setFF(ff); 
+    //   kFF = ff; 
+    // }
+
+    // double setPoint, processVariableLeft, processVariableRight;
+    // setPoint = SmartDashboard.getNumber("Set Position", 0);
+    //   /**
+    //    * As with other PID modes, Smart Motion is set by calling the
+    //    * setReference method on an existing pid object and setting
+    //    * the control type to kSmartMotion
+    //    */
+    // rotateWithEncoders(setPoint);
+    // processVariableLeft = m_leftEncoder.getPosition();
+    // processVariableRight = m_rightEncoder.getPosition();
+    
+    // SmartDashboard.putNumber("SetPoint", setPoint);
+    // SmartDashboard.putNumber("Process Variable Left", processVariableLeft);
+    // SmartDashboard.putNumber("Process Variable Right", processVariableRight);
   }
 
   public void rotateWithEncoders(double counts){
@@ -310,7 +389,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void sendToDashboard() {
-    m_gyro.outputToSmartDashboard();
+    // m_gyro.outputToSmartDashboard();
     SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
     SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
 
@@ -324,6 +403,7 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Gear High",    gearHigh);			//Drivetrain Gear mode
     SmartDashboard.putBoolean("Climb enaged", climberEngaged);		//Drivetrain Climb Engaged
     SmartDashboard.putBoolean("Brake",        brake);			// Brake or Coast
+
   }
 
 

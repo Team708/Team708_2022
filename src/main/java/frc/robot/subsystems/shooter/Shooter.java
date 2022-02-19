@@ -6,8 +6,11 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
@@ -25,14 +28,14 @@ public class Shooter extends SubsystemBase{
 
     private CANSparkMax shooterMotorFollower;
 
-    private Solenoid hoodSolenoid;
+    private DoubleSolenoid hoodSolenoid;
 
     public double targetSpeed = 0;
 
     /**
      * Shooter Constructor
      */
-    public Shooter() {
+    public Shooter(PneumaticHub hub3) {
 
         shooterMotorPrimary = new CANSparkMax(ShooterConstants.kShooterShootMotor, MotorType.kBrushless);
         // shooterMotorPrimary.setInverted(false);
@@ -56,7 +59,9 @@ public class Shooter extends SubsystemBase{
         shooterMotorFollower.follow(shooterMotorPrimary); 
         
         //Give shooterMotorFollower encoder?
-        hoodSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ShooterConstants.kShooterSolenoid);
+        hoodSolenoid = new DoubleSolenoid(hub3.getModuleNumber(), PneumaticsModuleType.REVPH, 
+            ShooterConstants.kShooterSolenoidDown, ShooterConstants.kShooterSolenoidUp);
+        hoodSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     @Override
@@ -116,22 +121,22 @@ public class Shooter extends SubsystemBase{
     }
 
     public void shooterHoodUp(){
-        hoodSolenoid.set(true); //SEE IF TRUE MEANS EXTENDED OR RETRACTED
+        hoodSolenoid.set(Value.kForward); //SEE IF TRUE MEANS EXTENDED OR RETRACTED
     }
 
     public void shooterHoodDown(){
-        hoodSolenoid.set(false);
+        hoodSolenoid.set(Value.kReverse);
     }
 
     public void toggleShooterHood(){
-        if(hoodSolenoid.get()){
+        if(hoodSolenoid.get().equals(Value.kForward)){
             shooterHoodDown();
         }else{
             shooterHoodUp();
         }
     }
 
-    public boolean getHoodUp(){
+    public Value getHoodUp(){
         return hoodSolenoid.get();
     } 
 
@@ -151,7 +156,6 @@ public class Shooter extends SubsystemBase{
     public void sendToDashboard() {
         SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());
         SmartDashboard.putBoolean("Shooter Target Speed Achieved", isShooterAtSpeed());
-        SmartDashboard.putBoolean("Hood up", hoodSolenoid.get());
     }
 
 }
