@@ -231,4 +231,18 @@ public class IntakeFeeder extends SubsystemBase {
         }
     }
 
+    /**
+     * Sets intake and feeder direction to in
+     */
+    public void directionIn() {
+        direction = 1;
+    }
+
+    /**
+     * Sets intake and feeder direction to out
+     */
+    public void directionOut() {
+        direction = -1;
+    }
+
 }
