@@ -3,7 +3,9 @@ package frc.robot;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.drivetrain.TurnToTargetDegrees;
 import frc.robot.commands.intakeFeeder.ToggleIntakeFeeder;
+import frc.robot.commands.vision.TurnTowardsTarget;
 import frc.robot.commands.drivetrain.TurnToTargetEncoder;
+import edu.wpi.first.math.geometry.Pose2d;
 
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
@@ -11,6 +13,7 @@ import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.Limelight;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class OI {
@@ -76,7 +79,19 @@ public class OI {
 				.whenPressed(new TurnToTargetDegrees(m_robotDrive, m_limeLight));
 
 		new JoystickButton(operatorGamepad, Button.kA.value)
-		.whenPressed(new ToggleIntakeFeeder(m_intakeFeeder));
+					.whenPressed(new ToggleIntakeFeeder(m_intakeFeeder));
+
+		new JoystickButton(driverGamepad, Button.kBack.value)
+				.whenPressed(() -> m_robotDrive.resetEncoders());
+
+		new JoystickButton(driverGamepad, Button.kStart.value)
+				.whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
+
+
 //				.whenPressed(new TurnToTargetEncoder(.6, m_robotDrive, m_limeLight));
+		new JoystickButton(driverGamepad, Button.kB.value)
+				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
+				.withTimeout(1.0)
+		);
 	}
 }

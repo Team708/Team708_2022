@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.vision.Limelight;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnTowardsTarget extends CommandBase{
     
@@ -26,24 +27,31 @@ public class TurnTowardsTarget extends CommandBase{
     public void initialize(){
         m_driveSubsystem.resetOdometry(new Pose2d());
         m_driveSubsystem.resetEncoders();
-        double targetAngle = m_limeLight.turnToTarget();
-        targetPosition = (targetAngle * Constants.DriveConstants.kWheelRadiusFromCenter)
-                          / (Math.PI * Constants.DriveConstants.kWheelDiameterMeters);
+        double targetAngle = m_limeLight.getX();
+        targetPosition = (targetAngle * .015 * 10);
+
+        SmartDashboard.putNumber("Target Position", targetPosition);
+
     }
 
     @Override
     public void execute(){
-        m_driveSubsystem.rotateWithEncoders(targetPosition);
+        m_driveSubsystem.rotateWithEncoders(-targetPosition);
     }
 
     @Override
     public boolean isFinished(){
-        return true;
+        // return (timeSinceInitialized() > 1.0);
+        return false;
+    }
+
+    private double timeSinceInitialized() {
+        return 0;
     }
 
     @Override
     public void end(boolean interrupted){
-
+    	m_driveSubsystem.arcadeDrive(0.0, 0.0);
     }
 
 }

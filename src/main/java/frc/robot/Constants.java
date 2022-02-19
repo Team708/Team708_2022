@@ -40,9 +40,9 @@ public final class Constants {
     public static int kIntakeSolenoidPortForward = 1; //fix port number
     public static int kIntakeSolenoidPortReverse = 0; //fix port number
 
-    public static int kIntakeMotorPort = 31; // fix port number
+    public static int kIntakeMotorPort = 21; // fix port number
 
-    public static int kFeederMotorPort = 21; // fix port number
+    public static int kFeederMotorPort = 22; // fix port number
 
     //PID Values
     public static final double kP       = 0.0005;
@@ -57,9 +57,9 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
-    public static final int kEncoderCPR                 = 42; // 1024
-    public static final double kWheelDiameterMeters     = 0.105; // .15
-    public static final double kWheelRadiusFromCenter   = 0.3;
+    public static final int kEncoderCPR                 = 13; // 1024 //42
+    public static final double kWheelDiameterMeters     = 0.05; // .15 //.015
+    public static final double kWheelRadiusFromCenter   = 0.03;
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
@@ -69,7 +69,7 @@ public final class Constants {
     public static final boolean kLeftEncoderInverted  = true;
     public static final boolean kRightEncoderInverted = false;
 
-    public static final double kCountsPerDegree = 10;
+    public static final double kCountsPerDegree = .0005;
   }
 
   public static final class ControllerConstants {
@@ -90,7 +90,7 @@ public final class Constants {
     public static final int kShooterShootMotor  = 31;
     public static final int kShooterFollowMotor = 32;
 
-    public static final int kShooterSolenoid = 1;
+    public static final int kShooterSolenoid = 3;
 
     //Speed constants
     public static final double kShooterWheelSpeed   = 3900;
@@ -121,8 +121,8 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 4; // 3   5.48; //TIM - 18ft/s
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 3    2.24; //TIM - No idea
+    public static final double kMaxSpeedMetersPerSecond = 6; // 3   5.48; //TIM - 18ft/s  4
+    public static final double kMaxAccelerationMetersPerSecondSquared = 4; // 3    2.24; //TIM - No idea 3
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and
     // seconds

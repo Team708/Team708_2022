@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.SparkMaxPIDController;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -44,7 +46,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The left-side drive encoder
-  private final SparkMaxPIDController m_leftPidController = m_leftPrimary.getPIDController();;
+  private final SparkMaxPIDController m_leftPidController = m_leftPrimary.getPIDController();
   private final RelativeEncoder       m_leftEncoder       = m_leftPrimary.getEncoder();
   
 
@@ -66,7 +68,16 @@ public class DriveSubsystem extends SubsystemBase {
   private boolean brake          = true;
   private boolean climberEngaged = false;
 
-  private SparkMaxPIDController leftController, rightController;
+
+  double kP = .00005; 
+  double kI = .000001;
+  double kD = 0; 
+  double kIz = 0; 
+  double kFF = 0.07; 
+  int kMaxOutput = 1; 
+  int kMinOutput = -1;
+  double maxRPM = 5700;
+
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -75,9 +86,6 @@ public class DriveSubsystem extends SubsystemBase {
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotors.setInverted(false); // false - true
     m_leftMotors.setInverted(true); // true
-
-    leftController = m_leftPrimary.getPIDController();
-    rightController = m_rightPrimary.getPIDController();
 
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -90,6 +98,34 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
 
 
+    m_leftPidController.setP(kP);
+    m_leftPidController.setI(kI);
+    m_leftPidController.setD(kD);
+    m_leftPidController.setIZone(kIz);
+    m_leftPidController.setFF(kFF);
+    m_leftPidController.setOutputRange(kMinOutput, kMaxOutput);
+
+    m_rightPidController.setP(kP);
+    m_rightPidController.setI(kI);
+    m_rightPidController.setD(kD);
+    m_rightPidController.setIZone(kIz);
+    m_rightPidController.setFF(kFF);
+    m_rightPidController.setOutputRange(kMinOutput, kMaxOutput);
+
+    double maxVel = 6000; // rpm
+    double maxAcc = 2500;
+
+    int smartMotionSlot = 0;
+    m_leftPidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
+    m_leftPidController.setSmartMotionMinOutputVelocity(0, smartMotionSlot);
+    m_leftPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
+    m_leftPidController.setSmartMotionAllowedClosedLoopError(0.5, smartMotionSlot);
+
+    m_rightPidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
+    m_rightPidController.setSmartMotionMinOutputVelocity(0, smartMotionSlot);
+    m_rightPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
+    m_rightPidController.setSmartMotionAllowedClosedLoopError(0.5, smartMotionSlot);
+
   }
 
   @Override
@@ -100,8 +136,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void rotateWithEncoders(double counts){
-    leftController.setReference(counts, ControlType.kPosition);
-    rightController.setReference(-counts, ControlType.kPosition);
+    m_leftPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
+    m_rightPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
   }
 
   /**
