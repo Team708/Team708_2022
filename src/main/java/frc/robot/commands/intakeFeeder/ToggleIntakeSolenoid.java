@@ -24,6 +24,11 @@ public class ToggleIntakeSolenoid extends CommandBase {
     @Override
     public void execute(){
         m_if.toggleIntakeState();
+        if(!m_if.isIntakeDown()){
+            m_if.startIntake();
+        }else{
+            m_if.stopIntake();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -39,5 +44,8 @@ public class ToggleIntakeSolenoid extends CommandBase {
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted){
+        // if(!m_if.isIntakeDown()){
+        //     m_if.stopIntake();
+        // }
     }
 }

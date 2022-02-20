@@ -56,12 +56,12 @@ public class Shooter extends SubsystemBase{
         shooterMotorFollower = new CANSparkMax(ShooterConstants.kShooterFollowMotor, MotorType.kBrushless);
         // shooterMotorFollower.setInverted(false);
         shooterMotorFollower.setIdleMode(IdleMode.kCoast);
-        shooterMotorFollower.follow(shooterMotorPrimary); 
+        shooterMotorFollower.follow(shooterMotorPrimary, true); 
         
         //Give shooterMotorFollower encoder?
         hoodSolenoid = new DoubleSolenoid(hub3.getModuleNumber(), PneumaticsModuleType.REVPH, 
             ShooterConstants.kShooterSolenoidDown, ShooterConstants.kShooterSolenoidUp);
-        hoodSolenoid.set(DoubleSolenoid.Value.kReverse);
+        hoodSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     @Override
@@ -121,15 +121,15 @@ public class Shooter extends SubsystemBase{
     }
 
     public void shooterHoodUp(){
-        hoodSolenoid.set(Value.kForward); //SEE IF TRUE MEANS EXTENDED OR RETRACTED
+        hoodSolenoid.set(Value.kReverse); //SEE IF TRUE MEANS EXTENDED OR RETRACTED
     }
 
     public void shooterHoodDown(){
-        hoodSolenoid.set(Value.kReverse);
+        hoodSolenoid.set(Value.kForward);
     }
 
     public void toggleShooterHood(){
-        if(hoodSolenoid.get().equals(Value.kForward)){
+        if(!hoodSolenoid.get().equals(Value.kForward)){
             shooterHoodDown();
         }else{
             shooterHoodUp();

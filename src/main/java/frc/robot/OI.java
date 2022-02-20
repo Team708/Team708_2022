@@ -11,6 +11,8 @@ import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.shooter.ToggleHood;
 import frc.robot.commands.vision.TurnTowardsTarget;
 import frc.robot.commands.drivetrain.TurnToTargetEncoder;
+import frc.robot.commands.groups.Aim;
+import frc.robot.commands.groups.AutoShoot;
 import edu.wpi.first.math.geometry.Pose2d;
 
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -82,21 +84,27 @@ public class OI {
 		new JoystickButton(driverGamepad, Button.kA.value)
 				.whenPressed(new ToggleHood(m_shooter));
 		
+		new JoystickButton(driverGamepad, Button.kX.value)
+		        .whenPressed(new IntakeFeederIn(m_intakeFeeder));
+
+		new JoystickButton(driverGamepad, Button.kB.value)
+		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
 
 		//OPERATOR//
 
-		new JoystickButton(operatorGamepad, Button.kLeftBumper.value)
+		new JoystickButton(driverGamepad, Button.kStart.value)
 				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive));
 
+		new JoystickButton(operatorGamepad, Button.kB.value)
+		        .whileHeld(m_intakeFeeder::off);
+
 				//Shoot command group
-		// new JoystickButton(operatorGamepad, Button.kRightBumper.values)
-		// 		.whenPressed();
 
-		new JoystickButton(operatorGamepad, Button.kY.value)
-		        .whenPressed(new IntakeFeederIn(m_intakeFeeder));
+		new JoystickButton(operatorGamepad, Button.kLeftBumper.value)
+				.whenPressed(new Aim(m_limeLight, m_robotDrive, m_shooter));
 
-		new JoystickButton(operatorGamepad, Button.kY.value)
-		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
+		new JoystickButton(operatorGamepad, Button.kRightBumper.value)
+				.whenPressed(new AutoShoot(m_intakeFeeder));
 
 		new JoystickButton(operatorGamepad, Button.kX.value)
 		        .whenPressed(new Eject(m_shooter));

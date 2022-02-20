@@ -14,10 +14,11 @@ public class Aim extends SequentialCommandGroup{
     public Aim(Limelight m_limeLight, DriveSubsystem m_driveSubsystem, Shooter m_shooter){
         addCommands(
             new ParallelCommandGroup(
-                new TurnTowardsTarget(m_limeLight, m_driveSubsystem),
+                // new TurnTowardsTarget(m_limeLight, m_driveSubsystem),
                 new HoodUp(m_shooter),
                 new ShootHighGoalFar(m_shooter)
-            ).withTimeout(2.0)
+            )
+            .withTimeout(4.0)
         );
     }
 

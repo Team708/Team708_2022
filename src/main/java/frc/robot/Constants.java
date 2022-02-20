@@ -35,17 +35,9 @@ public final class Constants {
     public static int kShiftHSolenoidPort = 1; //5
     public static int kShiftLSolenoidPort = 0; //4
     public static int kDriveSolenoidPort  = 2; //2
-    // public static int kIntakeSolenoidPort = 9;
 
     //CLIMBER: 3 - off, 4 - on
     //ALSO CLIMBER: 4 - in, 5 - out, 6 - climber pin (single), 7 - break (single)
-
-    public static int kIntakeSolenoidPortForward = 1;
-    public static int kIntakeSolenoidPortReverse = 0;
-
-    public static int kIntakeMotorPort = 21; // fix port number
-
-    public static int kFeederMotorPort = 23; // fix port number
 
     //PID Values
     public static final double kP       = 0.0005;
@@ -60,8 +52,8 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
-    public static final int kEncoderCPR                 = 13; // 1024 //42
-    public static final double kWheelDiameterMeters     = 0.05; // .15 //.015
+    public static final int kEncoderCPR                 = (1672 / 312) * 42; // 1024 //42
+    public static final double kWheelDiameterMeters     = 0.102; // .15 //.015 //0.05
     public static final double kWheelRadiusFromCenter   = 0.03;
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
@@ -73,6 +65,33 @@ public final class Constants {
     public static final boolean kRightEncoderInverted = false;
 
     public static final double kCountsPerDegree = .0005;
+  }
+
+  public static final class IntakeFeederConstants {
+    public static int kIntakeSolenoidPortForward = 1;
+    public static int kIntakeSolenoidPortReverse = 0;
+
+    public static int kIntakeMotorPort = 21; // fix port number
+
+    public static int kFeederMotorPort = 23; // fix port number
+
+    //INTAKE
+    public static final double kiP       = 0.0003;
+    public static final double kiI       = 0.0;
+    public static final double kiD       = 0.0; // .00006
+    public static final double kiFF      = 0.0001;
+    public static final double kiIZone   = 0;
+    public static final double kiMin     = -1;
+    public static final double kiMax     = 1;
+
+    //FEEDER
+    public static final double kfP       = 0.0005;
+    public static final double kfI       = 0.0;
+    public static final double kfD       = 0.0; // .00006
+    public static final double kfFF      = 0.0007;
+    public static final double kfIZone   = 0;
+    public static final double kfMin     = -1;
+    public static final double kfMax     = 1;
   }
 
   public static final class ControllerConstants {
@@ -100,7 +119,7 @@ public final class Constants {
     public static final double kShooterWheelSpeed   = 3900;
     public static final double kShooterEjectSpeed   = 500;  //TODO
     public static final double kShooterHighClose    = 1000; //TODO
-    public static final double kShooterHighFar      = 2000; //TODO
+    public static final double kShooterHighFar      = 4000; //TODO
     public static final double kShooterLowClose     = 1000; //TODO
     public static final double kShooterLowFar       = 2000; //TODO
     public static final double kShooterReverseSpeed = -500; //TODO

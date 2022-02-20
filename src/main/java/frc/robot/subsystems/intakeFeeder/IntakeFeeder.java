@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.IntakeFeederConstants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
@@ -55,45 +56,54 @@ public class IntakeFeeder extends SubsystemBase {
         this.hub3 = hub3;
 
         // intake
-        m_intakeMotor = new CANSparkMax(DriveConstants.kIntakeMotorPort, MotorType.kBrushless);
+        m_intakeMotor = new CANSparkMax(IntakeFeederConstants.kIntakeMotorPort, MotorType.kBrushless);
         m_intakeMotor.setIdleMode(IdleMode.kBrake);
+        m_intakeMotor.setInverted(true);
 
         intakePIDCOntroller = m_intakeMotor.getPIDController();
-        intakePIDCOntroller.setP(DriveConstants.kP);
-        intakePIDCOntroller.setI(DriveConstants.kI);
-        intakePIDCOntroller.setD(DriveConstants.kD);
-        intakePIDCOntroller.setFF(DriveConstants.kFF);
-        intakePIDCOntroller.setIZone(DriveConstants.kIZone);
-        intakePIDCOntroller.setOutputRange(DriveConstants.kMin, DriveConstants.kMax);
+        intakePIDCOntroller.setP(IntakeFeederConstants.kiP);
+        intakePIDCOntroller.setI(IntakeFeederConstants.kiI);
+        intakePIDCOntroller.setD(IntakeFeederConstants.kiD);
+        intakePIDCOntroller.setFF(IntakeFeederConstants.kiFF);
+        intakePIDCOntroller.setIZone(IntakeFeederConstants.kiIZone);
+        intakePIDCOntroller.setOutputRange(IntakeFeederConstants.kiMin, IntakeFeederConstants.kiMax);
 
         
         // m_intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, DriveConstants.kIntakeSolenoidPort);
         m_intakeSolenoid = new DoubleSolenoid(hub3.getModuleNumber(), 
         PneumaticsModuleType.REVPH,
-        DriveConstants.kIntakeSolenoidPortForward, 
-        DriveConstants.kIntakeSolenoidPortReverse);
+        IntakeFeederConstants.kIntakeSolenoidPortForward, 
+        IntakeFeederConstants.kIntakeSolenoidPortReverse);
         m_intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
-        isIntakeDown = m_intakeSolenoid.get().equals(DoubleSolenoid.Value.kForward); // intake starts up
-        
+        isIntakeDown = m_intakeSolenoid.get().equals(DoubleSolenoid.Value.kReverse); // intake starts up
+
         intakeMotorSpeed = .8; // set proper motor speed later
         direction = 1;
 
         // feeder
-        m_feederMotor = new CANSparkMax(DriveConstants.kFeederMotorPort, MotorType.kBrushless);
+        m_feederMotor = new CANSparkMax(IntakeFeederConstants.kFeederMotorPort, MotorType.kBrushless);
         m_feederMotor.setIdleMode(IdleMode.kBrake);
+        m_feederMotor.setInverted(true);
         feederMotorSpeed = .8; // set proper motor speed later
 
         feederPIDController = m_feederMotor.getPIDController();
-        feederPIDController.setP(DriveConstants.kP);
-        feederPIDController.setI(DriveConstants.kI);
-        feederPIDController.setD(DriveConstants.kD);
-        feederPIDController.setFF(DriveConstants.kFF);
-        feederPIDController.setIZone(DriveConstants.kIZone);
-        feederPIDController.setOutputRange(DriveConstants.kMin, DriveConstants.kMax);
+        feederPIDController.setP(IntakeFeederConstants.kfP);
+        feederPIDController.setI(IntakeFeederConstants.kfI);
+        feederPIDController.setD(IntakeFeederConstants.kfD);
+        feederPIDController.setFF(IntakeFeederConstants.kfFF);
+        feederPIDController.setIZone(IntakeFeederConstants.kfIZone);
+        feederPIDController.setOutputRange(IntakeFeederConstants.kfMin, IntakeFeederConstants.kfMax);
 
-        maxVelocity = 5600;
+        maxVelocity = 1500; //5600
         
     }
+
+    // @Override
+    // public void periodic(){
+    //     if(m_intakeSolenoid.get().equals(DoubleSolenoid.Value.kReverse)){
+    //         stopIntake();
+    //     }
+    // }
 
     // Intake
 
@@ -115,6 +125,11 @@ public class IntakeFeeder extends SubsystemBase {
         isIntakeDown = false;
     }
 
+    public void off(){
+        stopIntake();
+        stopFeeder();
+    }
+
     /**
      * toggles intake position
      */
@@ -132,7 +147,7 @@ public class IntakeFeeder extends SubsystemBase {
      */
     public void startIntake() {
         // m_intakeMotor.set(intakeMotorSpeed);
-        intakePIDCOntroller.setReference(maxVelocity * intakeMotorSpeed, CANSparkMax.ControlType.kVelocity);
+        intakePIDCOntroller.setReference(maxVelocity * intakeMotorSpeed * direction, CANSparkMax.ControlType.kVelocity);
         
     }
 
@@ -140,8 +155,8 @@ public class IntakeFeeder extends SubsystemBase {
      * stop intake motor
      */
     public void stopIntake() {
-        // m_intakeMotor.set(0);
-        intakePIDCOntroller.setReference(0, CANSparkMax.ControlType.kVelocity);
+        m_intakeMotor.set(0);
+        // intakePIDCOntroller.setReference(0, CANSparkMax.ControlType.kVelocity);
     }
 
     // Feeder
@@ -165,15 +180,15 @@ public class IntakeFeeder extends SubsystemBase {
      */
     public void startFeeder() {
         // m_feederMotor.set(feederMotorSpeed);
-        feederPIDController.setReference(maxVelocity * feederMotorSpeed, CANSparkMax.ControlType.kVelocity);
+        feederPIDController.setReference(maxVelocity * feederMotorSpeed * direction, CANSparkMax.ControlType.kVelocity);
     }
 
     /**
      * stops feeder motor
      */
     public void stopFeeder() {
-        // m_feederMotor.set(0);
-        feederPIDController.setReference(0, CANSparkMax.ControlType.kVelocity);
+        m_feederMotor.set(0);
+        // feederPIDController.setReference(0, CANSparkMax.ControlType.kVelocity);
     }
 
     // General use

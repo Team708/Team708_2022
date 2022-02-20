@@ -21,7 +21,9 @@ public class StartIntake extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){
-        m_intakeFeeder.startIntake();
+        if(m_intakeFeeder.isIntakeDown()){
+            m_intakeFeeder.startIntake();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

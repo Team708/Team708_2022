@@ -4,16 +4,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 
 /**
- * Command to assume that the feeder is constantly running unless it is contacting a ball
+ * Command To Retrack the Intake
  */
-public class FeederAwaitBall extends CommandBase{
+public class RetractIntake extends CommandBase{
+    private IntakeFeeder m_if;
     
-    private IntakeFeeder m_intakeFeeder;
-
-    public FeederAwaitBall(IntakeFeeder m_intakeFeeder){
-        this.m_intakeFeeder = m_intakeFeeder;
+    public RetractIntake(IntakeFeeder m_if) {
+        this.m_if = m_if;
     }
-
     // Called just before this Command runs the first time
     @Override
     public void initialize(){
@@ -23,19 +21,17 @@ public class FeederAwaitBall extends CommandBase{
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){
-        m_intakeFeeder.startFeeder();
+      m_if.intakeUp();  
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
-    public boolean isFinished() {
-        return m_intakeFeeder.feederContactingBall();
+    public boolean isFinished(){
+        return true;
     }
 
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted){
-        m_intakeFeeder.stopFeeder();
     }
-
 }
