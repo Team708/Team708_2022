@@ -125,9 +125,9 @@ public final class Constants {
     public static final double kShooterEjectSpeed   = 500;  //TODO
     public static final double kShooterHighClose    = 1000; //TODO
     public static final double kShooterHighFar      = 4000; //TODO
-    public static final double kShooterLowClose     = 1000; //TODO
+    public static final double kShooterLowClose     = 2000; //TODO
     public static final double kShooterLowFar       = 2000; //TODO
-    public static final double kShooterReverseSpeed = -500; //TODO
+    public static final double kShooterReverseSpeed = -2000; //TODO
     public static final double kThreshold           = 0.95;
 
     //PID Values

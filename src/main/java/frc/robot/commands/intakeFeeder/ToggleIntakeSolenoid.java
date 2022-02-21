@@ -24,10 +24,8 @@ public class ToggleIntakeSolenoid extends CommandBase {
     @Override
     public void execute(){
         m_if.toggleIntakeState();
-        // if(!m_if.isIntakeDown()){
+        // if(m_if.isIntakeDown()){
         //     m_if.startIntake();
-        // }else{
-        //     m_if.stopIntake();
         // }
     }
 

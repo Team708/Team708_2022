@@ -11,6 +11,7 @@ public class StopFeeder extends CommandBase {
 
     public StopFeeder (IntakeFeeder m_intakeFeeder) {
         this.m_intakeFeeder = m_intakeFeeder;
+        addRequirements(m_intakeFeeder);
     }
 
     // Called just before this Command runs the first time

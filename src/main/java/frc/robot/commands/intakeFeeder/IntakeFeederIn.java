@@ -6,11 +6,12 @@ import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 /**
  * Command to run the feeder and intake in
  */
-public class IntakeFeederIn extends CommandBase {
+public class IntakeFeederIn extends CommandBase{
     private IntakeFeeder m_if;
 
     public IntakeFeederIn(IntakeFeeder m_if){
         this.m_if = m_if;
+        addRequirements(m_if);
     }
 
     @Override

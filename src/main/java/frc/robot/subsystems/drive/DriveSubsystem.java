@@ -98,6 +98,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     dropSolenoid.set(true);
 
+    m_leftPrimary.setSmartCurrentLimit(40);
+    m_leftSecondary.setSmartCurrentLimit(40);
+    m_rightPrimary.setSmartCurrentLimit(40);
+    m_rightSecondary.setSmartCurrentLimit(40);
+
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
