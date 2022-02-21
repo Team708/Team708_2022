@@ -66,7 +66,7 @@ public class TurnToTargetSetPoint extends CommandBase {
     @Override
     public void execute() {
 
-        moveToSetPoint = (goalDegrees * 10); //(Constants.DriveConstants.kCountsPerDegree));
+        moveToSetPoint = (goalDegrees * (Constants.DriveConstants.kCountsPerDegree));
         m_pidController.setReference(moveToSetPoint, CANSparkMax.ControlType.kSmartMotion);
     }
 

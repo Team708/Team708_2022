@@ -22,15 +22,18 @@ public class IntakeFeederIn extends CommandBase {
         m_if.directionIn();
         m_if.startIntake();
         // m_if.startFeeder();
+        m_if.reverseFeeder();
     }
 
     @Override
     public boolean isFinished(){
-        return true;
+        return m_if.twoBallsPresent();
     }
 
     @Override
     public void end(boolean interrupted){
+        m_if.stopIntake();
+        m_if.stopFeeder();
     }
     
 }

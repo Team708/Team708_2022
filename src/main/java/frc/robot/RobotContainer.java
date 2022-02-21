@@ -20,6 +20,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.TrajectoryConstants;
 import frc.robot.commands.auto.doNothingCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
+import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
@@ -46,18 +47,19 @@ public class RobotContainer {
         private final PneumaticHub hub3 = new PneumaticHub(3);
         private final Compressor compressor = new Compressor(hub2.getModuleNumber(), PneumaticsModuleType.REVPH);
 
-        //Sensors
-        private final DigitalInput dIOFeeder = new DigitalInput(4); //Change channel
-        private final DigitalInput dIOIntake = new DigitalInput(3); //Change channel
+        //Sensors - ON MXP
+        private final DigitalInput dIOFeeder = new DigitalInput(11); 
+        private final DigitalInput dIOIntake = new DigitalInput(10);
 
         // The robot's subsystems
         private final DriveSubsystem m_robotDrive = new DriveSubsystem(hub2);
         private final Shooter m_shooter = new Shooter(hub3);
+        private final Climber m_climber = new Climber(hub2, hub3);
 
         private final CANdleSystem m_candleSystem = new CANdleSystem();
         private final Limelight m_limelight = new Limelight(m_candleSystem, m_robotDrive);
 
-        private final IntakeFeeder m_intakeFeeder = new IntakeFeeder(dIOFeeder, dIOIntake, hub3);
+        private final IntakeFeeder m_intakeFeeder = new IntakeFeeder(dIOIntake, dIOFeeder, hub3);
 
         public static final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -66,7 +68,7 @@ public class RobotContainer {
          */
         public RobotContainer() {
                 // Configure the button bindings
-                OI.configureButtonBindings(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder);
+                OI.configureButtonBindings(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder, m_climber);
 
                 // Configure default commands
                 // Set the default drive command to split-stick arcade drive
@@ -117,5 +119,7 @@ public class RobotContainer {
         public void sendToDashboard() {
                 m_robotDrive.sendToDashboard();
                 m_shooter.sendToDashboard();
+                m_climber.sendToDashboard();
+                m_intakeFeeder.sendToDashboard();
         }
 }

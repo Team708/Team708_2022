@@ -22,7 +22,7 @@ public class ReverseShooter extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return false; //Test a few things
+        return true; //Test a few things
     }
 
     @Override

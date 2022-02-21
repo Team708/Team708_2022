@@ -104,8 +104,9 @@ public class Shooter extends SubsystemBase{
     }
 
     public void reverseShooter(){
-        targetSpeed = ShooterConstants.kShooterReverseSpeed;
-        shooterPIDController.setReference(ShooterConstants.kShooterReverseSpeed, CANSparkMax.ControlType.kVelocity);
+        // targetSpeed = ShooterConstants.kShooterReverseSpeed;
+        // shooterPIDController.setReference(ShooterConstants.kShooterReverseSpeed, CANSparkMax.ControlType.kVelocity);
+        shooterMotorPrimary.set(-.6);
     }
 
     /**

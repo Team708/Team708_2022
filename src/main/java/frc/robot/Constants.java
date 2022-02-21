@@ -49,22 +49,27 @@ public final class Constants {
     public static final double kMax     = 1;
 
     public static final double kTrackwidthMeters = 0.6604;
-    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
-        kTrackwidthMeters);
+    public static final DifferentialDriveKinematics kDriveKinematics = 
+                                new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final int kEncoderCPR                 = (1672 / 312) * 42; // 1024 //42
+    public static final int kEncoderCPR                 = 42;  //(1672 / 312) * 42; // 1024 //42
     public static final double kWheelDiameterMeters     = 0.102; // .15 //.015 //0.05
     public static final double kWheelRadiusFromCenter   = 0.03;
-    public static final double kEncoderDistancePerPulse =
+    public static final double kEncoderRatio            = .119;
+    //public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
-        (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
-
+        //(kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+    
+    public static final double kDriveEncoderDistancePerPulse = 
+        ((kEncoderCPR * kEncoderRatio) / Math.PI
+                           * (kWheelDiameterMeters) / 3.056814908981323);
+    
     public static final double kPDriveVel = 10;
 
     public static final boolean kLeftEncoderInverted  = true;
     public static final boolean kRightEncoderInverted = false;
 
-    public static final double kCountsPerDegree = .0005;
+    public static final double kCountsPerDegree = 10; //.0005;
   }
 
   public static final class IntakeFeederConstants {
@@ -76,7 +81,7 @@ public final class Constants {
     public static int kFeederMotorPort = 23; // fix port number
 
     //INTAKE
-    public static final double kiP       = 0.0003;
+    public static final double kiP       = 0.003;
     public static final double kiI       = 0.0;
     public static final double kiD       = 0.0; // .00006
     public static final double kiFF      = 0.0001;
@@ -85,7 +90,7 @@ public final class Constants {
     public static final double kiMax     = 1;
 
     //FEEDER
-    public static final double kfP       = 0.0005;
+    public static final double kfP       = 0.005;
     public static final double kfI       = 0.0;
     public static final double kfD       = 0.0; // .00006
     public static final double kfFF      = 0.0007;
@@ -116,7 +121,7 @@ public final class Constants {
     public static final int kShooterSolenoidUp = 3;
 
     //Speed constants
-    public static final double kShooterWheelSpeed   = 3900;
+    public static final double kShooterWheelSpeed   = 3500;
     public static final double kShooterEjectSpeed   = 500;  //TODO
     public static final double kShooterHighClose    = 1000; //TODO
     public static final double kShooterHighFar      = 4000; //TODO

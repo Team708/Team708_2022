@@ -54,7 +54,7 @@ private double timeSinceInitialized() {
     // Called once after isFinished returns true
     protected void end() {
         m_drive.stop();
-        m_drive.resetOdometry(new Pose2d());
+        // m_drive.resetOdometry(new Pose2d());
     }
 
     // Called when another command which requires one or more of the same

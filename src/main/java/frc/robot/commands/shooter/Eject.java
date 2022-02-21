@@ -1,6 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.shooter.Shooter;
 
 /**
@@ -23,12 +24,12 @@ public class Eject extends CommandBase{
 
     @Override
     public void execute(){
-        m_shooter.reverseShooter();
+        m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterEjectSpeed);
     }
 
     @Override
     public boolean isFinished(){
-        return false;
+        return true;
     }
 
     @Override

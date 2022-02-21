@@ -96,6 +96,8 @@ public class DriveSubsystem extends SubsystemBase {
         PneumaticsModuleType.REVPH, 
         DriveConstants.kDriveSolenoidPort);
 
+    dropSolenoid.set(true);
+
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
@@ -103,57 +105,16 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftMotors.setInverted(false); // true
 
     // Sets the distance per pulse for the encoders
-    m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    m_leftEncoder.setPositionConversionFactor(DriveConstants.kDriveEncoderDistancePerPulse);
     // m_leftEncoder.setInverted(DriveConstants.kLeftEncoderInverted);
 
-    m_rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    m_rightEncoder.setPositionConversionFactor(DriveConstants.kDriveEncoderDistancePerPulse);
     // m_rightEncoder.setInverted(DriveConstants.kRightEncoderInverted);
 
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
 
-    // m_leftPidController.setP(kP);
-    // m_leftPidController.setI(kI);
-    // m_leftPidController.setD(kD);
-    // m_leftPidController.setIZone(kIz);
-    // m_leftPidController.setFF(kFF);
-    // m_leftPidController.setOutputRange(kMinOutput, kMaxOutput);
-
-    // m_rightPidController.setP(kP);
-    // m_rightPidController.setI(kI);
-    // m_rightPidController.setD(kD);
-    // m_rightPidController.setIZone(kIz);
-    // m_rightPidController.setFF(kFF);
-    // m_rightPidController.setOutputRange(kMinOutput, kMaxOutput);
-
-    // int smartMotionSlot = 0;
-    // m_leftPidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
-    // m_leftPidController.setSmartMotionMinOutputVelocity(0, smartMotionSlot);
-    // m_leftPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
-    // m_leftPidController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
-
-    // m_rightPidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
-    // m_rightPidController.setSmartMotionMinOutputVelocity(0, smartMotionSlot);
-    // m_rightPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
-    // m_rightPidController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
-
-    // // display PID coefficients on SmartDashboard
-    // SmartDashboard.putNumber("P Gain", kP);
-    // SmartDashboard.putNumber("I Gain", kI);
-    // SmartDashboard.putNumber("D Gain", kD);
-    // SmartDashboard.putNumber("I Zone", kIz);
-    // SmartDashboard.putNumber("Feed Forward", kFF);
-    // SmartDashboard.putNumber("Max Output", kMaxOutput);
-    // SmartDashboard.putNumber("Min Output", kMinOutput);
-
-    // // display Smart Motion coefficients
-    // SmartDashboard.putNumber("Max Velocity", maxVel);
-    // SmartDashboard.putNumber("Min Velocity", 0);
-    // SmartDashboard.putNumber("Max Acceleration", maxAcc);
-    // SmartDashboard.putNumber("Allowed Closed Loop Error", allowedErr);
-    // SmartDashboard.putNumber("Set Position", 0);
-    // SmartDashboard.putNumber("Set Velocity", 0);
-
+    
   }
 
   

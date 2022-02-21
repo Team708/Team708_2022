@@ -15,7 +15,7 @@ public class AutoShoot extends SequentialCommandGroup{
             new ParallelCommandGroup(
                 new StartFeeder(m_intakeFeeder),
                 new StartIntake(m_intakeFeeder)
-            ).withTimeout(2.0)
+            ).withTimeout(9.0)
         );
     }
     

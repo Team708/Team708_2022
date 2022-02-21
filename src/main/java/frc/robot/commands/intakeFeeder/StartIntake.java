@@ -29,11 +29,13 @@ public class StartIntake extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return true;
+        return m_intakeFeeder.twoBallsPresent();
     }
 
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted){
+        m_intakeFeeder.stopFeeder();
+        m_intakeFeeder.stopIntake();
     }
 }
