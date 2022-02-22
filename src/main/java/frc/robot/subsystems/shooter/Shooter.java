@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase{
@@ -32,7 +31,6 @@ public class Shooter extends SubsystemBase{
     private DoubleSolenoid hoodSolenoid;
 
     public double targetSpeed = 0;
-    public double settargetSpeed = 0;
 
     /**
      * Shooter Constructor
@@ -64,8 +62,6 @@ public class Shooter extends SubsystemBase{
         hoodSolenoid = new DoubleSolenoid(hub3.getModuleNumber(), PneumaticsModuleType.REVPH, 
             ShooterConstants.kShooterSolenoidDown, ShooterConstants.kShooterSolenoidUp);
         hoodSolenoid.set(DoubleSolenoid.Value.kForward);
-
-        settargetSpeed = Constants.ShooterConstants.kShooterHighFar;
     }
 
     @Override
@@ -159,11 +155,8 @@ public class Shooter extends SubsystemBase{
     }
 
     public void sendToDashboard() {
-
-        settargetSpeed = SmartDashboard.getNumber("Set Shooter velocity", 0);
         SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());
         SmartDashboard.putBoolean("Shooter Target Speed Achieved", isShooterAtSpeed());
-        SmartDashboard.putNumber("Set Shooter velocity", settargetSpeed);
     }
 
 }

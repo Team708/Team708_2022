@@ -25,8 +25,7 @@ public class ShootLowGoalClose extends CommandBase{
 
     @Override
     public void execute(){
-        if (m_shooter.settargetSpeed == 0) m_shooter.settargetSpeed = Constants.ShooterConstants.kShooterLowClose ;
-        m_shooter.shootAtVelocity(m_shooter.settargetSpeed);
+        m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterLowClose);
     }
 
     @Override
