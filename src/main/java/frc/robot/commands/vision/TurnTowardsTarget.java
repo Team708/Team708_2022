@@ -35,7 +35,6 @@ public class TurnTowardsTarget extends CommandBase{
 
     @Override
     public void execute(){
-        System.out.println(m_limeLight.getX());
         m_driveSubsystem.rotateWithEncoders(-targetPosition);
     }
 
