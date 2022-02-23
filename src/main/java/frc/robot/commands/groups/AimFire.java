@@ -24,7 +24,7 @@ public class AimFire extends SequentialCommandGroup{
         m_if.directionIn();
         addCommands(
             new ParallelCommandGroup(
-                // new TurnTowardsTarget(m_limeLight, m_driveSubsystem),
+                new TurnTowardsTarget(m_limeLight, m_driveSubsystem), //"Doesn't update enough??"
                 new HoodUp(m_shooter),
                 new ShootHighGoalFar(m_shooter),
                 new FeederReverse(m_if)

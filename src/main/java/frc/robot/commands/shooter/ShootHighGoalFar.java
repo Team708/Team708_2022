@@ -24,7 +24,9 @@ public class ShootHighGoalFar extends CommandBase{
 
     @Override
     public void execute(){
-        m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterHighFar);
+        if (m_shooter.settargetSpeed == 0) m_shooter.settargetSpeed = Constants.ShooterConstants.kShooterHighFar ;
+        m_shooter.shootAtVelocity(m_shooter.settargetSpeed);
+        // m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterHighFar);
     }
 
     @Override
