@@ -6,23 +6,25 @@ import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 /**
  * Command to start the feeder
  */
-public class ShootFeeder extends CommandBase {
+public class ShootBall extends CommandBase {
     private IntakeFeeder m_intakeFeeder;
     
-    public ShootFeeder(IntakeFeeder m_intakeFeeder) {
+    public ShootBall(IntakeFeeder m_intakeFeeder) {
         this.m_intakeFeeder = m_intakeFeeder;
+
         addRequirements(m_intakeFeeder);
     }
 
     // Called just before this Command runs the first time
     @Override
     public void initialize(){
+        m_intakeFeeder.feederForward();
+        m_intakeFeeder.intakeForward();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){
-        m_intakeFeeder.feederForward();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,5 +37,6 @@ public class ShootFeeder extends CommandBase {
     @Override
     public void end(boolean interrupted){
         m_intakeFeeder.stopFeeder();
+        m_intakeFeeder.stopIntake();
     }
 }

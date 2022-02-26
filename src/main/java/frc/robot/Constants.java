@@ -26,7 +26,10 @@ import java.util.List;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final class DriveConstants {
+
+
+  public static final class
+                       DriveConstants {
     public static final int kLeftMotor1Port   = 12;
     public static final int kLeftMotor2Port   = 11;
     public static final int kRightMotor1Port  = 14;
@@ -40,10 +43,10 @@ public final class Constants {
     //ALSO CLIMBER: 4 - in, 5 - out, 6 - climber pin (single), 7 - break (single)
 
     //PID Values
-    public static final double kP       = 0.0005;
+    public static final double kP       = 0.5; //.0005
     public static final double kI       = 0.0000001;
     public static final double kD       = 0.0; // .00006
-    public static final double kFF      = 0.0002;
+    public static final double kFF      = 0.7; //.0002
     public static final double kIZone   = 0;
     public static final double kMin     = -1;
     public static final double kMax     = 1;
@@ -54,22 +57,23 @@ public final class Constants {
 
     public static final int kEncoderCPR                 = 42;  //(1672 / 312) * 42; // 1024 //42
     public static final double kWheelDiameterMeters     = 0.102; // .15 //.015 //0.05
-    public static final double kWheelRadiusFromCenter   = 0.03;
-    public static final double kEncoderRatio            = .119;
+    public static final double kWheelRadiusFromCenter   = 0.52;
+    public static final double kEncoderRatio            =  .1285;  // .119;  //drive train multiplier
     //public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         //(kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
     
     public static final double kDriveEncoderDistancePerPulse = 
         ((kEncoderCPR * kEncoderRatio) / Math.PI
-                           * (kWheelDiameterMeters) / 3.056814908981323);
+                            * (kWheelDiameterMeters) / 3.056814908981323);
+                            //  * (kWheelDiameterMeters) / 2.6000);
     
     public static final double kPDriveVel = 10;
 
     public static final boolean kLeftEncoderInverted  = true;
     public static final boolean kRightEncoderInverted = false;
 
-    public static final double kCountsPerDegree = 10; //.0005;
+    public static final double kCountsPerDegree = .0075;  //vision rotaion multiplier
   }
 
   public static final class IntakeFeederConstants {

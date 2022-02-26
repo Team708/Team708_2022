@@ -109,6 +109,36 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightMotors.setInverted(true); // false - true
     m_leftMotors.setInverted(false); // true
 
+    m_leftPidController.setP(Constants.DriveConstants.kP); 
+    m_rightPidController.setP(Constants.DriveConstants.kP); 
+    
+    m_leftPidController.setI(Constants.DriveConstants.kI);
+    m_rightPidController.setI(Constants.DriveConstants.kI);
+   
+    m_leftPidController.setD(Constants.DriveConstants.kD);
+    m_rightPidController.setD(Constants.DriveConstants.kD);
+    
+    m_leftPidController.setIZone(Constants.DriveConstants.kIZone); 
+    m_rightPidController.setIZone(Constants.DriveConstants.kIZone); 
+    
+    m_leftPidController.setFF(Constants.DriveConstants.kFF); 
+    m_rightPidController.setFF(Constants.DriveConstants.kFF); 
+    
+    m_leftPidController.setOutputRange(-1, 1);  
+    m_rightPidController.setOutputRange(-1, 1);  
+
+    m_leftPidController.setSmartMotionMaxVelocity(5700, 0);
+    m_rightPidController.setSmartMotionMaxVelocity(5700, 0);
+
+    m_leftPidController.setSmartMotionMinOutputVelocity(0, 0);
+    m_rightPidController.setSmartMotionMinOutputVelocity(0, 0);
+
+    m_leftPidController.setSmartMotionMaxAccel(5700,0);
+    m_rightPidController.setSmartMotionMaxAccel(5700,0);
+
+    m_leftPidController.setSmartMotionAllowedClosedLoopError(0.0, 0);
+    m_rightPidController.setSmartMotionAllowedClosedLoopError(0.0, 0);
+
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(DriveConstants.kDriveEncoderDistancePerPulse);
     // m_leftEncoder.setInverted(DriveConstants.kLeftEncoderInverted);
@@ -118,8 +148,6 @@ public class DriveSubsystem extends SubsystemBase {
 
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getAngle());
-
-    
   }
 
   
@@ -181,8 +209,10 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void rotateWithEncoders(double counts){
-    m_leftPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
-    m_rightPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
+    // m_leftPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
+    // m_rightPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
+    m_leftPidController.setReference(counts, ControlType.kSmartMotion);
+    m_rightPidController.setReference(counts, ControlType.kSmartMotion);
   }
 
   /**
@@ -359,10 +389,6 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
     SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
 
-    SmartDashboard.putNumber("Wheel Rotation Left", -m_leftEncoder.getPosition());
-    SmartDashboard.putNumber("Wheel Rotation Right", m_rightEncoder.getPosition());
-    SmartDashboard.putNumber("Raw Angle",            m_gyro.getRawAngle());
-  
     SmartDashboard.putNumber("Roll",          m_gyro.getRoll().getDegrees());
     SmartDashboard.putNumber("Pitch",         m_gyro.getPitch().getDegrees());
 

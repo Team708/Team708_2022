@@ -2,8 +2,10 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.drivetrain.TurnToTargetDegrees;
+import frc.robot.commands.intakeFeeder.FeederReverse;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
 import frc.robot.commands.intakeFeeder.IntakeFeederOut;
+import frc.robot.commands.intakeFeeder.ShootFeeder;
 import frc.robot.commands.intakeFeeder.StartIntake;
 import frc.robot.commands.intakeFeeder.StopFeeder;
 import frc.robot.commands.intakeFeeder.StopIntake;
@@ -14,8 +16,9 @@ import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.shooter.ToggleHood;
 import frc.robot.commands.shooter.ShootLowGoalClose;
 import frc.robot.commands.shooter.StopShooter;
-import frc.robot.commands.vision.TurnTowardsTarget;
 import frc.robot.commands.drivetrain.TurnToTargetEncoder;
+import frc.robot.commands.drivetrain.TurnToTargetSetPoint;
+import frc.robot.commands.drivetrain.TurnTowardsTarget;
 import frc.robot.commands.groups.AimFire;
 import frc.robot.commands.groups.AimShootLow;
 import frc.robot.commands.groups.AutoShoot;
@@ -105,9 +108,14 @@ public class OI {
 		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
 
 		new JoystickButton(driverGamepad, Button.kStart.value)
-				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
+				.whenPressed(new TurnToTargetSetPoint(m_robotDrive, m_limeLight)
+				// .whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
+				// .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
 				.withTimeout(3.0));
 
+		new JoystickButton(driverGamepad, Button.kBack.value)
+				.whenPressed(() -> m_robotDrive.resetEncoders());
+				
 				
 		//OPERATOR//
 				
@@ -135,31 +143,15 @@ public class OI {
 		new JoystickButton(operatorGamepad, Button.kRightStick.value)
 		        .whenPressed(m_climber::retractClimbingArm);	
 
-// 		// new JoystickButton(driverGamepad, Button.kY.value)
-// 		// 		.whenPressed(() -> m_shooter.shoot())
-// 		// 		.whenReleased(() -> m_shooter.stopShooter());
+		new JoystickButton(operatorGamepad, Button.kBack.value)
+				.whenPressed(new ShootFeeder(m_intakeFeeder));
 
-// 		new JoystickButton(operatorGamepad, Button.kY.value)
-// 				.whileHeld(() -> m_shooter.fullSpeed())
-// 				.whenReleased(() -> m_shooter.stopShooter());
-
-// 		new JoystickButton(driverGamepad, Button.kX.value)
-// 				.whenPressed(new TurnToTargetDegrees(m_robotDrive, m_limeLight));
 
 // 		new JoystickButton(operatorGamepad, Button.kA.value)
 // 					.whenPressed(new ToggleIntakeFeeder(m_intakeFeeder));
 
-// 		new JoystickButton(driverGamepad, Button.kBack.value)
-// 				.whenPressed(() -> m_robotDrive.resetEncoders());
-
-// 		new JoystickButton(driverGamepad, Button.kStart.value)
-// 				.whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
-
-
-// //				.whenPressed(new TurnToTargetEncoder(.6, m_robotDrive, m_limeLight));
-// 		new JoystickButton(driverGamepad, Button.kB.value)
-// 				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
-// 				.withTimeout(1.0)
-// 		);
+// 		new JoystickButton(operatorGamepad, Button.kY.value)
+// 				.whileHeld(() -> m_shooter.fullSpeed())
+// 				.whenReleased(() -> m_shooter.stopShooter());
 	}
 }

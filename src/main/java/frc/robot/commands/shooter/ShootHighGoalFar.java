@@ -1,5 +1,7 @@
 package frc.robot.commands.shooter;
 
+import java.lang.module.ModuleDescriptor.Requires;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.shooter.Shooter;
@@ -16,6 +18,8 @@ public class ShootHighGoalFar extends CommandBase{
 
     public ShootHighGoalFar(Shooter m_shooter){
         this.m_shooter = m_shooter;
+
+        addRequirements(m_shooter);
     }
 
     @Override
@@ -24,6 +28,7 @@ public class ShootHighGoalFar extends CommandBase{
 
     @Override
     public void execute(){
+        m_shooter.shooterHoodUp();
         if (m_shooter.settargetSpeed == 0) m_shooter.settargetSpeed = Constants.ShooterConstants.kShooterHighFar ;
         m_shooter.shootAtVelocity(m_shooter.settargetSpeed);
         // m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterHighFar);
@@ -31,7 +36,7 @@ public class ShootHighGoalFar extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return false;
+        return true;
     }
 
     @Override

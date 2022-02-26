@@ -42,9 +42,9 @@ public class DriveCurvatureToEncoder extends CommandBase {
     public boolean isFinished() {
     	if (targetDistance >= 0) {
     		// return (m_drive.getAverageEncoderDistance() >= targetDistance);
-    		return (m_drive.getRightEncoder().getPosition() >= targetDistance);
+    		return (m_drive.getLeftEncoder().getPosition() >= targetDistance);
     	} else {
-    		return (m_drive.getRightEncoder().getPosition() <= targetDistance);
+    		return (m_drive.getLeftEncoder().getPosition() <= targetDistance);
     	}
     }
 

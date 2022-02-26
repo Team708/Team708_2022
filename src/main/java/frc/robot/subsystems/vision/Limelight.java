@@ -166,11 +166,12 @@ public class Limelight extends SubsystemBase{
     public double turnToTarget(){
         double horiz = getX();
         double distance = getDistance();
-        System.out.println(horiz);
-        System.out.println(distance);
-        double thetaRadians = Math.atan2(horiz, distance); //MORE REASONABLE THEN (distance, horiz)
+        // System.out.println(horiz);
+        // System.out.println(distance);
+        // double thetaRadians = Math.atan2(horiz, distance); //MORE REASONABLE THEN (distance, horiz)
         // return thetaRadians * (180 / Math.PI);
-        return Math.toDegrees(thetaRadians);
+        // return Math.toDegrees(horiz);
+        return (horiz);
     }
     @Override
     public void periodic() {

@@ -4,34 +4,37 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 
 /**
- * Command To Lower the Intake
+ * Command to run the feeder and intake in
  */
-public class DeployIntake extends CommandBase{
+public class IntakeFeederTillBall extends CommandBase{
     private IntakeFeeder m_if;
     
-    public DeployIntake(IntakeFeeder m_if) {
+    public IntakeFeederTillBall(IntakeFeeder m_if){
         this.m_if = m_if;
+        
+        addRequirements(m_if);
     }
-    // Called just before this Command runs the first time
+
     @Override
     public void initialize(){
-        
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){
-      m_if.intakeDown(); 
+        m_if.directionIn();
+        m_if.startIntake();
+        m_if.reverseFeeder();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished(){
-        return true;
+        return m_if.oneBallPresent();
     }
 
-    // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted){
+        m_if.stopIntake();
+        m_if.stopFeeder();
     }
+    
 }

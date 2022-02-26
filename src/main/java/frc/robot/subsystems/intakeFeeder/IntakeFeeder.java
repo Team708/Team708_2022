@@ -265,11 +265,18 @@ public class IntakeFeeder extends SubsystemBase {
      * returns true if both intake and feeder sensors detect balls
      */
     public boolean twoBallsPresent() {
-        if (intakeContactingBall() && feederContactingBall()) {
+        if (intakeContactingBall() && feederContactingBall())
             return true;
-        } else {
+        else
             return false;
-        }
+        }    
+        
+    public boolean oneBallPresent() {
+            if (intakeContactingBall() || feederContactingBall()) {
+                return true;
+            } else {
+                return false;
+            }
     }
 
     /**

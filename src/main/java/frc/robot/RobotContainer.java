@@ -19,7 +19,9 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.TrajectoryConstants;
 import frc.robot.commands.auto.doNothingCommand;
+import frc.robot.commands.auto.oneBallAuto;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
+import frc.robot.commands.drivetrain.TurnToTargetSetPoint;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
@@ -80,9 +82,11 @@ public class RobotContainer {
                                                         -OI.getDriverLeftY(), OI.getDriverRightX()),m_robotDrive));
 
                         m_chooser.setDefaultOption("do nothing", new doNothingCommand());
-                        m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.4, 0, false, 3, m_robotDrive));
-                        
+                        m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.4, 0, false, 1, m_robotDrive));
+                        m_chooser.addOption("Turn To Target", new  TurnToTargetSetPoint(m_robotDrive, m_limelight).withTimeout(3));
+
                         m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
+                        m_chooser.addOption("One Ball Auto", new oneBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                         m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
                 SmartDashboard.putData("Auto Chooser", m_chooser);
         }
