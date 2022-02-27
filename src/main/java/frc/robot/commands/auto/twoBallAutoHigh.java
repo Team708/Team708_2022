@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
-import frc.robot.commands.groups.AimFire;
-import frc.robot.commands.groups.AimShootLow;
+import frc.robot.commands.groups.AimShootTarmac;
+import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.intakeFeeder.DeployIntake;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
 import frc.robot.commands.intakeFeeder.IntakeFeederTillBall;
@@ -21,6 +21,10 @@ public class twoBallAutoHigh extends SequentialCommandGroup{
 
   public twoBallAutoHigh(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
+
+//    shoots two balls into high goal from Tarmac -- close quadrant
+
+
     addCommands(
          // new WaitCommand(2), 
             new DeployIntake(m_if),
@@ -31,7 +35,7 @@ public class twoBallAutoHigh extends SequentialCommandGroup{
             ),
 
             new DriveCurvatureToEncoder(-.2, -1.0, true, -.05, m_robotDrive),
-            new AimFire(m_Limelight, m_robotDrive, m_shooter, m_if)
+            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  
 }

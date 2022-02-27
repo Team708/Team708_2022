@@ -25,26 +25,24 @@ public class ShootHighGoalFar extends CommandBase{
 
     @Override
     public void initialize(){
+        m_shooter.shooterHoodDown();
+
+        if (m_shooter.settargetSpeed == 0) m_shooter.settargetSpeed = Constants.ShooterConstants.kShooterHighFar ;
+        m_shooter.shootAtVelocity(m_shooter.settargetSpeed);
     }
 
     @Override
     public void execute(){
-        m_shooter.shooterHoodUp();
-        if (m_shooter.settargetSpeed == 0) m_shooter.settargetSpeed = Constants.ShooterConstants.kShooterHighFar ;
-        m_shooter.shootAtVelocity(m_shooter.settargetSpeed);
-        // m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterHighFar);
-        SmartDashboard.putNumber("Shooter velocity", m_shooter.shooterEncoder.getVelocity());
-        SmartDashboard.putBoolean("Shooter Target Speed Achieved", m_shooter.isShooterAtSpeed());
     }
 
     @Override
     public boolean isFinished(){
-        return m_shooter.isShooterAtSpeed();  //true;
-
+        return m_shooter.isShooterAtSpeed();
     }
 
     @Override
     public void end(boolean interrupted){
+        m_shooter.stopShooter();
     }
 
 }

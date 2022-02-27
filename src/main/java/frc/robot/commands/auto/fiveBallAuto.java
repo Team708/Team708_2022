@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
-import frc.robot.commands.groups.AimFire;
-import frc.robot.commands.groups.AimShootLow;
+import frc.robot.commands.groups.AimShootTarmac;
+import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.intakeFeeder.DeployIntake;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
 import frc.robot.commands.intakeFeeder.IntakeFeederTillBall;
@@ -31,7 +31,7 @@ public class fiveBallAuto extends SequentialCommandGroup{
             ),
 
             new DriveCurvatureToEncoder(-.4, -.15, false, -2.3, m_robotDrive),
-            new AimShootLow(m_Limelight, m_robotDrive, m_shooter, m_if),
+            new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new ParallelCommandGroup(
               new IntakeFeederTillBall(m_if),
@@ -39,7 +39,7 @@ public class fiveBallAuto extends SequentialCommandGroup{
             ),
             
             new DriveCurvatureToEncoder(.5, 1.0, true, .07, m_robotDrive),
-            new AimFire(m_Limelight, m_robotDrive, m_shooter, m_if),
+            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new DriveCurvatureToEncoder(.5, 1.0, true, .8, m_robotDrive),
             new DriveCurvatureToEncoder(.8, -.2, false, 9, m_robotDrive)

@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
-import frc.robot.commands.groups.AimFire;
-import frc.robot.commands.groups.AimShootLow;
+import frc.robot.commands.groups.AimShootTarmac;
+import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.intakeFeeder.DeployIntake;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
 import frc.robot.commands.intakeFeeder.IntakeFeederTillBall;
@@ -21,8 +21,9 @@ public class twoBallAutoFar extends SequentialCommandGroup{
 
   public twoBallAutoFar(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
+
+    // shoots 2 balls from far quadrant  -- high goal from tarmac
     addCommands(
-         // new WaitCommand(2), 
             new DeployIntake(m_if),
             
             new ParallelCommandGroup(
@@ -30,10 +31,8 @@ public class twoBallAutoFar extends SequentialCommandGroup{
               new DriveCurvatureToEncoder(.3, -.5, false, 1.0, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.3, .25, false, -2.0, m_robotDrive),
-            // new DriveCurvatureToEncoder(-.2, -.3, true, -.5, m_robotDrive),
-            new AimShootLow(m_Limelight, m_robotDrive, m_shooter, m_if)
-            // new AimFire(m_Limelight, m_robotDrive, m_shooter, m_if)
+            new DriveCurvatureToEncoder(-.2, -.3, true, -.5, m_robotDrive),
+            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  
 }

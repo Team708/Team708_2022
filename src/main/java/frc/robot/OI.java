@@ -14,13 +14,16 @@ import frc.robot.commands.intakeFeeder.ToggleIntakeSolenoid;
 import frc.robot.commands.shooter.Eject;
 import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.shooter.ToggleHood;
-import frc.robot.commands.shooter.ShootLowGoalClose;
+import frc.robot.commands.shooter.ShootFeederStation;
+import frc.robot.commands.shooter.ShootSafteyZone;
 import frc.robot.commands.shooter.StopShooter;
 import frc.robot.commands.drivetrain.TurnToTargetEncoder;
 import frc.robot.commands.drivetrain.TurnToTargetSetPoint;
 import frc.robot.commands.drivetrain.TurnTowardsTarget;
-import frc.robot.commands.groups.AimFire;
-import frc.robot.commands.groups.AimShootLow;
+import frc.robot.commands.groups.AimShootTarmac;
+import frc.robot.commands.groups.AimShootBumper;
+import frc.robot.commands.groups.AimShootFeeder;
+import frc.robot.commands.groups.AimShootSafetyZone;
 import frc.robot.commands.groups.AutoShoot;
 import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.subsystems.climber.Climber;
@@ -37,8 +40,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class OI {
 
 	// Gamepads
-	public final static XboxController driverGamepad = new XboxController(ControllerConstants.kDriverControllerPort); // Driver
+	public final static XboxController driverGamepad   = new XboxController(ControllerConstants.kDriverControllerPort); // Driver
 	public final static XboxController operatorGamepad = new XboxController(ControllerConstants.kOperatorControllerPort);
+	public final static XboxController climberGamepad  = new XboxController(ControllerConstants.kClimberControllerPort);
 
 	/*
 	 * Driver JoystickButton
@@ -70,6 +74,10 @@ public class OI {
 		// return deadBand(driverGamepad.getLeftY(),
 		// ControllerConstants.kDriverDeadBandRightY);
 		return deadBand(driverGamepad.getRightY(), ControllerConstants.kDriverDeadBandRightY);
+	}
+
+	public static double getClimberLeftY() {
+		return deadBand(climberGamepad.getLeftY(), .5);
 	}
 
 	public static void configureButtonBindings(DriveSubsystem m_robotDrive, 
@@ -119,39 +127,53 @@ public class OI {
 				
 		//OPERATOR//
 				
+		
+		new JoystickButton(operatorGamepad, Button.kLeftBumper.value)
+				.whenPressed(new AimShootTarmac(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
+		
+		new JoystickButton(operatorGamepad, Button.kRightBumper.value)
+				.whenPressed(new AimShootBumper(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
+		
 		new JoystickButton(operatorGamepad, Button.kB.value)
 		        .whenPressed(new StopIntake(m_intakeFeeder))
 				.whenPressed(new StopFeeder(m_intakeFeeder));
 
-		new JoystickButton(operatorGamepad, Button.kLeftBumper.value)
-				.whenPressed(new AimFire(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
-
-		new JoystickButton(operatorGamepad, Button.kRightBumper.value)
-				.whenPressed(new AimShootLow(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
+		new JoystickButton(operatorGamepad, Button.kA.value)
+				.whenPressed(new ReverseShooter(m_shooter))
+				.whenReleased(new StopShooter(m_shooter));
 
 		new JoystickButton(operatorGamepad, Button.kX.value)
 		        .whenPressed(new Eject(m_shooter))
 				.whenReleased(new StopShooter(m_shooter));
 
-		new JoystickButton(operatorGamepad, Button.kA.value)
-		        .whenPressed(new ReverseShooter(m_shooter))
-				.whenReleased(new StopShooter(m_shooter));	
 				
 		new JoystickButton(operatorGamepad, Button.kLeftStick.value)
-		        .whenPressed(m_climber::extendClimbingArm);	
-
+				.whenPressed(new AimShootFeeder(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
+				
+				
 		new JoystickButton(operatorGamepad, Button.kRightStick.value)
-		        .whenPressed(m_climber::retractClimbingArm);	
+		        .whenPressed(new AimShootSafetyZone(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));	
+				
 
-		new JoystickButton(operatorGamepad, Button.kBack.value)
-				.whileHeld(new FeederReverse(m_intakeFeeder));
+		//Climber//
 
+		new JoystickButton(climberGamepad, Button.kBack.value)
+				.whenPressed(m_climber::activateClimbingArm);
 
-// 		new JoystickButton(operatorGamepad, Button.kA.value)
-// 					.whenPressed(new ToggleIntakeFeeder(m_intakeFeeder));
+		new JoystickButton(climberGamepad, Button.kStart.value)
+				.whenPressed(m_climber::stopCimber);
 
-// 		new JoystickButton(operatorGamepad, Button.kY.value)
-// 				.whileHeld(() -> m_shooter.fullSpeed())
-// 				.whenReleased(() -> m_shooter.stopShooter());
+		new JoystickButton(climberGamepad, Button.kY.value)
+				.whenPressed(m_climber::startClimber);
+
+		new JoystickButton(climberGamepad, Button.kB.value)
+				.whenPressed(m_climber::retractClimbingArm);	
+
+		new JoystickButton(climberGamepad, Button.kX.value)
+				.whenPressed(m_climber::extendClimbingArm);	
+
+		// new JoystickButton(climberGamepad, getClimberLeftY())
+		// 		.whenActive(new EngageClimberArm(m_robotDrive, m_climber));
+
 	}
 }

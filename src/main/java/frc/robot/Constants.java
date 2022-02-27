@@ -107,6 +107,7 @@ public final class Constants {
 
     public static final int kDriverControllerPort   = 0;
     public static final int kOperatorControllerPort = 1;
+    public static final int kClimberControllerPort  = 2;
 
     public static final double kDriverDeadBandLeftX  = 0.1;
     public static final double kDriverDeadBandRightX = 0.2;
@@ -125,18 +126,16 @@ public final class Constants {
     public static final int kShooterSolenoidUp = 3;
 
     //Speed constants
-    // public static final double kShooterWheelSpeed   = 3500;
-    public static final double kShooterEjectSpeed   = 2000; // 500;
-    // public static final double kShooterHighClose    = 1000; 
-    public static final double kShooterLowClose       = 1800;
+    public static final double kShooterEjectSpeed     = 2000; // 500;
+
+    public static final double kShooterLowClose       = 1800;  //hood up
     public static final double kShooterHighFar        = 3200;  //hood down
     public static final double kShooterStafetyZone    = 4000;  //hood down
-    public static final double kShooterFeederStation  = 3900;
+    public static final double kShooterFeederStation  = 3900;  //hood up
     
-    // public static final double kShooterLowFar       = 1800;
 
-    public static final double kShooterReverseSpeed = -4000; // -2000
-    public static final double kThreshold           = 0.95;
+    public static final double kShooterReverseSpeed   = -4000; // -2000
+    public static final double kThreshold             =  0.98; //0.95;
 
     //PID Values
     public static final double kP       = 0.00035;  //.0005

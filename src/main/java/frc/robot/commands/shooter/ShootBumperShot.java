@@ -10,34 +10,34 @@ import frc.robot.subsystems.shooter.Shooter;
  * 
  * Run with a .andThen(new StopShooterCommand())
  */
-public class ShootLowGoalClose extends CommandBase{
+
+public class ShootBumperShot extends CommandBase{
 
     Shooter m_shooter;
 
-    public ShootLowGoalClose(Shooter m_shooter){
+    public ShootBumperShot(Shooter m_shooter){
         this.m_shooter = m_shooter;
-
         addRequirements(m_shooter);
     }
 
     @Override
     public void initialize(){
         m_shooter.shooterHoodUp();
-
-    }
-
-    @Override
-    public void execute(){
         m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterLowClose);
     }
 
     @Override
+    public void execute(){
+    }
+
+    @Override
     public boolean isFinished(){
-        return m_shooter.isShooterAtSpeed();  //true;
+        return m_shooter.isShooterAtSpeed();
     }
 
     @Override
     public void end(boolean interrupted){
+        m_shooter.stopShooter();
     }
 
 }
