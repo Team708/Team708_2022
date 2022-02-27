@@ -91,10 +91,10 @@ public class Shooter extends SubsystemBase{
     /**
      * Sets the shooter up to speed and shoots using PID
      */
-    public void shoot() {
-        targetSpeed = ShooterConstants.kShooterWheelSpeed;
-        shooterPIDController.setReference(ShooterConstants.kShooterWheelSpeed, CANSparkMax.ControlType.kVelocity);
-    }
+    // public void shoot() {
+    //     targetSpeed = ShooterConstants.kShooterWheelSpeed;
+    //     shooterPIDController.setReference(ShooterConstants.kShooterWheelSpeed, CANSparkMax.ControlType.kVelocity);
+    // }
 
     public void shootAtVelocity(double velocity){
         targetSpeed = velocity;
@@ -102,7 +102,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void fullSpeed(){
-        targetSpeed = ShooterConstants.kShooterWheelSpeed;
+        // targetSpeed = ShooterConstants.kShooterWheelSpeed;
         shooterMotorPrimary.set(1.0);
         // System.out.println(shooterMotorPrimary.getBusVoltage());
     }
@@ -146,7 +146,7 @@ public class Shooter extends SubsystemBase{
     } 
 
     public void eject(){
-        targetSpeed = ShooterConstants.kShooterWheelSpeed;
+        // targetSpeed = ShooterConstants.kShooterWheelSpeed;
         shooterPIDController.setReference(ShooterConstants.kShooterEjectSpeed, CANSparkMax.ControlType.kVelocity);
     }
 

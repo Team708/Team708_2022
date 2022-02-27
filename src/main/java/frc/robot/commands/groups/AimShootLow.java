@@ -11,7 +11,9 @@ import frc.robot.commands.intakeFeeder.ShootIntake;
 import frc.robot.commands.intakeFeeder.StopFeeder;
 import frc.robot.commands.intakeFeeder.StopIntake;
 import frc.robot.commands.shooter.HoodDown;
+import frc.robot.commands.intakeFeeder.ShootBall;
 import frc.robot.commands.shooter.HoodUp;
+import frc.robot.commands.shooter.StopShooter;
 import frc.robot.commands.shooter.ShootHighGoalFar;
 import frc.robot.commands.shooter.ShootLowGoalClose;
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -29,22 +31,18 @@ public class AimShootLow extends SequentialCommandGroup{
         addCommands(
             new ParallelCommandGroup(
                 // new TurnTowardsTarget(m_limeLight, m_driveSubsystem),
-                new HoodDown(m_shooter),
-                // new ShootLowGoalClose(m_shooter),
-                // new FeederReverse(m_if)
-                //     .withTimeout(0.4)
-                //     .andThen(new StopFeeder(m_if)),
+                // new HoodDown(m_shooter),
+                new FeederReverse(m_if).withTimeout(0.4)
+                                        .andThen(new StopFeeder(m_if)),
+                new ShootLowGoalClose(m_shooter)
+            ),
+            
+            new ParallelCommandGroup(
+                new WaitCommand(1),
+                new ShootBall(m_if).withTimeout(2.0)
+                ),
 
-                new SequentialCommandGroup(
-                    new WaitCommand(1.5)//,
-                    // new ParallelCommandGroup(
-                    //     new ShootIntake(m_if),
-                    //     new ShootFeeder(m_if)
-                    // )
-                )
-            )
-            .withTimeout(4.0)
-            // .andThen(new StopFeeder(m_if), new StopIntake(m_if))
+            new StopShooter(m_shooter)
         );
     }
 

@@ -167,7 +167,7 @@ public class IntakeFeeder extends SubsystemBase {
     }
 
     public void reverseFeeder(){
-        m_feederMotor.set(-0.5); //Testing
+        m_feederMotor.set(-0.6); //Testing
     }
 
     // Feeder
@@ -197,6 +197,9 @@ public class IntakeFeeder extends SubsystemBase {
     public void feederForward(){
         m_feederMotor.set(1.0);
     }
+        public void feederShoot(){
+        m_feederMotor.set(.3);
+    }
 
     public void feederBackward(){
         m_feederMotor.set(-1.0);
@@ -204,6 +207,10 @@ public class IntakeFeeder extends SubsystemBase {
 
     public void intakeForward(){
         m_intakeMotor.set(1.0);
+    }    
+    
+    public void intakeShoot(){
+        m_intakeMotor.set(.3);
     }
 
     public void intakeBackward(){

@@ -25,7 +25,7 @@ public class ShootLowGoalFar extends CommandBase{
 
     @Override
     public void execute(){
-        m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterLowFar);
+        m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterHighFar);
     }
 
     @Override

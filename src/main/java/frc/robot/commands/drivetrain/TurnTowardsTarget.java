@@ -35,7 +35,7 @@ public class TurnTowardsTarget extends CommandBase{
 
     @Override
     public void execute(){
-        m_driveSubsystem.rotateWithEncoders(-targetPosition);
+        m_driveSubsystem.rotateWithEncoders(targetPosition);
     }
 
     @Override

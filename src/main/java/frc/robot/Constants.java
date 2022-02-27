@@ -85,10 +85,10 @@ public final class Constants {
     public static int kFeederMotorPort = 23; // fix port number
 
     //INTAKE
-    public static final double kiP       = 0.003;
+    public static final double kiP       = 0.053;
     public static final double kiI       = 0.0;
     public static final double kiD       = 0.0; // .00006
-    public static final double kiFF      = 0.0001;
+    public static final double kiFF      = 0.001;  //.0001
     public static final double kiIZone   = 0;
     public static final double kiMin     = -1;
     public static final double kiMax     = 1;
@@ -125,28 +125,32 @@ public final class Constants {
     public static final int kShooterSolenoidUp = 3;
 
     //Speed constants
-    public static final double kShooterWheelSpeed   = 3500;
-    public static final double kShooterEjectSpeed   = 500;  //TODO
-    public static final double kShooterHighClose    = 1000; //TODO
-    public static final double kShooterHighFar      = 4000; //TODO
-    public static final double kShooterLowClose     = 2000; //TODO
-    public static final double kShooterLowFar       = 2000; //TODO
-    public static final double kShooterReverseSpeed = -2000; //TODO
+    // public static final double kShooterWheelSpeed   = 3500;
+    public static final double kShooterEjectSpeed   = 2000; // 500;
+    // public static final double kShooterHighClose    = 1000; 
+    public static final double kShooterLowClose       = 1800;
+    public static final double kShooterHighFar        = 3200;  //hood down
+    public static final double kShooterStafetyZone    = 4000;  //hood down
+    public static final double kShooterFeederStation  = 3900;
+    
+    // public static final double kShooterLowFar       = 1800;
+
+    public static final double kShooterReverseSpeed = -4000; // -2000
     public static final double kThreshold           = 0.95;
 
     //PID Values
-    public static final double kP       = 0.0005;
-    public static final double kI       = 0.0000002;
-    public static final double kD       = 0.0; // .00006
-    public static final double kFF      = 0.0002;
+    public static final double kP       = 0.00035;  //.0005
+    public static final double kI       = 0.00000;
+    public static final double kD       = 0.002; // .0017 .00006
+    public static final double kFF      = 0.0002;  //.0002
     public static final double kIZone   = 0;
     public static final double kMin     = -1;
     public static final double kMax     = 1;
 
-    // public static final double kP       = 0.000;
-    // public static final double kI       = 0.000000;
-    // public static final double kD       = 0.0; // .00006
-    // public static final double kFF      = 0.000;
+    // public static final double kP       = 0.00035;  //.0005
+    // public static final double kI       = 0.00000;
+    // public static final double kD       = 0.0014; // .00006
+    // public static final double kFF      = 0.0002;
     // public static final double kIZone   = 0;
     // public static final double kMin     = -1;
     // public static final double kMax     = 1;

@@ -16,10 +16,13 @@ public class ShootLowGoalClose extends CommandBase{
 
     public ShootLowGoalClose(Shooter m_shooter){
         this.m_shooter = m_shooter;
+
+        addRequirements(m_shooter);
     }
 
     @Override
     public void initialize(){
+        m_shooter.shooterHoodUp();
 
     }
 
@@ -30,7 +33,7 @@ public class ShootLowGoalClose extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return false;
+        return m_shooter.isShooterAtSpeed();  //true;
     }
 
     @Override

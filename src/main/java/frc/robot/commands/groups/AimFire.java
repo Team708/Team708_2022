@@ -26,13 +26,13 @@ public class AimFire extends SequentialCommandGroup{
         m_if.directionIn();
         addCommands(
             new ParallelCommandGroup(
-                new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(0.5),
+                new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(1),
                 new FeederReverse(m_if) .withTimeout(0.4)
                                         .andThen(new StopFeeder(m_if)),
                 new ShootHighGoalFar(m_shooter)
                 ),
 
-                new ParallelCommandGroup(
+            new ParallelCommandGroup(
                     new WaitCommand(1),
                     new ShootBall(m_if).withTimeout(2.0)
                 ),

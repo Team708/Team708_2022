@@ -1,6 +1,7 @@
 package frc.robot.commands.intakeFeeder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 
 /**
@@ -18,10 +19,12 @@ public class ShootBall extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize(){
-        m_intakeFeeder.feederForward();
-        m_intakeFeeder.intakeForward();
+        m_intakeFeeder.feederShoot();
+        m_intakeFeeder.intakeShoot();
+        // m_intakeFeeder.feederForward();
+        // m_intakeFeeder.intakeForward();
     }
-
+    
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){

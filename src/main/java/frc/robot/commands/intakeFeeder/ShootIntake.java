@@ -24,7 +24,7 @@ public class ShootIntake extends CommandBase {
         // if(m_intakeFeeder.isIntakeDown()){
 
 //        how do you shoot if you call this when the intake is in?
-            m_intakeFeeder.intakeForward();
+            m_intakeFeeder.intakeShoot();
         // }
     }
 
