@@ -215,6 +215,12 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightPidController.setReference(counts, ControlType.kSmartMotion);
   }
 
+  public void gotToPosition(double counts){
+    // m_leftPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
+    // m_rightPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
+    m_leftPidController.setReference(counts, ControlType.kPosition);
+    m_rightPidController.setReference(counts, ControlType.kPosition);
+  }
   /**
    * Returns the currently-estimated pose of the robot.
    *

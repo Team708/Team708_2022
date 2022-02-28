@@ -30,10 +30,16 @@ public class TurnToTargetSetPoint extends CommandBase {
     // private RelativeEncoder       m_encoder;
 
     public TurnToTargetSetPoint(DriveSubsystem m_DriveSubsystem, Limelight m_Limelight) {
-        // addRequirements(m_DriveSubsystem);
         this.m_DriveSubsystem = m_DriveSubsystem;
         this.m_Limelight = m_Limelight;
+
+        addRequirements(m_DriveSubsystem);
     }
+//
+//
+// testing not in code
+//
+//
 
     // Called just before this Command runs the first time
     @Override
@@ -43,7 +49,7 @@ public class TurnToTargetSetPoint extends CommandBase {
         m_DriveSubsystem.resetEncoders();
         
         this.goalDegrees = m_Limelight.turnToTarget();
-        // this.goalDegrees = 10000;
+        // this.goalDegrees = 10;
         SmartDashboard.putNumber("Goal Degress", goalDegrees);
     }
 
@@ -51,10 +57,10 @@ public class TurnToTargetSetPoint extends CommandBase {
     @Override
     public void execute() {
 
-        moveToSetPoint = (goalDegrees * (Constants.DriveConstants.kCountsPerDegree));
+        moveToSetPoint = (goalDegrees *.017);// * (Constants.DriveConstants.kCountsPerDegree));
         SmartDashboard.putNumber("SetPoint", moveToSetPoint);
 
-        m_DriveSubsystem.rotateWithEncoders(moveToSetPoint);
+        m_DriveSubsystem.gotToPosition(moveToSetPoint);
         // m_pidController.setReference(moveToSetPoint, CANSparkMax.ControlType.kSmartMotion);
     }
 

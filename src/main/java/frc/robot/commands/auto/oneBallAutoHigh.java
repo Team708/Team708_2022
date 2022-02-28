@@ -16,23 +16,15 @@ import frc.robot.subsystems.shooter.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class oneBallAuto extends SequentialCommandGroup{
+public class oneBallAutoHigh extends SequentialCommandGroup{
 
-  public oneBallAuto(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
+  public oneBallAutoHigh(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
     //gets one ball from floor and shoots to high goal
     
     addCommands(
-         // new WaitCommand(2), 
-            new DeployIntake(m_if),
-            
-            new ParallelCommandGroup(
-              new IntakeFeederTillBall(m_if),
-              new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive)
-            ),
-
+            new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
-            // new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive)
         );    
   }  
 }
