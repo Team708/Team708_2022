@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.commands.climber.EngageClimberArm;
 import frc.robot.commands.drivetrain.TurnToTargetDegrees;
 import frc.robot.commands.intakeFeeder.FeederReverse;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
@@ -32,6 +33,7 @@ import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
 
 import frc.robot.subsystems.vision.Limelight;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -172,8 +174,8 @@ public class OI {
 		new JoystickButton(climberGamepad, Button.kX.value)
 				.whenPressed(m_climber::extendClimbingArm);	
 
-		// new JoystickButton(climberGamepad, getClimberLeftY())
-		// 		.whenActive(new EngageClimberArm(m_robotDrive, m_climber));
+		new JoystickButton(climberGamepad, Button.kLeftStick.value)
+				.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
 
 	}
 }

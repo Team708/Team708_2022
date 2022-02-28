@@ -86,18 +86,18 @@ public class RobotContainer {
                         new RunCommand(() -> m_robotDrive.arcadeDrive(
                                                         -OI.getDriverLeftY(), OI.getDriverRightX()),m_robotDrive));
 
-                        m_chooser.setDefaultOption("do nothing", new doNothingCommand());
-                        m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.4, 0, false, 1, m_robotDrive));
-                        m_chooser.addOption("Turn To Target", new  TurnToTargetSetPoint(m_robotDrive, m_limelight).withTimeout(3));
+                m_chooser.setDefaultOption("do nothing", new doNothingCommand());
+                m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.4, 0, false, 1, m_robotDrive));
+                m_chooser.addOption("Turn To Target", new  TurnToTargetSetPoint(m_robotDrive, m_limelight).withTimeout(3));
 
-                        m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
-                        m_chooser.addOption("One Ball Auto", new oneBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        m_chooser.addOption("Two Ball Close High Quad Auto", new twoBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        m_chooser.addOption("Two Ball Close Low Quad Auto",  new twoBallAutoLow(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        m_chooser.addOption("Two Ball Far   Quad Auto", new twoBallAutoFar(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        m_chooser.addOption("Three Ball Close Quad Auto", new threeBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        m_chooser.addOption("Five Ball Close Quad Auto", new fiveBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
+                m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
+                m_chooser.addOption("One Ball Auto", new oneBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("Two Ball Close High Quad Auto", new twoBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("Two Ball Close Low Quad Auto",  new twoBallAutoLow(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("Two Ball Far   Quad Auto", new twoBallAutoFar(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("Three Ball Close Quad Auto", new threeBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("Five Ball Close Quad Auto", new fiveBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
                 SmartDashboard.putData("Auto Chooser", m_chooser);
         }
 
