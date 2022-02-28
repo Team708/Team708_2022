@@ -74,6 +74,8 @@ public final class Constants {
     public static final boolean kRightEncoderInverted = false;
 
     public static final double kCountsPerDegree = .0075;  //vision rotaion multiplier
+
+    public static final double kMaxVal = 2; //Max climber value
   }
 
   public static final class IntakeFeederConstants {
