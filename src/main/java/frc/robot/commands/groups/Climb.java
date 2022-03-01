@@ -15,29 +15,17 @@ import frc.robot.commands.shooter.HoodUp;
 import frc.robot.commands.shooter.ShootHighGoalFar;
 import frc.robot.commands.shooter.ShootFeederStation;
 import frc.robot.commands.shooter.StopShooter;
+import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.Limelight;
 
-public class AimShootTarmac extends SequentialCommandGroup{
+public class Climb extends SequentialCommandGroup{
     
-    public AimShootTarmac(Limelight m_limeLight, DriveSubsystem m_driveSubsystem, Shooter m_shooter, IntakeFeeder m_if){
-        m_if.directionIn();
-        addCommands(
-            new ParallelCommandGroup(
-                new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(1),
-                new FeederReverse(m_if) .withTimeout(0.4)
-                                        .andThen(new StopFeeder(m_if)),
-                new ShootHighGoalFar(m_shooter)
-                ),
-
-            new ParallelCommandGroup(
-                    // new WaitCommand(1),
-                    new ShootBall(m_if, m_shooter).withTimeout(2.0)
-                ),
-            new StopShooter(m_shooter)
-        );
+    public Climb(DriveSubsystem m_driveSubsystem, Climber m_Climber){
+        
+        
     }
 
 }

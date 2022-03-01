@@ -74,8 +74,6 @@ public final class Constants {
     public static final boolean kRightEncoderInverted = false;
 
     public static final double kCountsPerDegree = .0075;  //vision rotaion multiplier
-
-    public static final double kMaxVal = 2.2; //Max climber value
   }
 
   public static final class IntakeFeederConstants {
@@ -116,8 +114,18 @@ public final class Constants {
     public static final double kDriverDeadBandLeftY  = 0.1;
     public static final double kDriverDeadBandRightY = 0.2;
 
+    public static final double kClimberDeadBandLeftY  = .3;
+    public static final double kClimberDeadBandRightY = .3;
+
   }
 
+  public static final class ClimberConstants {
+    public static final double kClimberArmDownSpeed    = 0.3;
+    public static final double kClimberArmUpSpeed      = -0.3; 
+    public static final double kClimberArmDownDistance = 2.25;  //in meters
+    public static final double kClimberArmUpDistance   = 0.25;   //in meters
+
+  }
   public static final class ShooterConstants{
 
     //Mappings
@@ -125,7 +133,7 @@ public final class Constants {
     public static final int kShooterFollowMotor = 32;
 
     public static final int kShooterSolenoidDown = 2;
-    public static final int kShooterSolenoidUp = 3;
+    public static final int kShooterSolenoidUp   = 3;
 
     //Speed constants
     public static final double kShooterEjectSpeed     = 2000; // 500;

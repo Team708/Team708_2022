@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.climber.EngageClimberArm;
+import frc.robot.commands.climber.ClimberArmUp;
 import frc.robot.commands.drivetrain.TurnToTargetDegrees;
 import frc.robot.commands.intakeFeeder.FeederReverse;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
@@ -79,7 +80,12 @@ public class OI {
 	}
 
 	public static double getClimberLeftY() {
-		return deadBand(climberGamepad.getLeftY(), .3);
+		return deadBand(climberGamepad.getLeftY(), ControllerConstants.kClimberDeadBandLeftY);
+
+	}
+	
+	public static double getClimberRightY() {
+		return deadBand(climberGamepad.getRightY(), ControllerConstants.kClimberDeadBandRightY);
 	}
 
 	public static void configureButtonBindings(DriveSubsystem m_robotDrive, 
@@ -163,13 +169,13 @@ public class OI {
 		//Climber//
 
 		new JoystickButton(climberGamepad, Button.kA.value)
-				.whenPressed(m_climber::activateClimbingArm);
-
-		new JoystickButton(climberGamepad, Button.kStart.value)
-				.whenPressed(m_climber::stopClimber);
+				.whenPressed(m_climber::activatePTO);
 
 		new JoystickButton(climberGamepad, Button.kY.value)
-				.whenPressed(m_climber::startClimber);
+				.whenPressed(m_climber::releasePTO);
+
+		new JoystickButton(climberGamepad, Button.kStart.value)
+				.whenPressed(m_climber::releaseBrake);
 
 		new JoystickButton(climberGamepad, Button.kB.value)
 				.whenPressed(m_climber::retractClimbingArm);	
@@ -178,10 +184,12 @@ public class OI {
 				.whenPressed(m_climber::extendClimbingArm);	
 
 		new JoystickButton(climberGamepad, Button.kBack.value)
-				.whenPressed(m_climber::releaseClimbingArm);	
+				.whenPressed(m_climber::engageBrake);	
 		
 		new JoystickButton(climberGamepad, Button.kLeftStick.value)
 				.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
 
+		new JoystickButton(climberGamepad, Button.kRightStick.value)
+				.whenPressed(new ClimberArmUp(m_robotDrive, m_climber));
 	}
 }
