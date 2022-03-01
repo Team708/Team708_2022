@@ -20,10 +20,10 @@ public class oneBallAutoHigh extends SequentialCommandGroup{
 
   public oneBallAutoHigh(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
-    //gets one ball from floor and shoots to high goal
+    //drives over the line and shoots to high goal
     
     addCommands(
-            new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive),
+            new DriveCurvatureToEncoder(.4, 0, false, 1, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  

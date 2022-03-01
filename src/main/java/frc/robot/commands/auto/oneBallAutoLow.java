@@ -21,11 +21,11 @@ public class oneBallAutoLow extends SequentialCommandGroup{
 
   public oneBallAutoLow(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
-    //gets one ball from floor and shoots to high goal
+    //drives over the line, back to goal and shoots low
     
     addCommands(
-            new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive),
-            new DriveCurvatureToEncoder(-.4, -.2, false, -2.3, m_robotDrive),
+            new DriveCurvatureToEncoder(.4,  0, false, 1, m_robotDrive),
+            new DriveCurvatureToEncoder(-.4, 0, false, -2.3, m_robotDrive),
             new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  

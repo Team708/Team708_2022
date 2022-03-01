@@ -97,6 +97,7 @@ public class DriveSubsystem extends SubsystemBase {
         DriveConstants.kDriveSolenoidPort);
 
     dropSolenoid.set(true);
+    shiftGearLow();
 
     m_leftPrimary.setSmartCurrentLimit(40);
     m_leftSecondary.setSmartCurrentLimit(40);
@@ -127,14 +128,14 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftPidController.setOutputRange(-1, 1);  
     m_rightPidController.setOutputRange(-1, 1);  
 
-    m_leftPidController.setSmartMotionMaxVelocity(5700, 0);
-    m_rightPidController.setSmartMotionMaxVelocity(5700, 0);
+    m_leftPidController.setSmartMotionMaxVelocity(6000, 0);
+    m_rightPidController.setSmartMotionMaxVelocity(6000, 0);
 
     m_leftPidController.setSmartMotionMinOutputVelocity(0, 0);
     m_rightPidController.setSmartMotionMinOutputVelocity(0, 0);
 
-    m_leftPidController.setSmartMotionMaxAccel(5700,0);
-    m_rightPidController.setSmartMotionMaxAccel(5700,0);
+    m_leftPidController.setSmartMotionMaxAccel(4500,0);
+    m_rightPidController.setSmartMotionMaxAccel(4500,0);
 
     m_leftPidController.setSmartMotionAllowedClosedLoopError(0.0, 0);
     m_rightPidController.setSmartMotionAllowedClosedLoopError(0.0, 0);
@@ -157,55 +158,6 @@ public class DriveSubsystem extends SubsystemBase {
     // Update the odometry in the periodic block
     m_odometry.update(
         Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(), m_rightEncoder.getPosition());
-
-    // read PID coefficients from SmartDashboard
-    // double p = SmartDashboard.getNumber("P Gain", 0);
-    // double i = SmartDashboard.getNumber("I Gain", 0);
-    // double d = SmartDashboard.getNumber("D Gain", 0);
-    // double iz = SmartDashboard.getNumber("I Zone", 0);
-    // double ff = SmartDashboard.getNumber("Feed Forward", 0);
-
-    // // if PID coefficients on SmartDashboard have changed, write new values to controller
-    // if((p != kP)) {
-    //   m_leftPidController.setP(p); 
-    //   m_rightPidController.setP(p); 
-    //   kP = p; 
-    // }
-    // if((i != kI)) {
-    //   m_leftPidController.setI(i);
-    //   m_rightPidController.setI(i);
-    //   kI = i;
-    // }
-    // if((d != kD)) { 
-    //   m_leftPidController.setD(d);
-    //   m_rightPidController.setD(d);
-    //   kD = d; 
-    // }
-    // if((iz != kIz)) { 
-    //   m_leftPidController.setIZone(iz); 
-    //   m_rightPidController.setIZone(iz); 
-    //   kIz = iz; 
-    // }
-    // if((ff != kFF)) { 
-    //   m_leftPidController.setFF(ff); 
-    //   m_rightPidController.setFF(ff); 
-    //   kFF = ff; 
-    // }
-
-    // double setPoint, processVariableLeft, processVariableRight;
-    // setPoint = SmartDashboard.getNumber("Set Position", 0);
-    //   /**
-    //    * As with other PID modes, Smart Motion is set by calling the
-    //    * setReference method on an existing pid object and setting
-    //    * the control type to kSmartMotion
-    //    */
-    // rotateWithEncoders(setPoint);
-    // processVariableLeft = m_leftEncoder.getPosition();
-    // processVariableRight = m_rightEncoder.getPosition();
-    
-    // SmartDashboard.putNumber("SetPoint", setPoint);
-    // SmartDashboard.putNumber("Process Variable Left", processVariableLeft);
-    // SmartDashboard.putNumber("Process Variable Right", processVariableRight);
   }
 
   public void rotateWithEncoders(double counts){
@@ -354,13 +306,16 @@ public class DriveSubsystem extends SubsystemBase {
   /** Shifts the robot into high gear. */
   public void shiftGearHigh() {
     gearHigh = true;
-    shiftSolenoid.set(Value.kForward);
+    shiftSolenoid.set(Value.kReverse);
+    // shiftSolenoid.set(Value.kForward);
   }
 
   /** Shifts the robot into low gear. */
   public void shiftGearLow() {
     gearHigh = false;
-    shiftSolenoid.set(Value.kReverse);
+    shiftSolenoid.set(Value.kForward);
+    // shiftSolenoid.set(Value.kReverse);
+
   }
 
   public void setBrakeMode(boolean setBrake) {

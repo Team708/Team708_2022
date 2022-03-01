@@ -22,7 +22,6 @@ public class twoBallAutoLow extends SequentialCommandGroup{
   public twoBallAutoLow(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
     addCommands(
-         // new WaitCommand(2), 
             new DeployIntake(m_if),
             
             new ParallelCommandGroup(

@@ -24,10 +24,7 @@ import frc.robot.subsystems.vision.Limelight;
 
 public class AimShootBumper extends SequentialCommandGroup{
     
-    public AimShootBumper(Limelight m_limeLight, 
-                       DriveSubsystem m_driveSubsystem, 
-                       Shooter m_shooter, 
-                       IntakeFeeder m_if){
+    public AimShootBumper(Limelight m_limeLight, DriveSubsystem m_driveSubsystem, Shooter m_shooter, IntakeFeeder m_if){
         m_if.directionIn();
         addCommands(
             new ParallelCommandGroup(
@@ -37,7 +34,6 @@ public class AimShootBumper extends SequentialCommandGroup{
             ),
             
             new ParallelCommandGroup(
-                // new WaitCommand(1),
                 new ShootBall(m_if, m_shooter).withTimeout(2.0)
                 ),
 

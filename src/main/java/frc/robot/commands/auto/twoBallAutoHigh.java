@@ -26,7 +26,6 @@ public class twoBallAutoHigh extends SequentialCommandGroup{
 
 
     addCommands(
-         // new WaitCommand(2), 
             new DeployIntake(m_if),
             
             new ParallelCommandGroup(
