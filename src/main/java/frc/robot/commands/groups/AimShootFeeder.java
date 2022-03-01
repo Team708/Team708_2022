@@ -33,8 +33,8 @@ public class AimShootFeeder extends SequentialCommandGroup{
                 ),
 
             new ParallelCommandGroup(
-                    new WaitCommand(1),
-                    new ShootBall(m_if).withTimeout(2.0)
+                    // new WaitCommand(1),
+                    new ShootBall(m_if, m_shooter).withTimeout(2.0)
                 ),
                 new StopShooter(m_shooter)
         );

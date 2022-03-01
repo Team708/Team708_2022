@@ -14,6 +14,9 @@ public class EngageClimberArm extends CommandBase{
     public EngageClimberArm(DriveSubsystem m_driveSubsystem, Climber m_climber){
         this.m_driveSubsystem = m_driveSubsystem;
         this.m_climber = m_climber;
+
+        addRequirements(m_driveSubsystem);
+        addRequirements(m_climber);
     }
 
     @Override
@@ -23,17 +26,23 @@ public class EngageClimberArm extends CommandBase{
 
     @Override
     public void execute(){
-        m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
+        // if (!m_climber.hangSwitch2_engaged() && !m_climber.hangSwitch3_engaged()){
+        //  if (OI.getClimberLeftY()<0)
+        //     m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
+        // }
+        // else
+           m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
     }
 
     @Override
     public boolean isFinished(){
-        if(m_climber.hangSwitch2_engaged() || m_climber.hangSwitch3_engaged()){
-            return true;
-        }else{
+        // if (!m_climber.hangSwitch2_engaged() && !m_climber.hangSwitch3_engaged()){
+        //     return true;
+        // }else{
             return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > Constants.DriveConstants.kMaxVal
                 || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > Constants.DriveConstants.kMaxVal;
-        }
+        // }
+        // return false;
     }
 
     @Override

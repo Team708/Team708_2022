@@ -19,7 +19,6 @@ public class ShootHighGoalFar extends CommandBase{
 
     public ShootHighGoalFar(Shooter m_shooter){
         this.m_shooter = m_shooter;
-
         addRequirements(m_shooter);
     }
 
@@ -37,12 +36,13 @@ public class ShootHighGoalFar extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return m_shooter.isShooterAtSpeed();
+        return true;
+        // return m_shooter.isShooterAtSpeed();
     }
 
     @Override
     public void end(boolean interrupted){
-        m_shooter.stopShooter();
+        // m_shooter.stopShooter();
     }
 
 }

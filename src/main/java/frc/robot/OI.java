@@ -79,7 +79,7 @@ public class OI {
 	}
 
 	public static double getClimberLeftY() {
-		return deadBand(climberGamepad.getLeftY(), .5);
+		return deadBand(climberGamepad.getLeftY(), .3);
 	}
 
 	public static void configureButtonBindings(DriveSubsystem m_robotDrive, 
@@ -156,14 +156,17 @@ public class OI {
 		new JoystickButton(operatorGamepad, Button.kRightStick.value)
 		        .whenPressed(new AimShootSafetyZone(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));	
 				
+		new JoystickButton(operatorGamepad, Button.kBack.value)
+				.whileHeld(new FeederReverse(m_intakeFeeder));
+
 
 		//Climber//
 
-		new JoystickButton(climberGamepad, Button.kBack.value)
+		new JoystickButton(climberGamepad, Button.kA.value)
 				.whenPressed(m_climber::activateClimbingArm);
 
 		new JoystickButton(climberGamepad, Button.kStart.value)
-				.whenPressed(m_climber::stopCimber);
+				.whenPressed(m_climber::stopClimber);
 
 		new JoystickButton(climberGamepad, Button.kY.value)
 				.whenPressed(m_climber::startClimber);
@@ -174,6 +177,9 @@ public class OI {
 		new JoystickButton(climberGamepad, Button.kX.value)
 				.whenPressed(m_climber::extendClimbingArm);	
 
+		new JoystickButton(climberGamepad, Button.kBack.value)
+				.whenPressed(m_climber::releaseClimbingArm);	
+		
 		new JoystickButton(climberGamepad, Button.kLeftStick.value)
 				.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
 

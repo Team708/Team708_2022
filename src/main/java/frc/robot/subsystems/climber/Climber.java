@@ -10,23 +10,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase{
 
-    DoubleSolenoid climbingArm; // - PCM 3
-    DoubleSolenoid PTO;         // - PCM 2
-    Solenoid climberSafteyPin;  // - PCM 3
+    DoubleSolenoid  climbingArm;    // - PCM 3
+    DoubleSolenoid  PTO;            // - PCM 2
+    Solenoid        climberBrake;   // - PCM 3
 
     DigitalInput hangSwitch2, hangSwitch3;
 
-    boolean climbingArmOut, ClimberSafteyPinOut, PTOEngaged;
+    boolean climbingArmOut, climberBrakeEngaged, PTOEngaged;
 
     public Climber(PneumaticHub hub2, PneumaticHub hub3){
         climbingArm = new DoubleSolenoid(hub3.getModuleNumber(), PneumaticsModuleType.REVPH, 5, 4); //ADD TO CONSTANTS
         extendClimbingArm();
 
         PTO = new DoubleSolenoid(hub2.getModuleNumber(), PneumaticsModuleType.REVPH, 4, 3); //ADD TO CONSTANTS
-        releaseClimbingArm();
+        releasePTO();
 
-        climberSafteyPin = new Solenoid(hub2.getModuleNumber(), PneumaticsModuleType.REVPH, 6); //ADD TO CONSTANTS
-        stopCimber();
+        climberBrake = new Solenoid(hub3.getModuleNumber(), PneumaticsModuleType.REVPH, 7); //BRAKE  ADD TO CONSTANTS
+        engageBrake();
 
         //ON MXP
         hangSwitch2 = new DigitalInput(12);
@@ -43,22 +43,22 @@ public class Climber extends SubsystemBase{
         climbingArmOut = false;
     }
 
-    public void startClimber(){
-        climberSafteyPin.set(true);
-        ClimberSafteyPinOut = true;
+    public void releaseBrake(){
+        climberBrake.set(true);
+        climberBrakeEngaged = false;
     }
 
-    public void stopCimber(){
-        climberSafteyPin.set(false);
-        ClimberSafteyPinOut = false;
+    public void engageBrake(){
+        climberBrake.set(false);
+        climberBrakeEngaged = true;
     }
 
-    public void activateClimbingArm(){
+    public void activatePTO(){
         PTO.set(DoubleSolenoid.Value.kReverse);
         PTOEngaged = true;
     }
 
-    public void releaseClimbingArm(){
+    public void releasePTO(){
         PTO.set(DoubleSolenoid.Value.kForward);
         PTOEngaged = false;
     }    
@@ -75,7 +75,7 @@ public class Climber extends SubsystemBase{
         SmartDashboard.putBoolean("Climber Arm Switch 2", hangSwitch2_engaged());
         SmartDashboard.putBoolean("Climber Arm Switch 3",  hangSwitch3_engaged());
 
-        SmartDashboard.putBoolean("Climber Safety Pin", ClimberSafteyPinOut);
+        SmartDashboard.putBoolean("Climber Brake Engaged", climberBrakeEngaged);
 
         SmartDashboard.putBoolean("PTO Engaged", PTOEngaged);
         SmartDashboard.putBoolean("Climbing Arm Out", climbingArmOut);

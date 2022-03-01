@@ -26,12 +26,12 @@ public class ShootSafteyZone extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return m_shooter.isShooterAtSpeed();
+        return true; // m_shooter.isShooterAtSpeed();
     }
 
     @Override
     public void end(boolean interrupted){
-        m_shooter.stopShooter();
+        // m_shooter.stopShooter();
     }
 
 }

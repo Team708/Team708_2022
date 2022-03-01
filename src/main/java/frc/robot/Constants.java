@@ -75,7 +75,7 @@ public final class Constants {
 
     public static final double kCountsPerDegree = .0075;  //vision rotaion multiplier
 
-    public static final double kMaxVal = 2; //Max climber value
+    public static final double kMaxVal = 2.2; //Max climber value
   }
 
   public static final class IntakeFeederConstants {
@@ -141,7 +141,7 @@ public final class Constants {
 
     //PID Values
     public static final double kP       = 0.00035;  //.0005
-    public static final double kI       = 0.00000;
+    public static final double kI       = 0.000002;
     public static final double kD       = 0.002; // .0017 .00006
     public static final double kFF      = 0.0002;  //.0002
     public static final double kIZone   = 0;
