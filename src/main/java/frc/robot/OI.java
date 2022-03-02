@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.climber.EngageClimberArm;
+import frc.robot.commands.climber.ClimberArmDown;
 import frc.robot.commands.climber.ClimberArmUp;
 import frc.robot.commands.drivetrain.TurnToTargetDegrees;
 import frc.robot.commands.intakeFeeder.FeederReverse;
@@ -173,6 +174,9 @@ public class OI {
 
 		new JoystickButton(climberGamepad, Button.kY.value)
 				.whenPressed(m_climber::releasePTO);
+				
+		new JoystickButton(climberGamepad, Button.kLeftBumper.value)
+				.whenPressed(new ClimberArmDown(m_robotDrive, m_climber));
 
 		new JoystickButton(climberGamepad, Button.kStart.value)
 				.whenPressed(m_climber::releaseBrake);

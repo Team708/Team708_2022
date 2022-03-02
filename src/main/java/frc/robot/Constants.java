@@ -58,7 +58,7 @@ public final class Constants {
     public static final int kEncoderCPR                 = 42;  //(1672 / 312) * 42; // 1024 //42
     public static final double kWheelDiameterMeters     = 0.102; // .15 //.015 //0.05
     public static final double kWheelRadiusFromCenter   = 0.52;
-    public static final double kEncoderRatio            =  .1285;  // .119;  //drive train multiplier
+    public static final double kEncoderRatio            =  .11;  //.1285;  // .119;  //drive train multiplier
     //public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         //(kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
@@ -87,7 +87,7 @@ public final class Constants {
     //INTAKE
     public static final double kiP       = 0.053;
     public static final double kiI       = 0.0;
-    public static final double kiD       = 0.0; // .00006
+    public static final double kiD       = 0.00006; // .00006
     public static final double kiFF      = 0.001;  //.0001
     public static final double kiIZone   = 0;
     public static final double kiMin     = -1;
@@ -120,8 +120,8 @@ public final class Constants {
   }
 
   public static final class ClimberConstants {
-    public static final double kClimberArmDownSpeed    = 0.3;
-    public static final double kClimberArmUpSpeed      = -0.3; 
+    public static final double kClimberArmDownSpeed    = 0.8;
+    public static final double kClimberArmUpSpeed      = -0.8; 
     public static final double kClimberArmDownDistance = 2.25;  //in meters
     public static final double kClimberArmUpDistance   = 0.25;   //in meters
 
@@ -138,8 +138,8 @@ public final class Constants {
     //Speed constants
     public static final double kShooterEjectSpeed     = 2000; // 500;
 
-    public static final double kShooterLowClose       = 1800;  //hood up
-    public static final double kShooterHighFar        = 3200;  //hood down
+    public static final double kShooterLowClose       = 1700; //hood up
+    public static final double kShooterHighFar        = 2900;  //hood down
     public static final double kShooterStafetyZone    = 4000;  //hood down
     public static final double kShooterFeederStation  = 3900;  //hood up
     
@@ -148,9 +148,9 @@ public final class Constants {
     public static final double kThreshold             =  0.98; //0.95;
 
     //PID Values
-    public static final double kP       = 0.00035;  //.0005
-    public static final double kI       = 0.000002;
-    public static final double kD       = 0.002; // .0017 .00006
+    public static final double kP       = 0.0003;  //.0005
+    public static final double kI       = 0.000000;
+    public static final double kD       = 0.008; // .0017 .00006
     public static final double kFF      = 0.0002;  //.0002
     public static final double kIZone   = 0;
     public static final double kMin     = -1;

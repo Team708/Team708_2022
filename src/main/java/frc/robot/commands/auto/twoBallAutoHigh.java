@@ -30,10 +30,10 @@ public class twoBallAutoHigh extends SequentialCommandGroup{
             
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.3, .3, false, 1, m_robotDrive)
+              new DriveCurvatureToEncoder(.5, .4, false, 1.3, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.2, -1.0, true, -.05, m_robotDrive),
+            new DriveCurvatureToEncoder(-.2, -1.0, true, -.12, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  

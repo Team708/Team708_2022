@@ -28,10 +28,10 @@ public class twoBallAutoFarBumper extends SequentialCommandGroup{
             
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.3, -.5, false, 1.0, m_robotDrive)
+              new DriveCurvatureToEncoder(.4, -.3, false, 1.0, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.3, .25, false, -2.0, m_robotDrive),
+            new DriveCurvatureToEncoder(-.5, -.1, false, -2.3, m_robotDrive),
             new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  

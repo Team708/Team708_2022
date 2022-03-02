@@ -63,13 +63,13 @@ public class IntakeFeeder extends SubsystemBase {
         m_intakeMotor.setInverted(true);
         m_intakeMotor.setSmartCurrentLimit(40);
 
-        intakePIDCOntroller = m_intakeMotor.getPIDController();
-        intakePIDCOntroller.setP(IntakeFeederConstants.kiP);
-        intakePIDCOntroller.setI(IntakeFeederConstants.kiI);
-        intakePIDCOntroller.setD(IntakeFeederConstants.kiD);
-        intakePIDCOntroller.setFF(IntakeFeederConstants.kiFF);
-        intakePIDCOntroller.setIZone(IntakeFeederConstants.kiIZone);
-        intakePIDCOntroller.setOutputRange(IntakeFeederConstants.kiMin, IntakeFeederConstants.kiMax);
+        // intakePIDCOntroller = m_intakeMotor.getPIDController();
+        // intakePIDCOntroller.setP(IntakeFeederConstants.kiP);
+        // intakePIDCOntroller.setI(IntakeFeederConstants.kiI);
+        // intakePIDCOntroller.setD(IntakeFeederConstants.kiD);
+        // intakePIDCOntroller.setFF(IntakeFeederConstants.kiFF);
+        // intakePIDCOntroller.setIZone(IntakeFeederConstants.kiIZone);
+        // intakePIDCOntroller.setOutputRange(IntakeFeederConstants.kiMin, IntakeFeederConstants.kiMax);
 
         
         // m_intakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, DriveConstants.kIntakeSolenoidPort);
@@ -80,7 +80,7 @@ public class IntakeFeeder extends SubsystemBase {
         m_intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
         isIntakeDown = m_intakeSolenoid.get().equals(DoubleSolenoid.Value.kReverse); // intake starts up
 
-        intakeMotorSpeed = .8; // set proper motor speed later - 1
+        // intakeMotorSpeed = .8; // set proper motor speed later - 1
         direction        = 1;
 
         // feeder
@@ -90,13 +90,13 @@ public class IntakeFeeder extends SubsystemBase {
         m_feederMotor.setSmartCurrentLimit(40);
         feederMotorSpeed = 1.0; // set proper motor speed later
 
-        feederPIDController = m_feederMotor.getPIDController();
-        feederPIDController.setP(IntakeFeederConstants.kfP);
-        feederPIDController.setI(IntakeFeederConstants.kfI);
-        feederPIDController.setD(IntakeFeederConstants.kfD);
-        feederPIDController.setFF(IntakeFeederConstants.kfFF);
-        feederPIDController.setIZone(IntakeFeederConstants.kfIZone);
-        feederPIDController.setOutputRange(IntakeFeederConstants.kfMin, IntakeFeederConstants.kfMax);
+        // feederPIDController = m_feederMotor.getPIDController();
+        // feederPIDController.setP(IntakeFeederConstants.kfP);
+        // feederPIDController.setI(IntakeFeederConstants.kfI);
+        // feederPIDController.setD(IntakeFeederConstants.kfD);
+        // feederPIDController.setFF(IntakeFeederConstants.kfFF);
+        // feederPIDController.setIZone(IntakeFeederConstants.kfIZone);
+        // feederPIDController.setOutputRange(IntakeFeederConstants.kfMin, IntakeFeederConstants.kfMax);
 
         maxVelocity = 5600; //5600
         
@@ -151,7 +151,7 @@ public class IntakeFeeder extends SubsystemBase {
      * starts intake motor
      */
     public void startIntake() {
-        m_intakeMotor.set(1.0 * direction);
+        m_intakeMotor.set(0.7 * direction);
         // m_feederMotor.set(1.0);
         // intakePIDCOntroller.setReference(maxVelocity * intakeMotorSpeed * direction, CANSparkMax.ControlType.kVelocity);
         // intakePIDCOntroller.setReference(maxVelocity * direction, CANSparkMax.ControlType.kVoltage);
@@ -167,7 +167,7 @@ public class IntakeFeeder extends SubsystemBase {
     }
 
     public void reverseFeeder(){
-        m_feederMotor.set(-0.6); //Testing
+        m_feederMotor.set(-1.0); //Testing
     }
 
     // Feeder
@@ -197,20 +197,21 @@ public class IntakeFeeder extends SubsystemBase {
     public void feederForward(){
         m_feederMotor.set(1.0);
     }
-        public void feederShoot(){
-        m_feederMotor.set(.3);
+    
+    public void feederShoot(){
+        m_feederMotor.set(.5);
     }
 
     public void feederBackward(){
-        m_feederMotor.set(-1.0);
+        m_feederMotor.set(-.8);
     }
 
     public void intakeForward(){
-        m_intakeMotor.set(1.0);
+        m_intakeMotor.set(.7);
     }    
     
     public void intakeShoot(){
-        m_intakeMotor.set(.3);
+        m_intakeMotor.set(.6);
     }
 
     public void intakeBackward(){

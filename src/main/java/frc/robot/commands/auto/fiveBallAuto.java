@@ -31,18 +31,18 @@ public class fiveBallAuto extends SequentialCommandGroup{
             
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.3, .3, false, 1.0, m_robotDrive)
+              new DriveCurvatureToEncoder(.6, .4, false, 1.0, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.4, -.2, false, -2.3, m_robotDrive),
+            new DriveCurvatureToEncoder(-.5, -.3, false, -2.7, m_robotDrive),
             new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new ParallelCommandGroup(
               new IntakeFeederTillBall(m_if),
-              new DriveCurvatureToEncoder(.3, -.2, false, 1.6, m_robotDrive)
+              new DriveCurvatureToEncoder(.5, -.3, false, 1.5, m_robotDrive)
             ),
             
-            new DriveCurvatureToEncoder(.5, 1.0, true, 0.07, m_robotDrive),
+            new DriveCurvatureToEncoder(.4, 1.0, true, 0.4, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new DriveCurvatureToEncoder(.5, 1.0, true, 0.8, m_robotDrive),
@@ -50,7 +50,7 @@ public class fiveBallAuto extends SequentialCommandGroup{
             new RaiseOmnisCommand(m_robotDrive),
             new ShiftHighCommand(m_robotDrive),
 
-            new DriveCurvatureToEncoder(.8, -.2, false, 8.0, m_robotDrive),
+            new DriveCurvatureToEncoder(.8, -.05, false, 8.0, m_robotDrive),
           
             new ShiftLowCommand(m_robotDrive),
             new DropOmnisCommand(m_robotDrive),
