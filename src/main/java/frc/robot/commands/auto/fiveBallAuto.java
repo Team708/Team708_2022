@@ -27,11 +27,12 @@ public class fiveBallAuto extends SequentialCommandGroup{
 
     addCommands(
          // new WaitCommand(2), 
+
             new DeployIntake(m_if),
             
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.6, .4, false, 1.0, m_robotDrive)
+              new DriveCurvatureToEncoder(.7, .4, false, 1.0, m_robotDrive)
             ),
 
             new DriveCurvatureToEncoder(-.5, -.3, false, -2.7, m_robotDrive),
@@ -39,28 +40,30 @@ public class fiveBallAuto extends SequentialCommandGroup{
 
             new ParallelCommandGroup(
               new IntakeFeederTillBall(m_if),
-              new DriveCurvatureToEncoder(.5, -.3, false, 1.5, m_robotDrive)
+              new DriveCurvatureToEncoder(.5, -.25, false, 1.6, m_robotDrive)
             ),
             
-            new DriveCurvatureToEncoder(.4, 1.0, true, 0.4, m_robotDrive),
+            new DriveCurvatureToEncoder(.4, 0.9, true, 0.4, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
 
-            new DriveCurvatureToEncoder(.5, 1.0, true, 0.8, m_robotDrive),
+            new DriveCurvatureToEncoder(.5, .8, true, .9, m_robotDrive),
 
             new RaiseOmnisCommand(m_robotDrive),
-            new ShiftHighCommand(m_robotDrive),
+            // new ShiftHighCommand(m_robotDrive),
 
-            new DriveCurvatureToEncoder(.8, -.05, false, 8.0, m_robotDrive),
+            new DriveCurvatureToEncoder(.7, 0.0, false, 6.2, m_robotDrive),
           
-            new ShiftLowCommand(m_robotDrive),
-            new DropOmnisCommand(m_robotDrive),
+            // new WaitCommand(.5), 
 
+            // new ShiftLowCommand(m_robotDrive),
+            new DropOmnisCommand(m_robotDrive),
+            
             new ParallelCommandGroup(
-              new IntakeFeederTillBall(m_if),
-              new DriveCurvatureToEncoder(.3, -.5, false, 2.0, m_robotDrive)
+                new IntakeFeederIn(m_if).withTimeout(1.5),
+                new DriveCurvatureToEncoder(.3, -.2, false, 1.0, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(.5, 1.0, true, 0.07, m_robotDrive),
+            new DriveCurvatureToEncoder(.5, 1.0, true, 0.02, m_robotDrive),
             new AimShootFeeder(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  
