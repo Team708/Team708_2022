@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
+import frc.robot.commands.drivetrain.DropOmnisCommand;
 import frc.robot.commands.groups.AimShootTarmac;
 import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.intakeFeeder.DeployIntake;
@@ -38,7 +39,9 @@ public class threeBallAuto extends SequentialCommandGroup{
             ),
             
             new DriveCurvatureToEncoder(.4, .9, true, .5, m_robotDrive),
-            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
+            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
+
+            new DropOmnisCommand(m_robotDrive)
         );    
   }  
 }

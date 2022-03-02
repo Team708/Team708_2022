@@ -64,7 +64,9 @@ public class fiveBallAuto extends SequentialCommandGroup{
             ),
 
             new DriveCurvatureToEncoder(.5, 1.0, true, 0.02, m_robotDrive),
-            new AimShootFeeder(m_Limelight, m_robotDrive, m_shooter, m_if)
+            new AimShootFeeder(m_Limelight, m_robotDrive, m_shooter, m_if),
+
+            new DropOmnisCommand(m_robotDrive)
         );    
   }  
 }

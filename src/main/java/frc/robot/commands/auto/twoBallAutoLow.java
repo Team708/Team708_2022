@@ -1,21 +1,23 @@
 package frc.robot.commands.auto;
 
+import frc.robot.commands.intakeFeeder.IntakeFeederTillBall;
+import frc.robot.commands.groups.AimShootTarmac;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
-import frc.robot.commands.groups.AimShootTarmac;
 import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.intakeFeeder.DeployIntake;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
-import frc.robot.commands.intakeFeeder.IntakeFeederTillBall;
+import frc.robot.commands.drivetrain.DropOmnisCommand;
+
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.vision.*;
 import frc.robot.subsystems.shooter.*;
 
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class twoBallAutoLow extends SequentialCommandGroup{
 
@@ -30,7 +32,11 @@ public class twoBallAutoLow extends SequentialCommandGroup{
             ),
 
             new DriveCurvatureToEncoder(-.5, -.3, false, -2.9, m_robotDrive),
-            new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if)
-        );    
+            new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if),
+
+            new DropOmnisCommand(m_robotDrive)
+            ); 
+
+
   }  
 }
