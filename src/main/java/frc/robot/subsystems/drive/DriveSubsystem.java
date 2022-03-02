@@ -93,10 +93,10 @@ public class DriveSubsystem extends SubsystemBase {
         DriveConstants.kShiftHSolenoidPort, DriveConstants.kShiftLSolenoidPort);
 
     dropSolenoid = new Solenoid(hub2.getModuleNumber(), 
-        PneumaticsModuleType.REVPH, 
-        DriveConstants.kDriveSolenoidPort);
+                                    PneumaticsModuleType.REVPH, 
+                                        DriveConstants.kDriveSolenoidPort);
 
-    dropSolenoid.set(true);
+    // dropSolenoid.set(true);
     shiftGearLow();
 
     m_leftPrimary.setSmartCurrentLimit(40);
