@@ -26,7 +26,7 @@ public class AimShootTarmac extends SequentialCommandGroup{
         m_if.directionIn();
         addCommands(
             new ParallelCommandGroup(
-                new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(1),
+                // new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(1),
                 new FeederReverse(m_if) .withTimeout(0.5)
                                         .andThen(new StopFeeder(m_if)),
                 new ShootHighGoalFar(m_shooter)

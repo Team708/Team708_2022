@@ -29,7 +29,7 @@ public class twoBallAutoLow extends SequentialCommandGroup{
               new DriveCurvatureToEncoder(.6, .4, false, 1.4, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.5, -.3, false, -2.6, m_robotDrive),
+            new DriveCurvatureToEncoder(-.5, -.3, false, -2.9, m_robotDrive),
             new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  

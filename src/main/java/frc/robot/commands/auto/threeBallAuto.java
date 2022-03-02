@@ -29,15 +29,15 @@ public class threeBallAuto extends SequentialCommandGroup{
               new DriveCurvatureToEncoder(.6, .4, false, 1.4, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.5, -.3, false, -2.7, m_robotDrive),
+            new DriveCurvatureToEncoder(-.5, -.3, false, -2.9, m_robotDrive),
             new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new ParallelCommandGroup(
               new IntakeFeederTillBall(m_if),
-              new DriveCurvatureToEncoder(.5, -.3, false, 1.5, m_robotDrive)
+              new DriveCurvatureToEncoder(.5, -.25, false, 1.4, m_robotDrive)
             ),
             
-            new DriveCurvatureToEncoder(.4, 1.0, true, .4, m_robotDrive),
+            new DriveCurvatureToEncoder(.4, .9, true, .5, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
         );    
   }  
