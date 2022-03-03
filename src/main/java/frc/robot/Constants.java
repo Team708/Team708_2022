@@ -30,8 +30,8 @@ public final class Constants {
 
   public static final class
                        DriveConstants {
-    public static final int kLeftMotor1Port   = 12;
-    public static final int kLeftMotor2Port   = 11;
+    public static final int kLeftMotor1Port   = 11;
+    public static final int kLeftMotor2Port   = 12;
     public static final int kRightMotor1Port  = 14;
     public static final int kRightMotor2Port  = 15;
 
@@ -120,7 +120,7 @@ public final class Constants {
   }
 
   public static final class ClimberConstants {
-    public static final double kClimberArmDownSpeed    = 0.8;
+    public static final double kClimberArmDownSpeed    = 1.0;
     public static final double kClimberArmUpSpeed      = -0.8; 
     public static final double kClimberArmDownDistance = 2.25;  //in meters
     public static final double kClimberArmUpDistance   = 0.25;   //in meters

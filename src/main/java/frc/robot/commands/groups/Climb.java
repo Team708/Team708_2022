@@ -25,9 +25,9 @@ public class Climb extends SequentialCommandGroup{
             new WaitCommand(2.0),
             //release PTO
             new RunCommand(m_climber::releasePTO, m_climber),
-            new WaitCommand(2.0),
+            new WaitCommand(2.0)
             //bring arm in
-            new RunCommand(m_climber::retractClimbingArm, m_climber)
+            // new RunCommand(m_climber::retractClimbingArm, m_climber)
             //
         );
     }

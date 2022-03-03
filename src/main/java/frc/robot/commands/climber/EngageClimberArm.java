@@ -5,6 +5,7 @@ import frc.robot.Constants;
 import frc.robot.OI;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class EngageClimberArm extends CommandBase{
     
@@ -21,6 +22,7 @@ public class EngageClimberArm extends CommandBase{
 
     @Override
     public void initialize(){
+        m_driveSubsystem.setMotorAmps();
         m_climber.activatePTO();
         m_driveSubsystem.resetEncoders();
     }
@@ -28,9 +30,11 @@ public class EngageClimberArm extends CommandBase{
     @Override
     public void execute(){
         if (Math.abs(OI.getClimberLeftY()) > Constants.ControllerConstants.kClimberDeadBandLeftY)
-           m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
+            m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
         else
-           m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmDownSpeed, 0);
+            m_driveSubsystem.tankDriveVolts(Constants.ClimberConstants.kClimberArmDownSpeed, Constants.ClimberConstants.kClimberArmDownSpeed);
+
+        //    m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmDownSpeed, 0);
     }
 
     @Override

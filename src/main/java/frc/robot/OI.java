@@ -28,6 +28,7 @@ import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.groups.AimShootFeeder;
 import frc.robot.commands.groups.AimShootSafetyZone;
 import frc.robot.commands.groups.AutoShoot;
+import frc.robot.commands.groups.Climb;
 import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -123,12 +124,13 @@ public class OI {
 
 		new JoystickButton(driverGamepad, Button.kB.value)
 		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
-
+				
 		new JoystickButton(driverGamepad, Button.kStart.value)
-				.whenPressed(new TurnToTargetSetPoint(m_robotDrive, m_limeLight)
-				// .whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
-				// .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
-				.withTimeout(3.0));
+		        .whenPressed(new Climb(m_robotDrive, m_climber));
+		// 		.whenPressed(new TurnToTargetSetPoint(m_robotDrive, m_limeLight)
+		// 		// .whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
+		// 		// .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
+		// 		.withTimeout(3.0));
 
 		new JoystickButton(driverGamepad, Button.kBack.value)
 				.whenPressed(() -> m_robotDrive.resetEncoders());

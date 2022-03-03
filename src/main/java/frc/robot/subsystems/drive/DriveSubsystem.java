@@ -220,6 +220,14 @@ public class DriveSubsystem extends SubsystemBase {
     m_drive.arcadeDrive(0,0);
   }
 
+
+  public void setMotorAmps() {
+    m_leftPrimary.setSmartCurrentLimit(80);
+    m_leftSecondary.setSmartCurrentLimit(80);
+    m_rightPrimary.setSmartCurrentLimit(80);
+    m_rightSecondary.setSmartCurrentLimit(80);
+  }
+
   /**
    * Controls the left and right sides of the drive directly with voltages.
    *
@@ -357,6 +365,15 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Climb enaged", climberEngaged);		//Drivetrain Climb Engaged
     SmartDashboard.putBoolean("Brake",        brake);			// Brake or Coast
 
+    SmartDashboard.putNumber("DT Motor 11 voltage", m_leftPrimary.getBusVoltage());
+    SmartDashboard.putNumber("DT Motor 12 voltage", m_leftSecondary.getBusVoltage());
+    SmartDashboard.putNumber("DT Motor 14 voltage", m_rightPrimary.getBusVoltage());
+    SmartDashboard.putNumber("DT Motor 15 voltage", m_rightSecondary.getBusVoltage());
+
+    SmartDashboard.putNumber("DT Motor 11 Current", m_leftPrimary.getOutputCurrent());
+    SmartDashboard.putNumber("DT Motor 12 Current", m_leftSecondary.getOutputCurrent());
+    SmartDashboard.putNumber("DT Motor 14 Current", m_rightPrimary.getOutputCurrent());
+    SmartDashboard.putNumber("DT Motor 15 Current", m_rightSecondary.getOutputCurrent());
   }
 
 
