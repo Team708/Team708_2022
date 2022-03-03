@@ -48,7 +48,7 @@ public class TurnToTargetSetPoint extends CommandBase {
         m_DriveSubsystem.resetOdometry(new Pose2d());
         m_DriveSubsystem.resetEncoders();
         
-        this.goalDegrees = m_Limelight.turnToTarget();
+        this.goalDegrees = m_Limelight.turnToTarget() * 0.9;
         // this.goalDegrees = 10;
         SmartDashboard.putNumber("Goal Degress", goalDegrees);
     }

@@ -23,22 +23,25 @@ public class threeBallAuto extends SequentialCommandGroup{
   public threeBallAuto(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
     addCommands(
+
+
+
             new DeployIntake(m_if),
             
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.6, .4, false, 1.4, m_robotDrive)
+              new DriveCurvatureToEncoder(.4, .4, false, 1.4, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.5, -.3, false, -2.9, m_robotDrive),
+            new DriveCurvatureToEncoder(-.4, -.3, false, -2.6, m_robotDrive),
             new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new ParallelCommandGroup(
               new IntakeFeederTillBall(m_if),
-              new DriveCurvatureToEncoder(.5, -.25, false, 1.4, m_robotDrive)
+              new DriveCurvatureToEncoder(.4, -.40, false, 1.80, m_robotDrive)
             ),
             
-            new DriveCurvatureToEncoder(.4, .9, true, .5, m_robotDrive),
+            new DriveCurvatureToEncoder(.4, .9, true, .4, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new DropOmnisCommand(m_robotDrive)
