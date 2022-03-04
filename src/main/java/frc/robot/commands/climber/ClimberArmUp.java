@@ -21,6 +21,7 @@ public class ClimberArmUp extends CommandBase{
 
     @Override
     public void initialize(){
+        m_driveSubsystem.setMotorAmps();
         m_climber.activatePTO();
         m_driveSubsystem.resetEncoders();
     }
