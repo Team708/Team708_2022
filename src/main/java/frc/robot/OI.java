@@ -126,7 +126,8 @@ public class OI {
 		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
 				
 		new JoystickButton(driverGamepad, Button.kStart.value)
-		        .whenPressed(new Climb(m_robotDrive, m_climber));
+		        .whenPressed(new Climb(m_robotDrive
+				, m_climber));
 		// 		.whenPressed(new TurnToTargetSetPoint(m_robotDrive, m_limeLight)
 		// 		// .whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
 		// 		// .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));

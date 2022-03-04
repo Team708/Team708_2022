@@ -32,9 +32,8 @@ public class EngageClimberArm extends CommandBase{
         if (Math.abs(OI.getClimberLeftY()) > Constants.ControllerConstants.kClimberDeadBandLeftY)
             m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
         else
-            m_driveSubsystem.tankDriveVolts(Constants.ClimberConstants.kClimberArmDownSpeed, Constants.ClimberConstants.kClimberArmDownSpeed);
+            m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmDownSpeed, 0.0);
 
-        //    m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmDownSpeed, 0);
     }
 
     @Override

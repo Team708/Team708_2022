@@ -28,11 +28,10 @@ public class ClimberArmDown extends CommandBase{
 
     @Override
     public void execute(){
-        if (Math.abs(OI.getClimberRightY()) > Constants.ControllerConstants.kClimberDeadBandLeftY)
-           m_driveSubsystem.arcadeDrive(OI.getClimberRightY(), 0.0);
+        if (Math.abs(OI.getClimberLeftY()) > Constants.ControllerConstants.kClimberDeadBandLeftY)
+           m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
         else        
-           m_driveSubsystem.tankDriveVolts(Constants.ClimberConstants.kClimberArmDownSpeed, Constants.ClimberConstants.kClimberArmDownSpeed);
-        //    m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmDownSpeed, 0);
+           m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmDownSpeed, 0);
     }
 
     @Override

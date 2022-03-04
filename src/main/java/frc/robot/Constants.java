@@ -123,7 +123,8 @@ public final class Constants {
     public static final double kClimberArmDownSpeed    = 1.0;
     public static final double kClimberArmUpSpeed      = -0.8; 
     public static final double kClimberArmDownDistance = 2.25;  //in meters
-    public static final double kClimberArmUpDistance   = 0.25;   //in meters
+    public static final double kClimberArmUpDistance   = 0.30;   //in meters
+    public static final double kClimberOffBar          = 0.50;   //in meters
 
   }
   public static final class ShooterConstants{
