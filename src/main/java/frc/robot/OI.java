@@ -172,31 +172,34 @@ public class OI {
 
 		//Climber//
 
-		new JoystickButton(climberGamepad, Button.kA.value)
-				.whenPressed(m_climber::activatePTO);
-
 		new JoystickButton(climberGamepad, Button.kY.value)
 				.whenPressed(m_climber::releasePTO);
-				
-		new JoystickButton(climberGamepad, Button.kLeftBumper.value)
-				.whenPressed(new ClimberArmDown(m_robotDrive, m_climber));
 
-		new JoystickButton(climberGamepad, Button.kStart.value)
-				.whenPressed(m_climber::releaseBrake);
-
-		new JoystickButton(climberGamepad, Button.kB.value)
-				.whenPressed(m_climber::retractClimbingArm);	
-
-		new JoystickButton(climberGamepad, Button.kX.value)
-				.whenPressed(m_climber::extendClimbingArm);	
-
-		new JoystickButton(climberGamepad, Button.kBack.value)
-				.whenPressed(m_climber::engageBrake);	
+		new JoystickButton(climberGamepad, Button.kA.value)
+				.whenPressed(m_climber::activatePTO);
 		
-		new JoystickButton(climberGamepad, Button.kLeftStick.value)
-				.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
-
-		new JoystickButton(climberGamepad, Button.kRightStick.value)
-				.whenPressed(new ClimberArmUp(m_robotDrive, m_climber));
+		new JoystickButton(climberGamepad, Button.kStart.value)
+			.whenPressed(m_climber::releaseBrake);
+		
+		new JoystickButton(climberGamepad, Button.kBack.value)
+			.whenPressed(m_climber::engageBrake);
+		
+		new JoystickButton(climberGamepad, Button.kB.value)
+			.whenPressed(m_climber::retractClimbingArm);	
+		
+		new JoystickButton(climberGamepad, Button.kX.value)
+			.whenPressed(m_climber::extendClimbingArm);	
+		
+		new JoystickButton(climberGamepad, Button.kRightBumper.value)  //auto climb
+			.whenPressed(new Climb(m_robotDrive, m_climber));
+		
+		new JoystickButton(climberGamepad, Button.kLeftStick.value) //pull all the way down to switches
+			.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
+		
+		new JoystickButton(climberGamepad, Button.kRightStick.value)  //pulls arm of bar to move out to next bar 
+			.whenPressed(new ClimberArmUp(m_robotDrive, m_climber)); 
+				
+		new JoystickButton(climberGamepad, Button.kLeftBumper.value)  //pulls arm down to pull of lower bar
+				.whenPressed(new ClimberArmDown(m_robotDrive, m_climber));
 	}
 }
