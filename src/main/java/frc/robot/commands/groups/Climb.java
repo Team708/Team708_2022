@@ -42,20 +42,26 @@ public class Climb extends SequentialCommandGroup{
 
             // to traversal
 
-            // //pull arm down till HIT SWITCHES or encoders
+            // //pull arm down till HIT SWITCHES or some encoder number 
+            // //    (whatever it was before minus the armdown amount )
             // new EngageClimberArm(m_driveSubsystem, m_climber),  //hanging on high bar
             // new WaitCommand(1.0),
+
             // //GO up distance, to release middle claw from bar
             // new ClimberArmUp(m_driveSubsystem, m_climber),
             // new WaitCommand(1.0),
+
             // //arm out to reach higher bar
             // new RunCommand(m_climber::extendClimbingArm, m_climber),
             // new WaitCommand(1.0),
+
             // //release PTO to raisearm to higher bar
             // new RunCommand(m_climber::releasePTO, m_climber),
             // new WaitCommand(2.0),
+
             // //bring arm in to catch bar
             // new RunCommand(m_climber::retractClimbingArm, m_climber),
+            
             // //pull arm off lower bar
             // new ClimberArmDown(m_driveSubsystem, m_climber),  //hanging on high bar
             // new WaitCommand(2.0),
