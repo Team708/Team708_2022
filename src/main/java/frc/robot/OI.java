@@ -2,8 +2,14 @@ package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.climber.EngageClimberArm;
+import frc.robot.commands.climber.ExtendClimbingArm;
+import frc.robot.commands.climber.ReleaseBreak;
+import frc.robot.commands.climber.ReleasePTO;
+import frc.robot.commands.climber.RetractClimbingArm;
+import frc.robot.commands.climber.ActivatePTO;
 import frc.robot.commands.climber.ClimberArmDown;
 import frc.robot.commands.climber.ClimberArmUp;
+import frc.robot.commands.climber.EngageBreak;
 import frc.robot.commands.drivetrain.TurnToTargetDegrees;
 import frc.robot.commands.intakeFeeder.FeederReverse;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
@@ -125,9 +131,9 @@ public class OI {
 		new JoystickButton(driverGamepad, Button.kB.value)
 		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
 				
-		new JoystickButton(driverGamepad, Button.kStart.value)
-		        .whenPressed(new Climb(m_robotDrive
-				, m_climber));
+		// new JoystickButton(driverGamepad, Button.kStart.value)
+		//         .whenPressed(new Climb(m_robotDrive
+		// 		, m_climber));
 		// 		.whenPressed(new TurnToTargetSetPoint(m_robotDrive, m_limeLight)
 		// 		// .whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
 		// 		// .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
@@ -173,22 +179,22 @@ public class OI {
 		//Climber//
 
 		new JoystickButton(climberGamepad, Button.kY.value)
-				.whenPressed(m_climber::releasePTO);
+				.whenPressed(new ReleasePTO(m_climber));
 
 		new JoystickButton(climberGamepad, Button.kA.value)
-				.whenPressed(m_climber::activatePTO);
+				.whenPressed(new ActivatePTO(m_climber));
 		
 		new JoystickButton(climberGamepad, Button.kStart.value)
-			.whenPressed(m_climber::releaseBrake);
+			.whenPressed(new ReleaseBreak(m_climber));
 		
 		new JoystickButton(climberGamepad, Button.kBack.value)
-			.whenPressed(m_climber::engageBrake);
+			.whenPressed(new EngageBreak(m_climber));
 		
 		new JoystickButton(climberGamepad, Button.kB.value)
-			.whenPressed(m_climber::retractClimbingArm);	
+			.whenPressed(new RetractClimbingArm(m_climber));	
 		
 		new JoystickButton(climberGamepad, Button.kX.value)
-			.whenPressed(m_climber::extendClimbingArm);	
+			.whenPressed(new ExtendClimbingArm(m_climber));	
 		
 		new JoystickButton(climberGamepad, Button.kRightBumper.value)  //auto climb
 			.whenPressed(new Climb(m_robotDrive, m_climber));

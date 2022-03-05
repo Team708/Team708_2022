@@ -1,12 +1,19 @@
 package frc.robot.subsystems.climber;
 
+import java.beans.Encoder;
+
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxRelativeEncoder;
+
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class Climber extends SubsystemBase{
 
@@ -18,7 +25,12 @@ public class Climber extends SubsystemBase{
 
     boolean climbingArmOut, climberBrakeEngaged, PTOEngaged;
 
+    edu.wpi.first.wpilibj.Encoder m_encoderA;
+
     public Climber(PneumaticHub hub2, PneumaticHub hub3){
+
+        m_encoderA = new edu.wpi.first.wpilibj.Encoder(14, 15);
+
         climbingArm = new DoubleSolenoid(hub3.getModuleNumber(), PneumaticsModuleType.REVPH, 5, 4); //ADD TO CONSTANTS
         extendClimbingArm();
 
@@ -79,6 +91,8 @@ public class Climber extends SubsystemBase{
 
         SmartDashboard.putBoolean("PTO Engaged", PTOEngaged);
         SmartDashboard.putBoolean("Climbing Arm Out", climbingArmOut);
+
+        SmartDashboard.putNumber("Climber True Encoder", m_encoderA.getRaw());
     }
     
 }
