@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
 import frc.robot.commands.drivetrain.DropOmnisCommand;
+import frc.robot.commands.drivetrain.SetBrakeMode;
 import frc.robot.commands.groups.AimShootTarmac;
 import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.intakeFeeder.DeployIntake;
@@ -25,6 +26,7 @@ public class twoBallAutoFarBumper extends SequentialCommandGroup{
 
     // shoots 2 balls from far quadrant  -- low goal bumper shot
     addCommands(
+            new SetBrakeMode(m_robotDrive, true),
             new DeployIntake(m_if),
             
             new ParallelCommandGroup(

@@ -16,6 +16,7 @@ import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.vision.*;
 import frc.robot.subsystems.shooter.*;
 import frc.robot.commands.drivetrain.DropOmnisCommand;
+import frc.robot.commands.drivetrain.SetBrakeMode;
 
 
 public class twoBallAutoHigh extends SequentialCommandGroup{
@@ -27,14 +28,15 @@ public class twoBallAutoHigh extends SequentialCommandGroup{
 
 
     addCommands(
+            new SetBrakeMode(m_robotDrive, true),
             new DeployIntake(m_if),
             
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.5, .4, false, 1.6, m_robotDrive)
+              new DriveCurvatureToEncoder(.6, .3, false, 2.0, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.4, -1.0, true, -.14, m_robotDrive),
+            new DriveCurvatureToEncoder(-.5, -1.0, true, -.4, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new DropOmnisCommand(m_robotDrive)

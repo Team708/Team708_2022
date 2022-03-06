@@ -7,6 +7,7 @@ import frc.robot.commands.drivetrain.ShiftHighCommand;
 import frc.robot.commands.drivetrain.ShiftLowCommand;
 import frc.robot.commands.drivetrain.DropOmnisCommand;
 import frc.robot.commands.drivetrain.RaiseOmnisCommand;
+import frc.robot.commands.drivetrain.SetBrakeMode;
 import frc.robot.commands.groups.AimShootTarmac;
 import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.groups.AimShootFeeder;
@@ -26,6 +27,7 @@ public class fiveBallAuto extends SequentialCommandGroup{
   public fiveBallAuto(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
     addCommands(
+            new SetBrakeMode(m_robotDrive, true),
          // new WaitCommand(2), 
 
             new DeployIntake(m_if),

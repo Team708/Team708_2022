@@ -35,7 +35,7 @@ public class TurnTowardsTarget extends CommandBase{
 
     @Override
     public void execute(){
-        // m_driveSubsystem.gotToPosition(targetPosition);
+        m_driveSubsystem.gotToPosition(targetPosition);
     }
 
     @Override
