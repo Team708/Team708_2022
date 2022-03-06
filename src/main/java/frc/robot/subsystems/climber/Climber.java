@@ -83,6 +83,14 @@ public class Climber extends SubsystemBase{
         return hangSwitch3.get();
     }    
 
+    public void resetQuadrature(){
+        m_encoderA.reset();
+    }
+
+    public double getQuadrature(){
+        return m_encoderA.getRaw();
+    }
+
     public void sendToDashboard(){
         SmartDashboard.putBoolean("Climber Arm Switch 2", hangSwitch2_engaged());
         SmartDashboard.putBoolean("Climber Arm Switch 3",  hangSwitch3_engaged());

@@ -29,7 +29,7 @@ public class twoBallAutoFar extends SequentialCommandGroup{
             
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.4, -.4, false, 1.0, m_robotDrive)
+              new DriveCurvatureToEncoder(.4, -.43, false, 1.6, m_robotDrive)
             ),
 
             new DriveCurvatureToEncoder(-.4, -.2, true, -.2, m_robotDrive),

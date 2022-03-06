@@ -34,7 +34,7 @@ public class AimShootBumper extends SequentialCommandGroup{
             ),
             
             new ParallelCommandGroup(
-                new ShootBall(m_if, m_shooter).withTimeout(2.0)
+                new ShootBall(m_if, m_shooter).withTimeout(1.0)
                 ),
 
             new StopShooter(m_shooter)

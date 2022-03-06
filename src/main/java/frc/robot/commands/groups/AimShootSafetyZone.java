@@ -35,7 +35,7 @@ public class AimShootSafetyZone extends SequentialCommandGroup{
 
             new ParallelCommandGroup(
                     // new WaitCommand(1),
-                    new ShootBall(m_if, m_shooter).withTimeout(2.0)
+                    new ShootBall(m_if, m_shooter).withTimeout(1.0)
                 ),
             new StopShooter(m_shooter)
         );

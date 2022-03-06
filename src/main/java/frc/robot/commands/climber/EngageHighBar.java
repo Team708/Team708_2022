@@ -5,14 +5,13 @@ import frc.robot.Constants;
 import frc.robot.OI;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class EngageClimberArm extends CommandBase{
+public class EngageHighBar extends CommandBase{
     
     DriveSubsystem m_driveSubsystem;
     Climber m_climber;
 
-    public EngageClimberArm(DriveSubsystem m_driveSubsystem, Climber m_climber){
+    public EngageHighBar(DriveSubsystem m_driveSubsystem, Climber m_climber){
         this.m_driveSubsystem = m_driveSubsystem;
         this.m_climber = m_climber;
 
@@ -24,7 +23,7 @@ public class EngageClimberArm extends CommandBase{
     public void initialize(){
         m_driveSubsystem.setMotorAmps();
         m_climber.activatePTO();
-        m_driveSubsystem.resetEncoders();
+        m_climber.resetQuadrature();
     }
 
     @Override
@@ -41,8 +40,7 @@ public class EngageClimberArm extends CommandBase{
         // if (!m_climber.hangSwitch2_engaged() && !m_climber.hangSwitch3_engaged()){
         //     return true;
         // }else{
-        //     return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmDownDistance
-        //         || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmDownDistance;
+        //     return Math.abs(m_climber.getQuadrature()) > Constants.ClimberConstants.kClimberQuadDown;
         // }
         return !m_climber.hangSwitch2_engaged() && !m_climber.hangSwitch3_engaged();
     }

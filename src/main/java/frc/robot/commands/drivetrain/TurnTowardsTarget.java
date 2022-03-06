@@ -26,9 +26,8 @@ public class TurnTowardsTarget extends CommandBase{
     public void initialize(){
         m_driveSubsystem.resetOdometry(new Pose2d());
         m_driveSubsystem.resetEncoders();
-        double targetAngle = m_limeLight.getX(); //Doesn't get a value, even when there is a value. . .
-        // targetPosition = (targetAngle * .015 * 10);  //What's .015 ??  and what's 10 ???
-        targetPosition = (targetAngle * .017);  //What's .015 ??  and what's 10 ???
+        double targetAngle = m_limeLight.getX();
+        targetPosition = (targetAngle * .017); 
         System.out.println("Target Angle: " + targetAngle);
         System.out.println("Target Position: " + targetPosition);
 
@@ -36,8 +35,7 @@ public class TurnTowardsTarget extends CommandBase{
 
     @Override
     public void execute(){
-        // m_driveSubsystem.rotateWithEncoders(targetPosition);
-        m_driveSubsystem.gotToPosition(targetPosition);
+        // m_driveSubsystem.gotToPosition(targetPosition);
     }
 
     @Override
@@ -47,7 +45,6 @@ public class TurnTowardsTarget extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
-    	// m_driveSubsystem.arcadeDrive(0.0, 0.0);
     }
 
 }

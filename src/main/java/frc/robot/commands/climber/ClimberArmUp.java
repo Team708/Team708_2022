@@ -36,6 +36,7 @@ public class ClimberArmUp extends CommandBase{
 
     @Override
     public boolean isFinished(){
+        // return m_climber.hangSwitch2_engaged() && m_climber.hangSwitch3_engaged();
             return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmUpDistance
                 || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmUpDistance;
     }

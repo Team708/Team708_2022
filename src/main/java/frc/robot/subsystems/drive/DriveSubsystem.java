@@ -222,10 +222,14 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   public void setMotorAmps() {
-    m_leftPrimary.setSmartCurrentLimit(80);
-    m_leftSecondary.setSmartCurrentLimit(80);
-    m_rightPrimary.setSmartCurrentLimit(80);
-    m_rightSecondary.setSmartCurrentLimit(80);
+    // m_leftPrimary.setSmartCurrentLimit(80);
+    // m_leftSecondary.setSmartCurrentLimit(80);
+    // m_rightPrimary.setSmartCurrentLimit(80);
+    // m_rightSecondary.setSmartCurrentLimit(80);
+    m_leftPrimary.setSmartCurrentLimit(40);
+    m_leftSecondary.setSmartCurrentLimit(40);
+    m_rightPrimary.setSmartCurrentLimit(40);
+    m_rightSecondary.setSmartCurrentLimit(40);
   }
 
   /**
