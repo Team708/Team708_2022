@@ -29,25 +29,25 @@ public class Climb extends SequentialCommandGroup{
             //Bring arm down
             //pull arm down till HIT SWITCHES or encoders
             new EngageClimberArm(m_driveSubsystem, m_climber),  //hanging on med bar
-            new WaitCommand(.5),
+            // new WaitCommand(.5),
 
             //to High Bar
             
             //GO up distance, to release middle claw from bar
-            new ClimberArmUp(m_driveSubsystem, m_climber),
-            new WaitCommand(.2),
+            new ClimberArmUp(m_driveSubsystem, m_climber),   //extend distance
+            // new WaitCommand(.2),
             //arm out to reach for higher bar
             new ExtendClimbingArm(m_climber),
-            new WaitCommand(2.0),
+            // new WaitCommand(1.0),
             //release PTO to raisearm to higher bar
             new ReleasePTO(m_climber),
-            new WaitCommand(2.0),
+            new WaitCommand(1.0),
             //bring arm in to catch bar
             new RetractClimbingArm(m_climber),
             new WaitCommand(1.0),
             //pull arm off lower bar
-            new ClimberArmDown(m_driveSubsystem, m_climber),  //hanging on high bar
-            new WaitCommand(1.0),
+            // new ClimberArmDown(m_driveSubsystem, m_climber),  //hanging on high bar -- do we still need this??
+            // new WaitCommand(1.0),
 
             // to traversal
 
@@ -55,16 +55,15 @@ public class Climb extends SequentialCommandGroup{
             //    (whatever it was before minus the armdown amount )
             // new EngageHighBar(m_driveSubsystem, m_climber),  //hanging on high bar
             new EngageClimberArm(m_driveSubsystem, m_climber),
-            new WaitCommand(1.0),
+            // new WaitCommand(.5),
 
             //GO up distance, to release middle claw from bar
-            new ClimberArmUp(m_driveSubsystem, m_climber),
-            new WaitCommand(1.0),
+            new ClimberArmUp(m_driveSubsystem, m_climber), //extend to loosen tension
+            // new WaitCommand(.2),
 
             //arm out to reach higher bar
             new ExtendClimbingArm(m_climber),
-            new WaitCommand(2.0),
-
+            // new WaitCommand(1.0),
             //release PTO to raisearm to higher bar
             new ReleasePTO(m_climber),
             new WaitCommand(1.0),
@@ -75,7 +74,7 @@ public class Climb extends SequentialCommandGroup{
 
             //pull arm off lower bar
             new ClimberArmDownTraversal(m_driveSubsystem, m_climber),  //hanging on t bar
-            new WaitCommand(.5),
+            // new WaitCommand(.5),
 
             //lock brake at end of climb
             new EngageBreak(m_climber)
