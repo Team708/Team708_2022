@@ -26,8 +26,8 @@ public class oneBallAutoLow extends SequentialCommandGroup{
     
     addCommands(
             new SetBrakeMode(m_robotDrive, true),
-            new DriveCurvatureToEncoder(.4,  0, false, 1.17, m_robotDrive),
-            new DriveCurvatureToEncoder(-.4, 0, false, -2.47, m_robotDrive),
+            new DriveCurvatureToEncoder(.5,  0, false, 2.0, m_robotDrive),
+            new DriveCurvatureToEncoder(-.5, 0, false, -3, m_robotDrive),
             new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if),
             
             new DropOmnisCommand(m_robotDrive)

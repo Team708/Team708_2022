@@ -52,7 +52,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    // m_robotContainer.getDriveSubsystem().setBrakeMode(false);
+    m_robotContainer.getDriveSubsystem().setBrakeMode(false);
+    m_robotContainer.getDriveSubsystem().dropWheels();
   }
 
   @Override
