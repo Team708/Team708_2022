@@ -129,6 +129,8 @@ public final class Constants {
     public static final double kClimberQuadDown        = 30000;  // raw encoder ticks
 
   }
+
+
   public static final class ShooterConstants{
 
     //Mappings
@@ -148,7 +150,7 @@ public final class Constants {
     
 
     public static final double kShooterReverseSpeed   = -4000; // -2000
-    public static final double kThreshold             =  0.98; //0.95;
+    public static final double kThreshold             = 0.8;     // 0.98; at HH
 
     //PID Values
     public static final double kP       = 0.0003;  //.0005
