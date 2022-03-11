@@ -10,10 +10,12 @@ public class ClimberArmUp extends CommandBase{
     
     DriveSubsystem m_driveSubsystem;
     Climber m_climber;
+    double distance;
 
-    public ClimberArmUp(DriveSubsystem m_driveSubsystem, Climber m_climber){
+    public ClimberArmUp(DriveSubsystem m_driveSubsystem, Climber m_climber, double distance){
         this.m_driveSubsystem = m_driveSubsystem;
         this.m_climber = m_climber;
+        this.distance = distance;
 
         addRequirements(m_driveSubsystem);
         addRequirements(m_climber);
@@ -37,8 +39,8 @@ public class ClimberArmUp extends CommandBase{
     @Override
     public boolean isFinished(){
         // return m_climber.hangSwitch2_engaged() && m_climber.hangSwitch3_engaged();
-            return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmUpDistance
-                || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmUpDistance;
+            return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > distance
+                || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > distance;
     }
 
     @Override

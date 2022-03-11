@@ -59,7 +59,7 @@ public class IntakeFeeder extends SubsystemBase {
 
         // intake
         m_intakeMotor = new CANSparkMax(IntakeFeederConstants.kIntakeMotorPort, MotorType.kBrushless);
-        m_intakeMotor.setIdleMode(IdleMode.kBrake);
+        m_intakeMotor.setIdleMode(IdleMode.kCoast);
         m_intakeMotor.setInverted(true);
         m_intakeMotor.setSmartCurrentLimit(40);
 
@@ -85,7 +85,7 @@ public class IntakeFeeder extends SubsystemBase {
 
         // feeder
         m_feederMotor = new CANSparkMax(IntakeFeederConstants.kFeederMotorPort, MotorType.kBrushless);
-        m_feederMotor.setIdleMode(IdleMode.kCoast);  //kBrake
+        m_feederMotor.setIdleMode(IdleMode.kBrake);  //kBrake
         m_feederMotor.setInverted(true);
         m_feederMotor.setSmartCurrentLimit(40);
         feederMotorSpeed = 1.0; // set proper motor speed later

@@ -203,7 +203,7 @@ public class OI {
 			.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
 		
 		new JoystickButton(climberGamepad, Button.kRightStick.value)  //pulls arm of bar to move out to next bar 
-			.whenPressed(new ClimberArmUp(m_robotDrive, m_climber)); 
+			.whenPressed(new ClimberArmUp(m_robotDrive, m_climber, Constants.ClimberConstants.kClimberArmUpDistance)); 
 				
 		new JoystickButton(climberGamepad, Button.kLeftBumper.value)  //pulls arm down to pull of lower bar
 				.whenPressed(new ClimberArmDown(m_robotDrive, m_climber));
