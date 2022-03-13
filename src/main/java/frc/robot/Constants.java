@@ -143,15 +143,15 @@ public final class Constants {
     //Speed constants
     public static final double kShooterEjectSpeed     = 2000; // 500;
 
-    public static final double kShooterLowClose       = 1400; //hood up
-    public static final double kShooterHighFar        = 2300;  //hood down
-    public static final double kShooterHighBumpper    = 2900;  //hood down
-    public static final double kShooterStafetyZone    = 4000;  //hood down
-    public static final double kShooterFeederStation  = 3900;  //hood up
+    public static final double kShooterLowClose       = 1450; //hood up
+    public static final double kShooterHighFar        = 2900;  //hood down
+    public static final double kShooterHighBumper     = 2375;  //hood down
+    public static final double kShooterStafetyZone    = 3000;  //hood down
+    public static final double kShooterFeederStation  = 3600;  //hood up
     
 
     public static final double kShooterReverseSpeed   = -4000; // -2000
-    public static final double kThreshold             = 0.8;     // 0.98; at HH
+    public static final double kThreshold             = 0.75;     // 0.98; at HH
 
     //PID Values
     public static final double kP       = 0.0003;  //.0005

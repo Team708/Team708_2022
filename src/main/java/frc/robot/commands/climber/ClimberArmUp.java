@@ -25,7 +25,8 @@ public class ClimberArmUp extends CommandBase{
     public void initialize(){
         m_driveSubsystem.setMotorAmps();
         m_climber.activatePTO();
-        m_driveSubsystem.resetEncoders();
+        // m_driveSubsystem.resetEncoders();
+        m_climber.resetQuadrature();
     }
 
     @Override
@@ -39,8 +40,9 @@ public class ClimberArmUp extends CommandBase{
     @Override
     public boolean isFinished(){
         // return m_climber.hangSwitch2_engaged() && m_climber.hangSwitch3_engaged();
-            return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > distance
-                || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > distance;
+            // return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > distance
+            //     || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > distance;
+            return Math.abs(m_climber.getQuadrature()) > distance;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class ShootSafteyZone extends CommandBase{
 
     @Override
     public void initialize(){
-        m_shooter.shooterHoodDown();
+        m_shooter.shooterHoodUp();
         m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterStafetyZone);
     }
 

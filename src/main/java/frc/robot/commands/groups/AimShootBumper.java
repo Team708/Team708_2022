@@ -12,6 +12,7 @@ import frc.robot.commands.intakeFeeder.StopFeeder;
 import frc.robot.commands.intakeFeeder.StopIntake;
 import frc.robot.commands.shooter.HoodDown;
 import frc.robot.commands.intakeFeeder.ShootBall;
+import frc.robot.commands.intakeFeeder.ShootBallClose;
 import frc.robot.commands.shooter.HoodUp;
 import frc.robot.commands.shooter.ShootBumperShot;
 import frc.robot.commands.shooter.StopShooter;
@@ -34,9 +35,7 @@ public class AimShootBumper extends SequentialCommandGroup{
             ),
             
             new ParallelCommandGroup(
-                new ShootBall(m_if, m_shooter).withTimeout(1.0)
-                ),
-
+                new ShootBallClose(m_if, m_shooter).withTimeout(1.0)),
             new StopShooter(m_shooter)
         );
     }

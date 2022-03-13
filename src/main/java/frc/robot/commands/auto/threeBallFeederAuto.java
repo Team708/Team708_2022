@@ -8,6 +8,8 @@ import frc.robot.commands.drivetrain.DropOmnisCommand;
 import frc.robot.commands.drivetrain.SetBrakeMode;
 import frc.robot.commands.groups.AimShootTarmac;
 import frc.robot.commands.groups.AimShootBumper;
+import frc.robot.commands.groups.AimShootBumperHigh;
+import frc.robot.commands.groups.AimShootFeeder;
 import frc.robot.commands.intakeFeeder.DeployIntake;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
 import frc.robot.commands.intakeFeeder.IntakeFeederTillBall;
@@ -16,26 +18,43 @@ import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.vision.*;
 import frc.robot.subsystems.shooter.*;
 
+public class threeBallFeederAuto extends SequentialCommandGroup{
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+  public threeBallFeederAuto(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
 
-public class twoBallAutoFar extends SequentialCommandGroup{
-
-  public twoBallAutoFar(DriveSubsystem m_robotDrive, Limelight m_Limelight, Shooter m_shooter, IntakeFeeder m_if) {
-
-
-    // shoots 2 balls from far quadrant  -- high goal from tarmac
     addCommands(
+
             new SetBrakeMode(m_robotDrive, true),
+
             new DeployIntake(m_if),
             
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.4, -.43, false, 1.6, m_robotDrive)
+              new DriveCurvatureToEncoder(.5, .3, false, 2.0, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.3, -.2, true, -.1, m_robotDrive),
+            new DriveCurvatureToEncoder(-.5, -1.0, false, -.5, m_robotDrive),  //.4
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
+
+            new DriveCurvatureToEncoder(.5, 1.0, true, .25, m_robotDrive),
+            new WaitCommand(.1),
+
+            new DriveCurvatureToEncoder(.7, 0, false, 2.5, m_robotDrive),
+            new WaitCommand(.1),
+
+
+            new ParallelCommandGroup(
+            new IntakeFeederTillBall(m_if),
+            new DriveCurvatureToEncoder(.5, -.3, false, 1.9, m_robotDrive)
+            ),
+            
+            new WaitCommand(.2),
+
+            new DriveCurvatureToEncoder(.5, .7, true, .1, m_robotDrive),
+            new WaitCommand(.2),
+
+            new DriveCurvatureToEncoder(-.5, 0, true, -1.2, m_robotDrive),
+            new AimShootFeeder(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new DropOmnisCommand(m_robotDrive)
         );    

@@ -16,22 +16,24 @@ import frc.robot.commands.intakeFeeder.StopIntake;
 import frc.robot.commands.shooter.HoodUp;
 import frc.robot.commands.shooter.ShootHighGoalFar;
 import frc.robot.commands.shooter.ShootFeederStation;
+import frc.robot.commands.shooter.ShootHighGoalBumper;
 import frc.robot.commands.shooter.StopShooter;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.Limelight;
 
-public class AimShootTarmac extends SequentialCommandGroup{
+public class AimShootBumperHigh extends SequentialCommandGroup{
     
-    public AimShootTarmac(Limelight m_limeLight, DriveSubsystem m_driveSubsystem, Shooter m_shooter, IntakeFeeder m_if){
+    public AimShootBumperHigh(Limelight m_limeLight, DriveSubsystem m_driveSubsystem, Shooter m_shooter, IntakeFeeder m_if){
         m_if.directionIn();
         addCommands(
+            new DriveCurvatureToEncoder(0.5, 0.0, false, .75, m_driveSubsystem),
             new ParallelCommandGroup(
-                new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(1.0),
+                new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(1),
                 new FeederReverse(m_if) .withTimeout(0.5)
                                         .andThen(new StopFeeder(m_if)),
-                new ShootHighGoalFar(m_shooter)
+                new ShootHighGoalBumper(m_shooter)
                 ),
 
             new ParallelCommandGroup(

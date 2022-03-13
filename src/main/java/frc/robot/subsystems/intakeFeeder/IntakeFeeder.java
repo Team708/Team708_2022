@@ -202,6 +202,10 @@ public class IntakeFeeder extends SubsystemBase {
         m_feederMotor.set(.5);
     }
 
+    public void feederShootBumper(){
+        m_feederMotor.set(.4);
+    }
+
     public void feederBackward(){
         m_feederMotor.set(-.8);
     }

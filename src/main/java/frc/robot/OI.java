@@ -31,6 +31,7 @@ import frc.robot.commands.drivetrain.TurnToTargetSetPoint;
 import frc.robot.commands.drivetrain.TurnTowardsTarget;
 import frc.robot.commands.groups.AimShootTarmac;
 import frc.robot.commands.groups.AimShootBumper;
+import frc.robot.commands.groups.AimShootBumperHigh;
 import frc.robot.commands.groups.AimShootFeeder;
 import frc.robot.commands.groups.AimShootSafetyZone;
 import frc.robot.commands.groups.AutoShoot;
@@ -165,15 +166,18 @@ public class OI {
 				.whenReleased(new StopShooter(m_shooter));
 
 				
-		new JoystickButton(operatorGamepad, Button.kLeftStick.value)
-				.whenPressed(new AimShootFeeder(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
-				
-				
 		new JoystickButton(operatorGamepad, Button.kRightStick.value)
+				.whenPressed(new AimShootBumperHigh(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
+				
+				
+		new JoystickButton(operatorGamepad, Button.kLeftStick.value)
 		        .whenPressed(new AimShootSafetyZone(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));	
 				
 		new JoystickButton(operatorGamepad, Button.kBack.value)
 				.whileHeld(new FeederReverse(m_intakeFeeder));
+				
+		new JoystickButton(operatorGamepad, Button.kStart.value)
+				.whenPressed(new AimShootFeeder(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
 
 
 		//Climber//
