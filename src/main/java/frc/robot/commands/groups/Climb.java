@@ -1,21 +1,21 @@
 package frc.robot.commands.groups;
 
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.climber.ActivatePTO;
 import frc.robot.commands.climber.ClimberArmDown;
-import frc.robot.commands.climber.ClimberArmDownTraversal;
-import frc.robot.commands.climber.ClimberArmUp;
-import frc.robot.commands.climber.EngageBreak;
 import frc.robot.commands.climber.EngageClimberArm;
-import frc.robot.commands.climber.EngageHighBar;
+import frc.robot.commands.climber.ClimberArmUp;
 import frc.robot.commands.climber.ExtendClimbingArm;
-import frc.robot.commands.climber.ReleasePTO;
 import frc.robot.commands.climber.RetractClimbingArm;
 import frc.robot.commands.drivetrain.ShiftLowCommand;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.commands.climber.ClimberArmDownTraversal;
+import frc.robot.commands.climber.EngageBreak;
+import frc.robot.commands.climber.EngageHighBar;
+import frc.robot.commands.climber.ReleasePTO;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 
 public class Climb extends SequentialCommandGroup{
 
