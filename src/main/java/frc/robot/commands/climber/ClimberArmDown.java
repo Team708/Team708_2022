@@ -10,10 +10,13 @@ public class ClimberArmDown extends CommandBase{
     
     DriveSubsystem m_driveSubsystem;
     Climber m_climber;
+    double dist_off_bar;
+    double distance;
 
-    public ClimberArmDown(DriveSubsystem m_driveSubsystem, Climber m_climber){
+    public ClimberArmDown(DriveSubsystem m_driveSubsystem, Climber m_climber, double distance){
         this.m_driveSubsystem = m_driveSubsystem;
         this.m_climber = m_climber;
+        this.distance = distance;
 
         addRequirements(m_driveSubsystem);
         addRequirements(m_climber);
@@ -21,28 +24,21 @@ public class ClimberArmDown extends CommandBase{
 
     @Override
     public void initialize(){
-        m_driveSubsystem.setMotorAmps();
-        m_climber.activatePTO();
-        m_driveSubsystem.resetEncoders();
+        dist_off_bar = m_climber.getQuadrature() + distance;
     }
 
     @Override
     public void execute(){
-        if (Math.abs(OI.getClimberLeftY()) > Constants.ControllerConstants.kClimberDeadBandLeftY)
-           m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
-        else        
-           m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmDownSpeed, 0);
+         m_driveSubsystem.arcadeDrive(.6, 0);
     }
 
     @Override
     public boolean isFinished(){
-            return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmUpDistance
-                || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmUpDistance;
+        return (m_climber.getQuadrature() >= dist_off_bar);
     }
 
     @Override
     public void end(boolean interrupted){
-
     }
 
 }

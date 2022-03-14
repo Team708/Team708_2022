@@ -122,11 +122,14 @@ public final class Constants {
   public static final class ClimberConstants {
     public static final double kClimberArmDownSpeed    = 0.8;
     public static final double kClimberArmUpSpeed      = -.8; 
-    public static final double kClimberArmDownDistance = 2.5;    // in meters - 1.35
+    public static final double kClimberArmDownDistance = .5;    // in meters - 1.35
     public static final double kClimberArmUpDistance   = 1.20;   // in meters
     public static final double kClimberOffBar          = 0.50;   // in meters
     public static final double kClimberArmDownTrav     = 0.9;    // pull it off high bar to swing on T bar
     public static final double kClimberQuadDown        = 30000;  // raw encoder ticks
+
+    public static final double kClimberfullextend      = 30000;  // raw encoder ticks
+
 
   }
 

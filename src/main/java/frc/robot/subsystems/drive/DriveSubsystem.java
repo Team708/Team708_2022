@@ -364,20 +364,23 @@ public class DriveSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Roll",          m_gyro.getRoll().getDegrees());
     SmartDashboard.putNumber("Pitch",         m_gyro.getPitch().getDegrees());
+    SmartDashboard.putNumber("Rate X",        m_gyro.getRateX());
+    SmartDashboard.putNumber("Rate Y",        m_gyro.getRateY());
+    SmartDashboard.putNumber("Rate Z",        m_gyro.getRateZ());    
 
     SmartDashboard.putBoolean("Gear High",    gearHigh);			//Drivetrain Gear mode
     SmartDashboard.putBoolean("Climb enaged", climberEngaged);		//Drivetrain Climb Engaged
     SmartDashboard.putBoolean("Brake",        brake);			// Brake or Coast
 
-    SmartDashboard.putNumber("DT Motor 11 voltage", m_leftPrimary.getBusVoltage());
-    SmartDashboard.putNumber("DT Motor 12 voltage", m_leftSecondary.getBusVoltage());
-    SmartDashboard.putNumber("DT Motor 14 voltage", m_rightPrimary.getBusVoltage());
-    SmartDashboard.putNumber("DT Motor 15 voltage", m_rightSecondary.getBusVoltage());
+    // SmartDashboard.putNumber("DT Motor 11 voltage", m_leftPrimary.getBusVoltage());
+    // SmartDashboard.putNumber("DT Motor 12 voltage", m_leftSecondary.getBusVoltage());
+    // SmartDashboard.putNumber("DT Motor 14 voltage", m_rightPrimary.getBusVoltage());
+    // SmartDashboard.putNumber("DT Motor 15 voltage", m_rightSecondary.getBusVoltage());
 
-    SmartDashboard.putNumber("DT Motor 11 Current", m_leftPrimary.getOutputCurrent());
-    SmartDashboard.putNumber("DT Motor 12 Current", m_leftSecondary.getOutputCurrent());
-    SmartDashboard.putNumber("DT Motor 14 Current", m_rightPrimary.getOutputCurrent());
-    SmartDashboard.putNumber("DT Motor 15 Current", m_rightSecondary.getOutputCurrent());
+    // SmartDashboard.putNumber("DT Motor 11 Current", m_leftPrimary.getOutputCurrent());
+    // SmartDashboard.putNumber("DT Motor 12 Current", m_leftSecondary.getOutputCurrent());
+    // SmartDashboard.putNumber("DT Motor 14 Current", m_rightPrimary.getOutputCurrent());
+    // SmartDashboard.putNumber("DT Motor 15 Current", m_rightSecondary.getOutputCurrent());
   }
 
 

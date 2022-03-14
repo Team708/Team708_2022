@@ -43,6 +43,9 @@ public class Climber extends SubsystemBase{
         //ON MXP
         hangSwitch2 = new DigitalInput(12);
         hangSwitch3 = new DigitalInput(13);
+
+        m_encoderA.reset();
+
     }
 
     public void extendClimbingArm(){

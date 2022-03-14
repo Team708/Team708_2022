@@ -10,6 +10,7 @@ public class ClimberArmUp extends CommandBase{
     
     DriveSubsystem m_driveSubsystem;
     Climber m_climber;
+    double dist_off_bar;
     double distance;
 
     public ClimberArmUp(DriveSubsystem m_driveSubsystem, Climber m_climber, double distance){
@@ -23,26 +24,17 @@ public class ClimberArmUp extends CommandBase{
 
     @Override
     public void initialize(){
-        m_driveSubsystem.setMotorAmps();
-        m_climber.activatePTO();
-        // m_driveSubsystem.resetEncoders();
-        m_climber.resetQuadrature();
+        dist_off_bar = m_climber.getQuadrature() - distance;
     }
 
     @Override
     public void execute(){
-        if (Math.abs(OI.getClimberRightY()) > Constants.ControllerConstants.kClimberDeadBandLeftY)
-           m_driveSubsystem.arcadeDrive(OI.getClimberRightY(), 0.0);
-        else
            m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmUpSpeed, 0);
     }
 
     @Override
     public boolean isFinished(){
-        // return m_climber.hangSwitch2_engaged() && m_climber.hangSwitch3_engaged();
-            // return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > distance
-            //     || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > distance;
-            return Math.abs(m_climber.getQuadrature()) > distance;
+            return m_climber.getQuadrature() <= dist_off_bar;
     }
 
     @Override

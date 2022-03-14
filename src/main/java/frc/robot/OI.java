@@ -183,10 +183,10 @@ public class OI {
 		//Climber//
 
 		new JoystickButton(climberGamepad, Button.kY.value)
-				.whenPressed(new ReleasePTO(m_climber));
+			.whenPressed(new ReleasePTO(m_climber));
 
 		new JoystickButton(climberGamepad, Button.kA.value)
-				.whenPressed(new ActivatePTO(m_climber));
+			.whenPressed(new ActivatePTO(m_climber));
 		
 		new JoystickButton(climberGamepad, Button.kStart.value)
 			.whenPressed(new ReleaseBreak(m_climber));
@@ -203,13 +203,13 @@ public class OI {
 		new JoystickButton(climberGamepad, Button.kRightBumper.value)  //auto climb
 			.whenPressed(new Climb(m_robotDrive, m_climber));
 		
-		new JoystickButton(climberGamepad, Button.kLeftStick.value) //pull all the way down to switches
-			.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
+		// new JoystickButton(climberGamepad, Button.kLeftStick.value) //pull all the way down to switches
+		// 	.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
 		
-		new JoystickButton(climberGamepad, Button.kRightStick.value)  //pulls arm of bar to move out to next bar 
-			.whenPressed(new ClimberArmUp(m_robotDrive, m_climber, Constants.ClimberConstants.kClimberArmUpDistance)); 
+		// new JoystickButton(climberGamepad, Button.kRightStick.value)  //pulls arm of bar to move out to next bar 
+		// 	.whenPressed(new ClimberArmUp(m_robotDrive, m_climber, Constants.ClimberConstants.kClimberArmUpDistance)); 
 				
-		new JoystickButton(climberGamepad, Button.kLeftBumper.value)  //pulls arm down to pull of lower bar
-				.whenPressed(new ClimberArmDown(m_robotDrive, m_climber));
+		// new JoystickButton(climberGamepad, Button.kLeftBumper.value)  //pulls arm down to pull of lower bar
+		// 		.whenPressed(new ClimberArmDown(m_robotDrive, m_climber));
 	}
 }
