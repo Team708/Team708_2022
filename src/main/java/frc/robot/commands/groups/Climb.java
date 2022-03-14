@@ -40,11 +40,12 @@ public class Climb extends SequentialCommandGroup{
             new WaitCommand(0.5),
             new ClimberArmDown(m_driveSubsystem, m_climber, 4500),  // speed= .6  --dyn offset
             new WaitCommand(1.0),
-            new RetractClimbingArm(m_climber)                       // arm in           
-            // new WaitCommand(2.0)
+            new RetractClimbingArm(m_climber),                       // arm in           
+            // new WaitCommand(2.0),
 
             //lock brake at end of climb
             // new EngageBreak(m_climber)                          // lock the arm from retracting
+            new WaitCommand(.2)
         );
     }
 
