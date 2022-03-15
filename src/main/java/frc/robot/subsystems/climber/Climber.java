@@ -27,6 +27,8 @@ public class Climber extends SubsystemBase{
 
     edu.wpi.first.wpilibj.Encoder m_encoderA;
 
+    public double climber_fully_extended = 0;
+
     public Climber(PneumaticHub hub2, PneumaticHub hub3){
 
         m_encoderA = new edu.wpi.first.wpilibj.Encoder(14, 15);
@@ -45,7 +47,19 @@ public class Climber extends SubsystemBase{
         hangSwitch3 = new DigitalInput(13);
 
         m_encoderA.reset();
+        // m_encoderA.setDistancePerPulse(distancePerPulse);
+        // m_encoderA.getEncodingScale();
+        // m_encoderA.getDistance();
 
+        climber_fully_extended = 0;
+    }
+
+    public void setClimberExtended(){
+        climber_fully_extended = getQuadrature();
+    }
+
+    public double getClimberExtended(){
+        return climber_fully_extended;
     }
 
     public void extendClimbingArm(){
@@ -95,15 +109,16 @@ public class Climber extends SubsystemBase{
     }
 
     public void sendToDashboard(){
-        SmartDashboard.putBoolean("Climber Arm Switch 2", hangSwitch2_engaged());
-        SmartDashboard.putBoolean("Climber Arm Switch 3",  hangSwitch3_engaged());
+        SmartDashboard.putBoolean("Climber - Arm Switch 2", hangSwitch2_engaged());
+        SmartDashboard.putBoolean("Climber - Arm Switch 3",  hangSwitch3_engaged());
 
-        SmartDashboard.putBoolean("Climber Brake Engaged", climberBrakeEngaged);
+        SmartDashboard.putBoolean("Climber - Brake Engaged", climberBrakeEngaged);
 
-        SmartDashboard.putBoolean("PTO Engaged", PTOEngaged);
-        SmartDashboard.putBoolean("Climbing Arm Out", climbingArmOut);
+        SmartDashboard.putBoolean("Climber - PTO Engaged", PTOEngaged);
+        SmartDashboard.putBoolean("Climber - Arm Out", climbingArmOut);
 
-        SmartDashboard.putNumber("Climber True Encoder", m_encoderA.getRaw());
+        SmartDashboard.putNumber("Climber - True Encoder", m_encoderA.getRaw());
+        SmartDashboard.putNumber("Climber - in Function Call: encoder full extension", climber_fully_extended);
     }
     
 }

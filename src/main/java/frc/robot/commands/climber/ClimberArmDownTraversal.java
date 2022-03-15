@@ -31,13 +31,13 @@ public class ClimberArmDownTraversal extends CommandBase{
         if (Math.abs(OI.getClimberLeftY()) > Constants.ControllerConstants.kClimberDeadBandLeftY)
            m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), 0.0);
         else        
-           m_driveSubsystem.arcadeDrive(Constants.ClimberConstants.kClimberArmDownSpeed, 0);
+           m_driveSubsystem.arcadeDrive(.8, 0);
     }
 
     @Override
     public boolean isFinished(){
-            return Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmDownTrav
-                || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > Constants.ClimberConstants.kClimberArmDownTrav;
+            return (Math.abs(m_driveSubsystem.getLeftEncoder().getPosition()) > .9
+                || Math.abs(m_driveSubsystem.getRightEncoder().getPosition()) > .9);
     }
 
     @Override
