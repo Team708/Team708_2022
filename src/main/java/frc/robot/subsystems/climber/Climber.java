@@ -55,7 +55,8 @@ public class Climber extends SubsystemBase{
     }
 
     public void setClimberExtended(){
-        climber_fully_extended = getQuadrature();
+        if (climber_fully_extended == 0)
+            climber_fully_extended = getQuadrature();
     }
 
     public double getClimberExtended(){
