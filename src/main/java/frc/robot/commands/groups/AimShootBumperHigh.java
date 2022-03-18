@@ -1,10 +1,14 @@
 package frc.robot.commands.groups;
 
+import org.ejml.dense.block.MatrixOps_MT_DDRB;
+
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
 import frc.robot.commands.drivetrain.DriveStraightCommand;
+import frc.robot.commands.drivetrain.DropOmnisCommand;
+import frc.robot.commands.drivetrain.RaiseOmnisCommand;
 import frc.robot.commands.drivetrain.TurnTowardsTarget;
 import frc.robot.commands.intakeFeeder.FeederReverse;
 import frc.robot.commands.intakeFeeder.IntakeFeederOut;
@@ -28,6 +32,7 @@ public class AimShootBumperHigh extends SequentialCommandGroup{
     public AimShootBumperHigh(Limelight m_limeLight, DriveSubsystem m_driveSubsystem, Shooter m_shooter, IntakeFeeder m_if){
         m_if.directionIn();
         addCommands(
+            new RaiseOmnisCommand(m_driveSubsystem),
             new DriveCurvatureToEncoder(0.5, 0.0, false, .75, m_driveSubsystem),
             new ParallelCommandGroup(
                 new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(1),
@@ -40,7 +45,8 @@ public class AimShootBumperHigh extends SequentialCommandGroup{
                     // new WaitCommand(1),
                     new ShootBall(m_if, m_shooter).withTimeout(1.0)
                 ),
-            new StopShooter(m_shooter)
+            new StopShooter(m_shooter),
+            new DropOmnisCommand(m_driveSubsystem)
         );
     }
 

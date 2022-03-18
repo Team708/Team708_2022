@@ -357,6 +357,15 @@ public class DriveSubsystem extends SubsystemBase {
     dropSolenoid.set(false);
   }
 
+  public double getRoll() {
+    return m_gyro.getRoll().getDegrees();
+  }
+
+  public double getAcc() {
+    return m_gyro.getRateX();
+  }
+
+  
   public void sendToDashboard() {
     // m_gyro.outputToSmartDashboard();
     SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());

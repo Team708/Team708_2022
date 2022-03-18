@@ -15,6 +15,7 @@ public class ClimberArmDown extends CommandBase{
     double dist_off_bar;
     double distance;
     double speed;
+    boolean go;
 
     public ClimberArmDown(DriveSubsystem m_driveSubsystem, Climber m_climber, double distance, double speed){
         this.m_driveSubsystem   = m_driveSubsystem;
@@ -30,17 +31,26 @@ public class ClimberArmDown extends CommandBase{
     public void initialize(){
         dist_off_bar = m_climber.getQuadrature() + distance;
         SmartDashboard.putNumber("Climber - in ArmDown: move to", dist_off_bar);
-
+        go = false;
     }
 
     @Override
     public void execute(){
-         m_driveSubsystem.arcadeDrive(speed, 0);
+        if (m_driveSubsystem.getRoll() >= -3  &&  m_driveSubsystem.getAcc()>0 ){
+            go = true;
+            // m_climber.engageBrake();
+            SmartDashboard.putNumber("Climber - in ArmDown: roll=", m_driveSubsystem.getRoll());
+            SmartDashboard.putNumber("Climber - in ArmDown:  Acc=", m_driveSubsystem.getAcc());
+        }
+            
+        if (go)
+            m_driveSubsystem.arcadeDrive(speed, 0);
     }
 
     @Override
     public boolean isFinished(){
         SmartDashboard.putNumber("Climber - in ArmDown: finished", dist_off_bar);
+
         return (m_climber.getQuadrature() >= dist_off_bar);
     }
 
