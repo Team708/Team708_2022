@@ -115,8 +115,8 @@ public class RobotContainer {
                         UsbCamera usbCamera = new UsbCamera("USB Camera", 0);
                         MjpegServer mjpegServer = new MjpegServer("Serve_USB Camera", 1181);
                         mjpegServer.setSource(usbCamera);
-                        mjpegServer.setResolution(1280, 720);
-                        mjpegServer.setFPS(30);
+                        mjpegServer.setResolution(800, 448);
+                        mjpegServer.setFPS(20);
 
 
                 SmartDashboard.putData("Auto Chooser", m_chooser);

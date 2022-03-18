@@ -38,7 +38,6 @@ public class ClimberArmDown extends CommandBase{
     public void execute(){
         if (m_driveSubsystem.getRoll() >= -3  &&  m_driveSubsystem.getAcc()>0 ){
             go = true;
-            // m_climber.engageBrake();
             SmartDashboard.putNumber("Climber - in ArmDown: roll=", m_driveSubsystem.getRoll());
             SmartDashboard.putNumber("Climber - in ArmDown:  Acc=", m_driveSubsystem.getAcc());
         }

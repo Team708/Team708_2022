@@ -14,12 +14,14 @@ public class ClimberArmUp extends CommandBase{
     double dist_off_bar;
     double distance;
     double speed;
+    boolean go, noSwing;
 
-    public ClimberArmUp(DriveSubsystem m_driveSubsystem, Climber m_climber, double distance, double speed){
+    public ClimberArmUp(DriveSubsystem m_driveSubsystem, Climber m_climber, double distance, double speed, boolean noSwing){
         this.m_driveSubsystem   = m_driveSubsystem;
         this.m_climber          = m_climber;
         this.distance           = distance;
         this.speed              = speed;
+        this.noSwing               = noSwing;
 
         addRequirements(m_driveSubsystem);
         addRequirements(m_climber);
@@ -33,12 +35,16 @@ public class ClimberArmUp extends CommandBase{
             dist_off_bar = m_climber.getClimberExtended() + 2000; // threshold from top
 
         SmartDashboard.putNumber("Climber - in ArmUp: move to", dist_off_bar);
-
+        go = false;
     }
 
     @Override
     public void execute(){
-           m_driveSubsystem.arcadeDrive(speed, 0);
+        if ((m_driveSubsystem.getRoll() <= -3  &&  m_driveSubsystem.getAcc()<0) || noSwing)
+            go = true;
+        
+        if (go)
+            m_driveSubsystem.arcadeDrive(speed, 0);
     }
 
     @Override
