@@ -33,10 +33,10 @@ public class threeBallFeederAuto extends SequentialCommandGroup{
               new DriveCurvatureToEncoder(.5, .3, false, 2.0, m_robotDrive)
             ),
 
-            new DriveCurvatureToEncoder(-.5, -1.0, false, -.5, m_robotDrive),  //.4
+            new DriveCurvatureToEncoder(-.5, -1.0, true, -.4, m_robotDrive),  //.4  two ball is still .4
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
 
-            new DriveCurvatureToEncoder(.5, 1.0, true, .25, m_robotDrive),
+            new DriveCurvatureToEncoder(.5, 1.0, true, .20, m_robotDrive),  //.25  
             new WaitCommand(.1),
 
             new DriveCurvatureToEncoder(.7, 0, false, 2.5, m_robotDrive),
@@ -53,7 +53,7 @@ public class threeBallFeederAuto extends SequentialCommandGroup{
             new DriveCurvatureToEncoder(.5, .7, true, .1, m_robotDrive),
             new WaitCommand(.2),
 
-            new DriveCurvatureToEncoder(-.5, 0, true, -1.2, m_robotDrive),
+            new DriveCurvatureToEncoder(-.5, 0, true, -1.4, m_robotDrive),
             new AimShootFeeder(m_Limelight, m_robotDrive, m_shooter, m_if),
 
             new DropOmnisCommand(m_robotDrive)

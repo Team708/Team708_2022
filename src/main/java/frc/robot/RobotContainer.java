@@ -112,12 +112,11 @@ public class RobotContainer {
                         // m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
                         // m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
 
-                        UsbCamera usbCamera = new UsbCamera("USB Camera", 0);
-                        MjpegServer mjpegServer = new MjpegServer("Serve_USB Camera", 1181);
-                        mjpegServer.setSource(usbCamera);
-                        mjpegServer.setResolution(800, 448);
-                        mjpegServer.setFPS(20);
-
+                        // UsbCamera usbCamera = new UsbCamera("USB Camera", 0);
+                        // MjpegServer mjpegServer = new MjpegServer("Serve_USB Camera", 1181);
+                        // mjpegServer.setSource(usbCamera);
+                        // mjpegServer.setResolution(800, 448);
+                        // mjpegServer.setFPS(20);
 
                 SmartDashboard.putData("Auto Chooser", m_chooser);
         }

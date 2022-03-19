@@ -151,7 +151,7 @@ public class IntakeFeeder extends SubsystemBase {
      * starts intake motor
      */
     public void startIntake() {
-        m_intakeMotor.set(0.7 * direction);
+        m_intakeMotor.set(0.8 * direction); //.7
         // m_feederMotor.set(1.0);
         // intakePIDCOntroller.setReference(maxVelocity * intakeMotorSpeed * direction, CANSparkMax.ControlType.kVelocity);
         // intakePIDCOntroller.setReference(maxVelocity * direction, CANSparkMax.ControlType.kVoltage);

@@ -145,7 +145,7 @@ public final class Constants {
     //Speed constants
     public static final double kShooterEjectSpeed     = 2000; // 500;
 
-    public static final double kShooterLowClose       = 1450; //hood up
+    public static final double kShooterLowClose       = 1500; //hood up  1450 
     public static final double kShooterHighFar        = 2900;  //hood down
     public static final double kShooterHighBumper     = 2375;  //hood down
     public static final double kShooterStafetyZone    = 3000;  //hood down

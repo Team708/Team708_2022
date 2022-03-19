@@ -90,6 +90,7 @@ public class Limelight extends SubsystemBase{
             currPipeline = PIPELINE.BLUE_BALL;
         }
     }
+
     /**
      * Get the Tc Network Table - references color under crosshair
      * @return NetworkTableEntry of color under crosshair
