@@ -37,32 +37,22 @@ public class Climb extends SequentialCommandGroup{
 
             // to next bar
 
-            // test 2 ------
             new ClimberArmUp(m_driveSubsystem, m_climber, -2000, -.3, true),  //5500, -.6     //delta off current position
             new WaitCommand(.2),        //springs do your thing                                  
             new ExtendClimbingArm(m_climber),                                           //arm out               
             new WaitCommand(1.0),       //waiting for piston
 
-            new ClimberArmUp(m_driveSubsystem, m_climber, -33000, -2, false),  //-35000, -2    //0 uses value for fully extended arm
+            new ClimberArmUp(m_driveSubsystem, m_climber, -30000, -2, false),  //-33000, -2    //0 uses value for fully extended arm
             new WaitCommand(.2),        //springs do your thing                                  
             
-            // new ReleasePTO(m_climber),                                               // really want this to work
-            // new WaitCommand(1.0),        //timing to extend and catch the bar
-            // end test 2 ------
 
-
-            // test 3  ****
             new ActivatePTO(m_climber),
             new WaitCommand(.2),    // make sure arm doesn't fall 
             new ClimberArmDown(m_driveSubsystem, m_climber, 8500, .8), //8000 .8 <=works           //delta off current position 
             new WaitCommand(.5),
             new RetractClimbingArm(m_climber),                                         // arm in           
             new WaitCommand(1.0)   // let it chill
-            // end test 3 ****
 
-
-            //lock brake at end of climb
-            // new EngageBreak(m_climber)                                               // lock the arm from retracting
         );
     }
 
