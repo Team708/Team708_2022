@@ -16,13 +16,13 @@ public class IntakeFeederOut extends CommandBase {
 
     @Override
     public void initialize(){
+        m_if.directionOut();
+        m_if.startIntake();
+        m_if.startFeeder();
     }
 
     @Override
     public void execute(){
-        m_if.directionOut();
-        m_if.startIntake();
-        m_if.startFeeder();
     }
 
     @Override

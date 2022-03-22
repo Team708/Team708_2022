@@ -1,52 +1,36 @@
 package frc.robot;
 
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.climber.EngageClimberArm;
 import frc.robot.commands.climber.ExtendClimbingArm;
 import frc.robot.commands.climber.ReleaseBreak;
 import frc.robot.commands.climber.ReleasePTO;
 import frc.robot.commands.climber.RetractClimbingArm;
 import frc.robot.commands.climber.ActivatePTO;
-import frc.robot.commands.climber.ClimberArmDown;
-import frc.robot.commands.climber.ClimberArmUp;
 import frc.robot.commands.climber.EngageBreak;
-import frc.robot.commands.drivetrain.TurnToTargetDegrees;
 import frc.robot.commands.intakeFeeder.FeederReverse;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
 import frc.robot.commands.intakeFeeder.IntakeFeederOut;
-import frc.robot.commands.intakeFeeder.ShootFeeder;
-import frc.robot.commands.intakeFeeder.StartIntake;
 import frc.robot.commands.intakeFeeder.StopFeeder;
 import frc.robot.commands.intakeFeeder.StopIntake;
-import frc.robot.commands.intakeFeeder.ToggleIntakeFeeder;
 import frc.robot.commands.intakeFeeder.ToggleIntakeSolenoid;
 import frc.robot.commands.shooter.Eject;
 import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.shooter.ToggleHood;
-import frc.robot.commands.shooter.ShootFeederStation;
-import frc.robot.commands.shooter.ShootSafteyZone;
 import frc.robot.commands.shooter.StopShooter;
-import frc.robot.commands.drivetrain.TurnToTargetEncoder;
-import frc.robot.commands.drivetrain.TurnToTargetSetPoint;
-import frc.robot.commands.drivetrain.TurnTowardsTarget;
 import frc.robot.commands.groups.AimShootTarmac;
 import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.groups.AimShootBumperHigh;
 import frc.robot.commands.groups.AimShootFeeder;
 import frc.robot.commands.groups.AimShootSafetyZone;
-import frc.robot.commands.groups.AutoShoot;
 import frc.robot.commands.groups.Climb;
-import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
 
 import frc.robot.subsystems.vision.Limelight;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class OI {
@@ -111,8 +95,8 @@ public class OI {
 				.whenReleased(() -> m_robotDrive.shiftGearLow());
 
 		new JoystickButton(driverGamepad, Button.kLeftBumper.value)
-				.whenPressed(() -> m_robotDrive.liftWheels())
-				.whenReleased(() -> m_robotDrive.dropWheels());
+				.whenPressed(() -> m_robotDrive.dropWheels())     //  m_robotDrive.liftWheels())
+				.whenReleased(() -> m_robotDrive.liftWheels());   //  m_robotDrive.dropWheels()
 
 		new JoystickButton(driverGamepad, Button.kY.value)
 				.whenPressed(new ToggleIntakeSolenoid(m_intakeFeeder));
@@ -131,14 +115,6 @@ public class OI {
 
 		new JoystickButton(driverGamepad, Button.kB.value)
 		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
-				
-		// new JoystickButton(driverGamepad, Button.kStart.value)
-		//         .whenPressed(new Climb(m_robotDrive
-		// 		, m_climber));
-		// 		.whenPressed(new TurnToTargetSetPoint(m_robotDrive, m_limeLight)
-		// 		// .whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive)
-		// 		// .whenPressed(() -> m_robotDrive.resetOdometry(new Pose2d()));
-		// 		.withTimeout(3.0));
 
 		new JoystickButton(driverGamepad, Button.kBack.value)
 				.whenPressed(() -> m_robotDrive.resetEncoders());
@@ -165,10 +141,8 @@ public class OI {
 		        .whenPressed(new Eject(m_shooter))
 				.whenReleased(new StopShooter(m_shooter));
 
-				
 		new JoystickButton(operatorGamepad, Button.kRightStick.value)
 				.whenPressed(new AimShootBumperHigh(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
-				
 				
 		new JoystickButton(operatorGamepad, Button.kLeftStick.value)
 		        .whenPressed(new AimShootSafetyZone(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));	
@@ -203,13 +177,5 @@ public class OI {
 		new JoystickButton(climberGamepad, Button.kRightBumper.value)  //auto climb
 			.whenPressed(new Climb(m_robotDrive, m_climber));
 		
-		// new JoystickButton(climberGamepad, Button.kLeftStick.value) //pull all the way down to switches
-		// 	.whenPressed(new EngageClimberArm(m_robotDrive, m_climber));
-		
-		// new JoystickButton(climberGamepad, Button.kRightStick.value)  //pulls arm of bar to move out to next bar 
-		// 	.whenPressed(new ClimberArmUp(m_robotDrive, m_climber, Constants.ClimberConstants.kClimberArmUpDistance)); 
-				
-		// new JoystickButton(climberGamepad, Button.kLeftBumper.value)  //pulls arm down to pull of lower bar
-		// 		.whenPressed(new ClimberArmDown(m_robotDrive, m_climber));
 	}
 }

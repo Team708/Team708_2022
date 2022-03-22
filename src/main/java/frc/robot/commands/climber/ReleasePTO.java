@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ReleasePTO extends CommandBase{
     
     Climber m_climber;
-    double distance;
+    // double distance;
 
     public ReleasePTO(Climber m_climber){
         this.m_climber = m_climber;
@@ -20,18 +20,18 @@ public class ReleasePTO extends CommandBase{
 
     @Override
     public void initialize(){
-        distance = m_climber.getClimberExtended() + 7500; // 49000-41500
-    }
-
-    @Override
-    public void execute(){
+        // distance = m_climber.getClimberExtended() + 7500; // 49000-41500
         m_climber.releasePTO();
     }
 
     @Override
+    public void execute(){
+    }
+
+    @Override
     public boolean isFinished(){
-        return (m_climber.getQuadrature() <= 41500);   //distance);
-        // return true;
+        // return (m_climber.getQuadrature() <= 41500);   //distance);
+        return true;
     }
 
     @Override

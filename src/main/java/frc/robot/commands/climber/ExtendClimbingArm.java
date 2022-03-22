@@ -19,11 +19,11 @@ public class ExtendClimbingArm extends CommandBase{
 
     @Override
     public void initialize(){
+        m_climber.extendClimbingArm();
     }
 
     @Override
     public void execute(){
-        m_climber.extendClimbingArm();
     }
 
     @Override

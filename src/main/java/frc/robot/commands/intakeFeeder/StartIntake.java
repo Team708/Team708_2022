@@ -16,16 +16,12 @@ public class StartIntake extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize(){
+        m_intakeFeeder.startIntake();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){
-        // if(m_intakeFeeder.isIntakeDown()){
-
-//        how do you shoot if you call this when the intake is in?
-            m_intakeFeeder.startIntake();
-        // }
     }
 
     // Make this return true when this Command no longer needs to run execute()

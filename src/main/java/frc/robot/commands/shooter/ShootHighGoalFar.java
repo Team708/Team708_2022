@@ -26,7 +26,8 @@ public class ShootHighGoalFar extends CommandBase{
     public void initialize(){
         m_shooter.shooterHoodDown();
 
-        if (m_shooter.settargetSpeed == 0) m_shooter.settargetSpeed = Constants.ShooterConstants.kShooterHighFar ;
+        // if (m_shooter.settargetSpeed == 0)
+            m_shooter.settargetSpeed = Constants.ShooterConstants.kShooterHighFar ;
         m_shooter.shootAtVelocity(m_shooter.settargetSpeed);
     }
 

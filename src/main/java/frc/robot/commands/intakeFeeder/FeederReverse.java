@@ -18,12 +18,12 @@ public class FeederReverse extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize(){
+        m_intakeFeeder.reverseFeeder();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){
-        m_intakeFeeder.reverseFeeder();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -27,7 +27,6 @@ public class EngageClimberArm extends CommandBase{
 
     @Override
     public void initialize(){
-        SmartDashboard.putNumber("Climber - in EngageClimbingArm: fully extended", m_climber.getQuadrature());
     }
 
     @Override
@@ -37,15 +36,11 @@ public class EngageClimberArm extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        
-        SmartDashboard.putNumber("Climber - in EngageClimbingArm: fully retracted", m_climber.getQuadrature());
-
         return (!m_climber.hangSwitch2_engaged() && !m_climber.hangSwitch3_engaged()) || (m_climber.getQuadrature() >= distance);
     }
 
     @Override
     public void end(boolean interrupted){
-
     }
 
 }

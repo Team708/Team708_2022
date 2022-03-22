@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.getDriveSubsystem().setBrakeMode(true); //TODO CHANGED
-    m_robotContainer.getDriveSubsystem().dropWheels();
+    // m_robotContainer.getDriveSubsystem().dropWheels();
   }
 
   @Override

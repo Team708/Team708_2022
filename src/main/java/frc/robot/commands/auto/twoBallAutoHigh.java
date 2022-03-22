@@ -37,9 +37,9 @@ public class twoBallAutoHigh extends SequentialCommandGroup{
             ),
 
             new DriveCurvatureToEncoder(-.5, -1.0, true, -.4, m_robotDrive),
-            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
+            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
 
-            new DropOmnisCommand(m_robotDrive)
+            // new DropOmnisCommand(m_robotDrive)
         );    
 
   }  

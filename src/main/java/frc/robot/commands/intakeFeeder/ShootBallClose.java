@@ -25,8 +25,6 @@ public class ShootBallClose extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize(){
-        // m_intakeFeeder.feederForward();
-        // m_intakeFeeder.intakeForward();
     }
     
     // Called repeatedly when this Command is scheduled to run
@@ -35,7 +33,6 @@ public class ShootBallClose extends CommandBase {
         if (m_shooter.isShooterAtSpeed()) {
             m_intakeFeeder.feederShootBumper();
             m_intakeFeeder.intakeShoot();
-            // shooterAtSpeed = true;
         }
     }
 

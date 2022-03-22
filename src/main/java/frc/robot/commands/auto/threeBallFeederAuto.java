@@ -54,9 +54,9 @@ public class threeBallFeederAuto extends SequentialCommandGroup{
             new WaitCommand(.2),
 
             new DriveCurvatureToEncoder(-.5, 0, true, -1.4, m_robotDrive),
-            new AimShootFeeder(m_Limelight, m_robotDrive, m_shooter, m_if),
+            new AimShootFeeder(m_Limelight, m_robotDrive, m_shooter, m_if)
 
-            new DropOmnisCommand(m_robotDrive)
+            // new DropOmnisCommand(m_robotDrive)
         );    
   }  
 }

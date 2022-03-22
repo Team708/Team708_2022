@@ -25,9 +25,7 @@ public class ShootHighGoalBumper extends CommandBase{
     @Override
     public void initialize(){
         m_shooter.shooterHoodDown();
-
-        if (m_shooter.settargetSpeed == 0) m_shooter.settargetSpeed = Constants.ShooterConstants.kShooterHighBumper ;
-        m_shooter.shootAtVelocity(m_shooter.settargetSpeed);
+        m_shooter.shootAtVelocity(Constants.ShooterConstants.kShooterHighBumper);
     }
 
     @Override

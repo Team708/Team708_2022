@@ -34,7 +34,7 @@ public class ClimberArmUp extends CommandBase{
         else
             dist_off_bar = m_climber.getClimberExtended() + 2000; // threshold from top
 
-        SmartDashboard.putNumber("Climber - in ArmUp: move to", dist_off_bar);
+        // SmartDashboard.putNumber("Climber - in ArmUp: move to", dist_off_bar);
         go = false;
     }
 
@@ -50,7 +50,7 @@ public class ClimberArmUp extends CommandBase{
     @Override
     public boolean isFinished(){
         
-            SmartDashboard.putNumber("Climber - in ArmUp: finished", distance);
+            // SmartDashboard.putNumber("Climber - in ArmUp: finished", distance);
 
             return m_climber.getQuadrature() <= distance;
     }

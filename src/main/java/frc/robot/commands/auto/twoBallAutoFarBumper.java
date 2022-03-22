@@ -35,9 +35,9 @@ public class twoBallAutoFarBumper extends SequentialCommandGroup{
             ),
 
             new DriveCurvatureToEncoder(-.5, -.1, false, -2.3, m_robotDrive),
-            new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if),
+            new AimShootBumper(m_Limelight, m_robotDrive, m_shooter, m_if)
 
-            new DropOmnisCommand(m_robotDrive)
+            // new DropOmnisCommand(m_robotDrive)
         );    
   }  
 }

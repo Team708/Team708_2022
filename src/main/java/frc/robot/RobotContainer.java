@@ -4,32 +4,22 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.led.CANdle;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticHub;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.TrajectoryConstants;
 import frc.robot.commands.auto.doNothingCommand;
 import frc.robot.commands.auto.oneBallAutoHigh;
-import frc.robot.commands.auto.oneBallAutoLow;
-import frc.robot.commands.auto.twoBallAutoLow;
 import frc.robot.commands.auto.twoBallAutoHigh;
 import frc.robot.commands.auto.twoBallAutoFar;
-import frc.robot.commands.auto.twoBallAutoFarBumper;
-import frc.robot.commands.auto.threeBallAuto;
 import frc.robot.commands.auto.threeBallFeederAuto;
-import frc.robot.commands.auto.fiveBallAuto;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
-import frc.robot.commands.drivetrain.TurnToTargetSetPoint;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
@@ -40,9 +30,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+/*
+import com.ctre.phoenix.led.CANdle;
+
+import frc.robot.commands.auto.oneBallAutoLow;
+import frc.robot.commands.auto.twoBallAutoFarBumper;
+import frc.robot.commands.auto.threeBallAuto;
+import frc.robot.commands.auto.twoBallAutoLow;
+import frc.robot.commands.auto.fiveBallAuto;
+import frc.robot.commands.drivetrain.TurnToTargetSetPoint;
+
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.MjpegServer;
 import edu.wpi.first.cscore.UsbCamera;
+*/
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -58,7 +60,7 @@ public class RobotContainer {
         //Pneumatics
         private final PneumaticHub hub2 = new PneumaticHub(2);
         private final PneumaticHub hub3 = new PneumaticHub(3);
-        private final Compressor compressor = new Compressor(hub2.getModuleNumber(), PneumaticsModuleType.REVPH);
+        // private final Compressor compressor = new Compressor(hub2.getModuleNumber(), PneumaticsModuleType.REVPH);
 
         //Sensors - ON MXP
         private final DigitalInput dIOFeeder = new DigitalInput(11); 

@@ -19,11 +19,11 @@ public class EngageBreak extends CommandBase{
 
     @Override
     public void initialize(){
+        m_climber.engageBrake();
     }
 
     @Override
     public void execute(){
-        m_climber.engageBrake();
     }
 
     @Override

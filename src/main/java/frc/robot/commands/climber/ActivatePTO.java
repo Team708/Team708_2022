@@ -19,11 +19,11 @@ public class ActivatePTO extends CommandBase{
 
     @Override
     public void initialize(){
+        m_climber.activatePTO();
     }
 
     @Override
     public void execute(){
-        m_climber.activatePTO();
     }
 
     @Override

@@ -8,8 +8,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.CompressorConfigType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -24,11 +22,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.SparkMaxPIDController;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.CompressorConfigType;
+import com.revrobotics.REVLibError;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
@@ -161,15 +162,11 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void rotateWithEncoders(double counts){
-    // m_leftPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
-    // m_rightPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
     m_leftPidController.setReference(counts, ControlType.kSmartMotion);
     m_rightPidController.setReference(counts, ControlType.kSmartMotion);
   }
 
   public void gotToPosition(double counts){
-    // m_leftPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
-    // m_rightPidController.setReference(counts / Constants.DriveConstants.kEncoderCPR, ControlType.kSmartMotion);
     m_leftPidController.setReference(counts, ControlType.kPosition);
     m_rightPidController.setReference(counts, ControlType.kPosition);
   }
@@ -319,15 +316,12 @@ public class DriveSubsystem extends SubsystemBase {
   public void shiftGearHigh() {
     gearHigh = true;
     shiftSolenoid.set(Value.kReverse);
-    // shiftSolenoid.set(Value.kForward);
   }
 
   /** Shifts the robot into low gear. */
   public void shiftGearLow() {
     gearHigh = false;
     shiftSolenoid.set(Value.kForward);
-    // shiftSolenoid.set(Value.kReverse);
-
   }
 
   public void setBrakeMode(boolean setBrake) {
@@ -368,18 +362,20 @@ public class DriveSubsystem extends SubsystemBase {
   
   public void sendToDashboard() {
     // m_gyro.outputToSmartDashboard();
+    SmartDashboard.putBoolean("Gear High",    gearHigh);			    //Drivetrain Gear mode
+    
     SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
     SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
 
     SmartDashboard.putNumber("Roll",          m_gyro.getRoll().getDegrees());
-    SmartDashboard.putNumber("Pitch",         m_gyro.getPitch().getDegrees());
     SmartDashboard.putNumber("Rate X",        m_gyro.getRateX());
-    SmartDashboard.putNumber("Rate Y",        m_gyro.getRateY());
-    SmartDashboard.putNumber("Rate Z",        m_gyro.getRateZ());    
 
-    SmartDashboard.putBoolean("Gear High",    gearHigh);			//Drivetrain Gear mode
-    SmartDashboard.putBoolean("Climb enaged", climberEngaged);		//Drivetrain Climb Engaged
-    SmartDashboard.putBoolean("Brake",        brake);			// Brake or Coast
+    // SmartDashboard.putNumber("Pitch",         m_gyro.getPitch().getDegrees());
+    // SmartDashboard.putNumber("Rate Y",        m_gyro.getRateY());
+    // SmartDashboard.putNumber("Rate Z",        m_gyro.getRateZ());    
+
+    // SmartDashboard.putBoolean("Climb enaged", climberEngaged);		//Drivetrain Climb Engaged
+    // SmartDashboard.putBoolean("Brake",        brake);			        // Brake or Coast
 
     // SmartDashboard.putNumber("DT Motor 11 voltage", m_leftPrimary.getBusVoltage());
     // SmartDashboard.putNumber("DT Motor 12 voltage", m_leftSecondary.getBusVoltage());

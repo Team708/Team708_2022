@@ -119,7 +119,7 @@ public class Climber extends SubsystemBase{
         SmartDashboard.putBoolean("Climber - Arm Out", climbingArmOut);
 
         SmartDashboard.putNumber("Climber - True Encoder", m_encoderA.getRaw());
-        SmartDashboard.putNumber("Climber - in Function Call: encoder full extension", climber_fully_extended);
+        // SmartDashboard.putNumber("Climber: encoder full extension", climber_fully_extended);
     }
     
 }

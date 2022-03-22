@@ -35,9 +35,9 @@ public class twoBallAutoFar extends SequentialCommandGroup{
             ),
 
             new DriveCurvatureToEncoder(-.25, -.2, true, -.5, m_robotDrive),
-            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
+            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
 
-            new DropOmnisCommand(m_robotDrive)
+            // new DropOmnisCommand(m_robotDrive)
         );    
   }  
 }

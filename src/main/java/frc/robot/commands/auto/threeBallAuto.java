@@ -40,9 +40,9 @@ public class threeBallAuto extends SequentialCommandGroup{
             ),
             
             new DriveCurvatureToEncoder(.4, .9, true, .4, m_robotDrive),
-            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if),
+            new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
 
-            new DropOmnisCommand(m_robotDrive)
+            // new DropOmnisCommand(m_robotDrive)
         );    
   }  
 }

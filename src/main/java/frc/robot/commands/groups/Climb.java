@@ -12,7 +12,6 @@ import frc.robot.commands.climber.SetClimberExtended;
 import frc.robot.commands.drivetrain.ShiftLowCommand;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
-import frc.robot.commands.climber.ClimberArmDownTraversal;
 import frc.robot.commands.climber.EngageBreak;
 import frc.robot.commands.climber.EngageHighBar;
 import frc.robot.commands.climber.ReleasePTO;
@@ -49,10 +48,8 @@ public class Climb extends SequentialCommandGroup{
             new ActivatePTO(m_climber),
             new WaitCommand(.2),    // make sure arm doesn't fall 
             new ClimberArmDown(m_driveSubsystem, m_climber, 8500, .8), //8000 .8 <=works           //delta off current position 
-            new WaitCommand(.5),
-            new RetractClimbingArm(m_climber),                                         // arm in           
-            new WaitCommand(1.0)   // let it chill
-
+            new WaitCommand(.2),  //.5
+            new RetractClimbingArm(m_climber)                                         // arm in           
         );
     }
 

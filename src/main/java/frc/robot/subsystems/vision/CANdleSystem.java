@@ -206,6 +206,6 @@ public class CANdleSystem {
                 m_toAnimate = null;
                 break;
         }
-        System.out.println("Changed to " + m_currentAnimation.toString());
+        // System.out.println("Changed to " + m_currentAnimation.toString());
     }
 }

@@ -19,11 +19,11 @@ public class ReleaseBreak extends CommandBase{
 
     @Override
     public void initialize(){
+        m_climber.releaseBrake();
     }
 
     @Override
     public void execute(){
-        m_climber.releaseBrake();
     }
 
     @Override

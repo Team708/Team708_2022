@@ -17,13 +17,13 @@ public class IntakeFeederTillBall extends CommandBase{
 
     @Override
     public void initialize(){
+        m_if.directionIn();
+        m_if.startIntake();
+        m_if.reverseFeeder();
     }
 
     @Override
     public void execute(){
-        m_if.directionIn();
-        m_if.startIntake();
-        m_if.reverseFeeder();
     }
 
     @Override

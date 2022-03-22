@@ -30,7 +30,7 @@ public class ClimberArmDown extends CommandBase{
     @Override
     public void initialize(){
         dist_off_bar = m_climber.getQuadrature() + distance;
-        SmartDashboard.putNumber("Climber - in ArmDown: move to", dist_off_bar);
+        // SmartDashboard.putNumber("Climber - in ArmDown: move to", dist_off_bar);
         go = false;
     }
 
@@ -48,7 +48,7 @@ public class ClimberArmDown extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        SmartDashboard.putNumber("Climber - in ArmDown: finished", dist_off_bar);
+        // SmartDashboard.putNumber("Climber - in ArmDown: finished", dist_off_bar);
 
         return (m_climber.getQuadrature() >= dist_off_bar);
     }

@@ -28,8 +28,8 @@ public class TurnTowardsTarget extends CommandBase{
         m_driveSubsystem.resetEncoders();
         double targetAngle = m_limeLight.getX();
         targetPosition = (targetAngle * .017); 
-        System.out.println("Target Angle: " + targetAngle);
-        System.out.println("Target Position: " + targetPosition);
+        // System.out.println("Target Angle: " + targetAngle);
+        // System.out.println("Target Position: " + targetPosition);
 
     }
 
