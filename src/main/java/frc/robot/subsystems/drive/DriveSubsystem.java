@@ -97,7 +97,7 @@ public class DriveSubsystem extends SubsystemBase {
                                     PneumaticsModuleType.REVPH, 
                                         DriveConstants.kDriveSolenoidPort);
 
-    // dropSolenoid.set(true);
+    liftWheels();
     shiftGearLow();
 
     m_leftPrimary.setSmartCurrentLimit(40);
@@ -364,10 +364,10 @@ public class DriveSubsystem extends SubsystemBase {
     // m_gyro.outputToSmartDashboard();
     SmartDashboard.putBoolean("Gear High",    gearHigh);			    //Drivetrain Gear mode
     
-    SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
+    SmartDashboard.putNumber("Left Encoder",  m_leftEncoder.getPosition());
     SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
 
-    SmartDashboard.putNumber("Roll",          m_gyro.getRoll().getDegrees());
+    SmartDashboard.putNumber("Roll  ",        m_gyro.getRoll().getDegrees());
     SmartDashboard.putNumber("Rate X",        m_gyro.getRateX());
 
     // SmartDashboard.putNumber("Pitch",         m_gyro.getPitch().getDegrees());

@@ -45,8 +45,8 @@ public class AimShootBumperHigh extends SequentialCommandGroup{
                     // new WaitCommand(1),
             new ShootBall(m_if, m_shooter).withTimeout(1.0),
                 // ),
-            new StopShooter(m_shooter),
-            new DropOmnisCommand(m_driveSubsystem)
+            new StopShooter(m_shooter)
+            // new DropOmnisCommand(m_driveSubsystem)
         );
     }
 

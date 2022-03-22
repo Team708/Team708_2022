@@ -6,6 +6,9 @@ import frc.robot.subsystems.drive.DriveSubsystem;
 
 import frc.robot.Constants;
 import frc.robot.OI;
+
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class EngageClimberArm extends CommandBase{
@@ -14,6 +17,7 @@ public class EngageClimberArm extends CommandBase{
     Climber m_climber;
     double distance;
     double speed;
+    boolean go;
 
     public EngageClimberArm(DriveSubsystem m_driveSubsystem, Climber m_climber, double distance, double speed){
         this.m_driveSubsystem = m_driveSubsystem;
@@ -27,11 +31,23 @@ public class EngageClimberArm extends CommandBase{
 
     @Override
     public void initialize(){
+        go = false;
     }
 
     @Override
     public void execute(){
-            m_driveSubsystem.arcadeDrive(speed, 0.0);
+        if (m_driveSubsystem.getAcc() >= 23 )
+            go= false;
+        else if (Math.abs(m_driveSubsystem.getRoll()) > 8)
+            go=false;
+        else
+            go=true;
+        
+        SmartDashboard.putBoolean("Climb", go);
+
+        // if (go)
+        //     m_driveSubsystem.arcadeDrive(speed, 0.0);
+
     }
 
     @Override
