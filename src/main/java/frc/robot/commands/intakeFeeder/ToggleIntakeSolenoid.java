@@ -20,7 +20,7 @@ public class ToggleIntakeSolenoid extends CommandBase {
         previousIntakeState = m_if.isIntakeDown();
         m_if.toggleIntakeState();
     }
-
+    
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute(){
@@ -29,11 +29,11 @@ public class ToggleIntakeSolenoid extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished(){
-        if (m_if.isIntakeDown() != previousIntakeState) {
+        // if (m_if.isIntakeDown() != previousIntakeState) {
             return true;
-        } else {
-            return false;
-        }
+        // } else {
+        //     return false;
+        // }
     }
 
     // Called once after isFinished returns true

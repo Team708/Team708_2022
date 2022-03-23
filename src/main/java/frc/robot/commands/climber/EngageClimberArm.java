@@ -36,9 +36,7 @@ public class EngageClimberArm extends CommandBase{
 
     @Override
     public void execute(){
-        if (m_driveSubsystem.getAcc() >= 23 )
-            go= false;
-        else if (Math.abs(m_driveSubsystem.getRoll()) > 8)
+        if ((Math.abs(m_driveSubsystem.getAcc()) >= 50 ) || (Math.abs(m_driveSubsystem.getRoll()) > 25))
             go=false;
         else
             go=true;

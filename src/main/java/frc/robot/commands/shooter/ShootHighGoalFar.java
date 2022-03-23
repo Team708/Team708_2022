@@ -37,8 +37,8 @@ public class ShootHighGoalFar extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return true;
-        // return m_shooter.isShooterAtSpeed();
+        // return true;
+        return m_shooter.isShooterAtSpeed();
     }
 
     @Override

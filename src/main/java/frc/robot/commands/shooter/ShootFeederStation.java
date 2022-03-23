@@ -31,7 +31,7 @@ public class ShootFeederStation extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return true; //m_shooter.isShooterAtSpeed();  //true;
+        return m_shooter.isShooterAtSpeed();  //true;
     }
 
     @Override

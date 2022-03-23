@@ -143,7 +143,7 @@ public final class Constants {
     public static final int kShooterSolenoidUp   = 3;
 
     //Speed constants
-    public static final double kShooterEjectSpeed     = 2000; // 500;
+    public static final double kShooterEjectSpeed     = 5600; // 2000;
 
     public static final double kShooterLowClose       = 1500; //hood up  1450 
     public static final double kShooterHighFar        = 2900;  //hood down

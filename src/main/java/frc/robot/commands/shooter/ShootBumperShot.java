@@ -32,7 +32,7 @@ public class ShootBumperShot extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return true; // m_shooter.isShooterAtSpeed();
+        return m_shooter.isShooterAtSpeed();
     }
 
     @Override

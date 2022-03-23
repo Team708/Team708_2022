@@ -1,5 +1,6 @@
 package frc.robot.commands.intakeFeeder;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
@@ -39,7 +40,11 @@ public class ShootBall extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return false;
+        if (!m_intakeFeeder.oneBallPresent()){
+            return true;
+        }
+        else
+          return false;
     }
 
     // Called once after isFinished returns true

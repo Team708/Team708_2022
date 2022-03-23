@@ -100,8 +100,6 @@ public class OI {
 
 		new JoystickButton(driverGamepad, Button.kY.value)
 				.whenPressed(new ToggleIntakeSolenoid(m_intakeFeeder));
-				// .whenPressed(new StartIntake(m_intakeFeeder));
-				// .whenReleased(new StopIntake(m_intakeFeeder));
 
 		new JoystickButton(driverGamepad, Button.kA.value)
 				.whenPressed(new ToggleHood(m_shooter));		
@@ -115,9 +113,6 @@ public class OI {
 
 		new JoystickButton(driverGamepad, Button.kB.value)
 		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
-
-		new JoystickButton(driverGamepad, Button.kBack.value)
-				.whenPressed(() -> m_robotDrive.resetEncoders());
 				
 				
 		//OPERATOR//
