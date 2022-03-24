@@ -1,6 +1,7 @@
 package frc.robot.subsystems.vision;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -15,9 +16,9 @@ public class Limelight extends SubsystemBase{
      * Enumerator for whichever NetworkTable
      */
     public enum PIPELINE{
-        RETRO_REFLECTIVE,
-        RED_BALL,
-        BLUE_BALL;
+        RETRO_REFLECTIVE;
+        // RED_BALL,
+        // BLUE_BALL;
     }
     /**
      * Current Pipeline being accessed by the program
@@ -50,16 +51,16 @@ public class Limelight extends SubsystemBase{
      */
     public void setPipeline(PIPELINE p) {
         NetworkTableEntry pipelineEntry = limeLight.getEntry("pipeline");
-        if(p.equals(PIPELINE.BLUE_BALL)){
-            currPipeline = PIPELINE.BLUE_BALL;
-            pipelineEntry.setNumber(1);
-        }else if(p.equals(PIPELINE.RED_BALL)){
-            currPipeline = PIPELINE.RED_BALL;
-            pipelineEntry.setNumber(2);
-        }else{
+        // if(p.equals(PIPELINE.BLUE_BALL)){
+        //     currPipeline = PIPELINE.BLUE_BALL;
+        //     pipelineEntry.setNumber(1);
+        // }else if(p.equals(PIPELINE.RED_BALL)){
+        //     currPipeline = PIPELINE.RED_BALL;
+        //     pipelineEntry.setNumber(2);
+        // }else{
             currPipeline = PIPELINE.RETRO_REFLECTIVE;
             pipelineEntry.setNumber(0);
-        }
+        // }
     }
     /**
      * Method to get the current pipeline.
@@ -76,16 +77,16 @@ public class Limelight extends SubsystemBase{
      * RED_BALL -> [2]
      */
     public void incrementPipeline(){
-        if(currPipeline.equals(PIPELINE.BLUE_BALL)){
-            setPipeline(PIPELINE.RED_BALL);
-            currPipeline = PIPELINE.RED_BALL;
-        }else if(currPipeline.equals(PIPELINE.RED_BALL)){
+        // if(currPipeline.equals(PIPELINE.BLUE_BALL)){
+        //     setPipeline(PIPELINE.RED_BALL);
+        //     currPipeline = PIPELINE.RED_BALL;
+        // }else if(currPipeline.equals(PIPELINE.RED_BALL)){
             setPipeline(PIPELINE.RETRO_REFLECTIVE);
             currPipeline = PIPELINE.RETRO_REFLECTIVE;
-        }else{
-            setPipeline(PIPELINE.BLUE_BALL);
-            currPipeline = PIPELINE.BLUE_BALL;
-        }
+        // }else{
+        //     setPipeline(PIPELINE.BLUE_BALL);
+        //     currPipeline = PIPELINE.BLUE_BALL;
+        // }
     }
 
     /**
@@ -133,7 +134,7 @@ public class Limelight extends SubsystemBase{
      * @return A boolean if there is a valid target on the screen
      */
     public boolean areValidTargets(){
-        return getTv().getNumber(0).intValue() == 1;
+        return getTv().getNumber(0).intValue() >= 1;
     }
     /**
      * @return Returns the horizontal distance between the target and crosshair
@@ -174,18 +175,19 @@ public class Limelight extends SubsystemBase{
     @Override
     public void periodic() {
         if(areValidTargets()){
+            if (Math.abs(getX())<=2.0)
             if(currPipeline.equals(PIPELINE.RETRO_REFLECTIVE)){
                 m_candle.setLEDs(0, 255, 0); //WHEN RETRO IS DETECTED, SET LED TO GREEN
-            }else if(currPipeline.equals(PIPELINE.BLUE_BALL)){
-                m_candle.setLEDs(0, 0, 255); //WHEN BLUE IS DETECTED, SET LED TO BLUE
-            }else if(currPipeline.equals(PIPELINE.RED_BALL)){
-                m_candle.setLEDs(255, 0, 0); //WHEN RED IS DETECTED, SET LED TO RED
+            // }else if(currPipeline.equals(PIPELINE.BLUE_BALL)){
+            //     m_candle.setLEDs(0, 0, 255); //WHEN BLUE IS DETECTED, SET LED TO BLUE
+            // }else if(currPipeline.equals(PIPELINE.RED_BALL)){
+            //     m_candle.setLEDs(255, 0, 0); //WHEN RED IS DETECTED, SET LED TO RED
             }else{
-                m_candle.setLEDs(150, 75, 0); //IF PIPELINE ERROR, SET COLOR TO BROWN
+                m_candle.setLEDs(255, 255, 0); //IF PIPELINE ERROR, SET COLOR TO yellow
             }
         }else{
             //Maybe decide to make brown regardless of targets, just dependent on pipeline
-            m_candle.setLEDs(255, 255, 255); //IF NO VALID TARGETS, SET COLOR TO BROWN
+            m_candle.setLEDs(255, 0, 0); //IF NO VALID TARGETS, SET COLOR TO red
         }
         // System.out.println(Arrays.toString(getColorUnderCrosshair()));
     }

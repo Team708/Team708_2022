@@ -19,8 +19,8 @@ import com.ctre.phoenix.led.TwinkleOffAnimation.TwinkleOffPercent;
 public class CANdleSystem {
     // private final String serial_number = "000E07B60975E000000200010B0000D4";
     private CANdle m_candle;
-    private int LedCount = 300;
-    // private final int LedCount = 8;
+    // private int LedCount = 300;
+    private int LedCount = 8;
 
     private Animation m_toAnimate = null;
 

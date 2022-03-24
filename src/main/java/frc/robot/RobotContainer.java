@@ -95,30 +95,30 @@ public class RobotContainer {
                         new RunCommand(() -> m_robotDrive.arcadeDrive(
                                                         -OI.getDriverLeftY(), OI.getDriverRightX()),m_robotDrive));
 
-                        m_chooser.setDefaultOption("do nothing", new doNothingCommand());
-                        m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.6, 0, false, 2.3, m_robotDrive));
-                        
-                        m_chooser.addOption("One Ball Auto High",       new oneBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        // m_chooser.addOption("One Ball Auto Low ",       new oneBallAutoLow(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        
-                        m_chooser.addOption("Two   Ball Close High",    new twoBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        // m_chooser.addOption("Two   Ball Close Low ",    new twoBallAutoLow(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        // m_chooser.addOption("Three Ball Close ",        new threeBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        m_chooser.addOption("Three Ball Feeder ",        new threeBallFeederAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        // m_chooser.addOption("Five  Ball Close ",        new fiveBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        
-                        m_chooser.addOption("Two   Ball Far High  ",    new twoBallAutoFar(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        // m_chooser.addOption("Two   Ball Far Low   ",    new twoBallAutoFarBumper(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                        
-                        // m_chooser.addOption("Turn To Target", new  TurnToTargetSetPoint(m_robotDrive, m_limelight).withTimeout(3));
-                        // m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
-                        // m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
+                m_chooser.setDefaultOption("do nothing", new doNothingCommand());
+                m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.6, 0, false, 3.0, m_robotDrive));
+                
+                m_chooser.addOption("One Ball Auto High",       new oneBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                // m_chooser.addOption("One Ball Auto Low ",       new oneBallAutoLow(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                
+                m_chooser.addOption("Two   Ball Close High",    new twoBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                // m_chooser.addOption("Two   Ball Close Low ",    new twoBallAutoLow(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                // m_chooser.addOption("Three Ball Close ",        new threeBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("Three Ball Feeder ",        new threeBallFeederAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                // m_chooser.addOption("Five  Ball Close ",        new fiveBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                
+                m_chooser.addOption("Two   Ball Far High  ",    new twoBallAutoFar(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                // m_chooser.addOption("Two   Ball Far Low   ",    new twoBallAutoFarBumper(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                
+                // m_chooser.addOption("Turn To Target", new  TurnToTargetSetPoint(m_robotDrive, m_limelight).withTimeout(3));
+                // m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
+                // m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
 
-                        // UsbCamera usbCamera = new UsbCamera("USB Camera", 0);
-                        // MjpegServer mjpegServer = new MjpegServer("Serve_USB Camera", 1181);
-                        // mjpegServer.setSource(usbCamera);
-                        // mjpegServer.setResolution(800, 448);
-                        // mjpegServer.setFPS(20);
+                // UsbCamera usbCamera = new UsbCamera("USB Camera", 0);
+                // MjpegServer mjpegServer = new MjpegServer("Serve_USB Camera", 1181);
+                // mjpegServer.setSource(usbCamera);
+                // mjpegServer.setResolution(800, 448);
+                // mjpegServer.setFPS(20);
 
                 SmartDashboard.putData("Auto Chooser", m_chooser);
         }

@@ -160,6 +160,10 @@ public class IntakeFeeder extends SubsystemBase {
         m_feederMotor.set(-1.0); //Testing
     }
 
+    public void reverseIntake(){
+        m_intakeMotor.set(-1.0);
+    }
+
     // Feeder
 
     /**

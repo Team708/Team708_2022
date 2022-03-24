@@ -36,10 +36,13 @@ public class EngageClimberArm extends CommandBase{
 
     @Override
     public void execute(){
-        if ((Math.abs(m_driveSubsystem.getAcc()) >= 50 ) || (Math.abs(m_driveSubsystem.getRoll()) > 25))
-            go=false;
-        else
-            go=true;
+        if (!go)
+            if (Math.abs(m_driveSubsystem.getAcc()) >= 55 ) 
+                go=false;
+            else if ((m_driveSubsystem.getRoll() <= -35) || (m_driveSubsystem.getRoll() >= 18))
+                go=false;
+            else
+                go=true;
         
         SmartDashboard.putBoolean("Climb", go);
 
