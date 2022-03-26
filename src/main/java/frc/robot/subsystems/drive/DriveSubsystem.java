@@ -9,12 +9,14 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
+import frc.robot.OI;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -159,6 +161,8 @@ public class DriveSubsystem extends SubsystemBase {
     // Update the odometry in the periodic block
     m_odometry.update(
         Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getPosition(), m_rightEncoder.getPosition());
+
+    arcadeDrive(OI.getDriverLeftY(), OI.getDriverRightX());
   }
 
   public void rotateWithEncoders(double counts){
@@ -166,10 +170,16 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightPidController.setReference(counts, ControlType.kSmartMotion);
   }
 
-  public void gotToPosition(double counts){
+  public void goToPosition(double counts){
+    m_leftPidController.setReference(counts, ControlType.kPosition);
+    m_rightPidController.setReference(-counts, ControlType.kPosition);
+  }
+
+  public void turnToPosition(double counts){
     m_leftPidController.setReference(counts, ControlType.kPosition);
     m_rightPidController.setReference(counts, ControlType.kPosition);
   }
+
   /**
    * Returns the currently-estimated pose of the robot.
    *
@@ -178,7 +188,7 @@ public class DriveSubsystem extends SubsystemBase {
   public Pose2d getPose() {
     return m_odometry.getPoseMeters();
   }
-
+  
   /**
    * Returns the current wheel speeds of the robot.
    *
@@ -240,7 +250,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightMotors.setVoltage(rightVolts);
     m_drive.feed();
   }
-
+  
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
     m_leftEncoder.setPosition(0);
@@ -273,7 +283,7 @@ public class DriveSubsystem extends SubsystemBase {
   public RelativeEncoder getRightEncoder() {
     return m_rightEncoder;
   }
-
+  
   /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more
    * slowly.
@@ -288,7 +298,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void zeroHeading() {
     m_gyro.reset();
   }
-
+  
   /**
    * Returns the heading of the robot.
    *
@@ -301,7 +311,7 @@ public class DriveSubsystem extends SubsystemBase {
   public double getAngle() {
     return m_gyro.getAngle().getDegrees();
   }
-
+  
   /**
    * Returns the turn rate of the robot.
    *
@@ -333,13 +343,13 @@ public class DriveSubsystem extends SubsystemBase {
 			m_rightSecondary.setIdleMode(IdleMode.kBrake);
 		} 
 		else {
-			m_leftPrimary.setIdleMode(IdleMode.kCoast);
+      m_leftPrimary.setIdleMode(IdleMode.kCoast);
 			m_leftSecondary.setIdleMode(IdleMode.kCoast);
 			m_rightPrimary.setIdleMode(IdleMode.kCoast);
 			m_rightSecondary.setIdleMode(IdleMode.kCoast);
 		}
 	}
-
+  
 
   /** Drops the omni wheels. */
   public void dropWheels() {
@@ -370,6 +380,9 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Roll  ",        m_gyro.getRoll().getDegrees());
     SmartDashboard.putNumber("Rate X",        m_gyro.getRateX());
 
+    SmartDashboard.putNumber("Driver Left Y", OI.getDriverLeftY());    
+    SmartDashboard.putNumber("Driver Right X", OI.getDriverRightX());    
+
     // SmartDashboard.putNumber("Pitch",         m_gyro.getPitch().getDegrees());
     // SmartDashboard.putNumber("Rate Y",        m_gyro.getRateY());
     // SmartDashboard.putNumber("Rate Z",        m_gyro.getRateZ());    
@@ -381,12 +394,12 @@ public class DriveSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("DT Motor 12 voltage", m_leftSecondary.getBusVoltage());
     // SmartDashboard.putNumber("DT Motor 14 voltage", m_rightPrimary.getBusVoltage());
     // SmartDashboard.putNumber("DT Motor 15 voltage", m_rightSecondary.getBusVoltage());
-
+    
     // SmartDashboard.putNumber("DT Motor 11 Current", m_leftPrimary.getOutputCurrent());
     // SmartDashboard.putNumber("DT Motor 12 Current", m_leftSecondary.getOutputCurrent());
     // SmartDashboard.putNumber("DT Motor 14 Current", m_rightPrimary.getOutputCurrent());
     // SmartDashboard.putNumber("DT Motor 15 Current", m_rightSecondary.getOutputCurrent());
   }
 
-
+  
 }

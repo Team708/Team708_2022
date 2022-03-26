@@ -43,10 +43,10 @@ public final class Constants {
     //ALSO CLIMBER: 4 - in, 5 - out, 6 - climber pin (single), 7 - break (single)
 
     //PID Values
-    public static final double kP       = 0.5; //.0005
+    public static final double kP       = 1.5;
     public static final double kI       = 0.0000001;
-    public static final double kD       = 0.0; // .00006
-    public static final double kFF      = 0.7; //.0002
+    public static final double kD       = 0.00000006;
+    public static final double kFF      = 0.000002;
     public static final double kIZone   = 0;
     public static final double kMin     = -1;
     public static final double kMax     = 1;
@@ -94,10 +94,10 @@ public final class Constants {
     public static final double kiMax     = 1;
 
     //FEEDER
-    public static final double kfP       = 0.005;
-    public static final double kfI       = 0.0;
+    public static final double kfP       = 0.0005;
+    public static final double kfI       = 0.003;
     public static final double kfD       = 0.0; // .00006
-    public static final double kfFF      = 0.0007;
+    public static final double kfFF      = 0.000;
     public static final double kfIZone   = 0;
     public static final double kfMin     = -1;
     public static final double kfMax     = 1;
@@ -156,10 +156,10 @@ public final class Constants {
     public static final double kThreshold             = 0.75;     // 0.98; at HH
 
     //PID Values
-    public static final double kP       = 0.0003;  //.0005
-    public static final double kI       = 0.000000;
-    public static final double kD       = 0.008; // .0017 .00006
-    public static final double kFF      = 0.0002;  //.0002
+    public static final double kP       = 0.00015;  //.0003 .0005
+    public static final double kI       = 0.000001;
+    public static final double kD       = 0.006; //.008 .0017 .00006
+    public static final double kFF      = 0.000;  //.0002 TODO
     public static final double kIZone   = 0;
     public static final double kMin     = -1;
     public static final double kMax     = 1;

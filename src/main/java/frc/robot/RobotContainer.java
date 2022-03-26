@@ -20,6 +20,7 @@ import frc.robot.commands.auto.twoBallAutoHigh;
 import frc.robot.commands.auto.twoBallAutoFar;
 import frc.robot.commands.auto.threeBallFeederAuto;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
+import frc.robot.commands.groups.Aim;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
@@ -88,12 +89,12 @@ public class RobotContainer {
 
                 // Configure default commands
                 // Set the default drive command to split-stick arcade drive
-                m_shooter.setDefaultCommand(new RunCommand(() -> m_shooter.stopShooter(), m_shooter));
-                m_robotDrive.setDefaultCommand(
-                        // A split-stick arcade command, with forward/backward controlled by the left
-                        // hand, and turning controlled by the right.
-                        new RunCommand(() -> m_robotDrive.arcadeDrive(
-                                                        -OI.getDriverLeftY(), OI.getDriverRightX()),m_robotDrive));
+                // m_shooter.setDefaultCommand(new RunCommand(() -> m_shooter.stopShooter(), m_shooter));
+                // m_robotDrive.setDefaultCommand(
+                //         // A split-stick arcade command, with forward/backward controlled by the left
+                //         // hand, and turning controlled by the right.
+                //         new RunCommand(() -> m_robotDrive.arcadeDrive(
+                //                                         -OI.getDriverLeftY(), OI.getDriverRightX()),m_robotDrive));
 
                 m_chooser.setDefaultOption("do nothing", new doNothingCommand());
                 m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.6, 0, false, 3.0, m_robotDrive));
@@ -110,7 +111,7 @@ public class RobotContainer {
                 m_chooser.addOption("Two   Ball Far High  ",    new twoBallAutoFar(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 // m_chooser.addOption("Two   Ball Far Low   ",    new twoBallAutoFarBumper(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 
-                // m_chooser.addOption("Turn To Target", new  TurnToTargetSetPoint(m_robotDrive, m_limelight).withTimeout(3));
+                m_chooser.addOption("Turn To Target", new  Aim(m_limelight, m_robotDrive));
                 // m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
                 // m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
 
@@ -157,5 +158,8 @@ public class RobotContainer {
                 m_shooter.sendToDashboard();
                 m_climber.sendToDashboard();
                 m_intakeFeeder.sendToDashboard();
+                // m_limelight.sendToDashboard();
+                // m_candleSystem.sendToDashboard();
+
         }
 }

@@ -14,6 +14,7 @@ import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -85,13 +86,14 @@ public class IntakeFeeder extends SubsystemBase {
         m_feederMotor.setSmartCurrentLimit(40);
         feederMotorSpeed = 1.0; // set proper motor speed later
 
-        // feederPIDController = m_feederMotor.getPIDController();
-        // feederPIDController.setP(IntakeFeederConstants.kfP);
-        // feederPIDController.setI(IntakeFeederConstants.kfI);
-        // feederPIDController.setD(IntakeFeederConstants.kfD);
-        // feederPIDController.setFF(IntakeFeederConstants.kfFF);
-        // feederPIDController.setIZone(IntakeFeederConstants.kfIZone);
-        // feederPIDController.setOutputRange(IntakeFeederConstants.kfMin, IntakeFeederConstants.kfMax);
+        //TODO ON NOW
+        feederPIDController = m_feederMotor.getPIDController();
+        feederPIDController.setP(IntakeFeederConstants.kfP);
+        feederPIDController.setI(IntakeFeederConstants.kfI);
+        feederPIDController.setD(IntakeFeederConstants.kfD);
+        feederPIDController.setFF(IntakeFeederConstants.kfFF);
+        feederPIDController.setIZone(IntakeFeederConstants.kfIZone);
+        feederPIDController.setOutputRange(IntakeFeederConstants.kfMin, IntakeFeederConstants.kfMax);
 
         maxVelocity = 5600; //5600
         
@@ -193,7 +195,8 @@ public class IntakeFeeder extends SubsystemBase {
     }
     
     public void feederShoot(){
-        m_feederMotor.set(.5);
+        // m_feederMotor.set(.5);
+        m_feederMotor.getPIDController().setReference(2800, ControlType.kVelocity);
     }
 
     public void feederShootBumper(){
@@ -299,6 +302,8 @@ public class IntakeFeeder extends SubsystemBase {
     public void sendToDashboard(){
         SmartDashboard.putBoolean("Feeder Sensor", feederContactingBall());
         SmartDashboard.putBoolean("Intake Sensor", intakeContactingBall());
+        SmartDashboard.putNumber("Feeder Speed", m_feederMotor.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Intake Speed", m_intakeMotor.getEncoder().getVelocity());
     }
 
 }

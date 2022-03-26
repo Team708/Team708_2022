@@ -5,6 +5,8 @@ import frc.robot.commands.climber.ExtendClimbingArm;
 import frc.robot.commands.climber.ReleaseBreak;
 import frc.robot.commands.climber.ReleasePTO;
 import frc.robot.commands.climber.RetractClimbingArm;
+import frc.robot.commands.drivetrain.TurnTowardsTarget;
+import frc.robot.commands.drivetrain.MoveTowardsTarget;
 import frc.robot.commands.climber.ActivatePTO;
 import frc.robot.commands.climber.EngageBreak;
 import frc.robot.commands.intakeFeeder.FeederReverse;
@@ -18,6 +20,7 @@ import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.shooter.ToggleHood;
 import frc.robot.commands.shooter.StopShooter;
 import frc.robot.commands.groups.AimShootTarmac;
+import frc.robot.commands.groups.Aim;
 import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.groups.AimShootBumperHigh;
 import frc.robot.commands.groups.AimShootFeeder;
@@ -31,6 +34,7 @@ import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.vision.Limelight;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.simulation.JoystickSim;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class OI {
@@ -90,6 +94,8 @@ public class OI {
 		//DRIVER//
 
 		// Drive at half speed when the right bumper is held
+
+
 		new JoystickButton(driverGamepad, Button.kRightBumper.value)
 				.whenPressed(() -> m_robotDrive.shiftGearHigh())
 				.whenReleased(() -> m_robotDrive.shiftGearLow());
@@ -114,7 +120,13 @@ public class OI {
 		new JoystickButton(driverGamepad, Button.kB.value)
 		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
 				
-				
+		new JoystickButton(driverGamepad, Button.kStart.value)
+				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive));
+		
+		new JoystickButton(driverGamepad, Button.kRightStick.value)
+				.whenPressed(new MoveTowardsTarget(m_limeLight, m_robotDrive));
+
+
 		//OPERATOR//
 				
 		

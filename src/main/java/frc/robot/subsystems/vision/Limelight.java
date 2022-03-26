@@ -7,6 +7,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import com.ctre.phoenix.led.CANdle;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class Limelight extends SubsystemBase{
     /**
      * Reference to the Limelight NetworkTable
@@ -175,19 +177,24 @@ public class Limelight extends SubsystemBase{
     @Override
     public void periodic() {
         if(areValidTargets()){
-            if (Math.abs(getX())<=2.0)
-            if(currPipeline.equals(PIPELINE.RETRO_REFLECTIVE)){
+            if (Math.abs(getX())<=2.0){
+            // if(currPipeline.equals(PIPELINE.RETRO_REFLECTIVE)){
                 m_candle.setLEDs(0, 255, 0); //WHEN RETRO IS DETECTED, SET LED TO GREEN
+                SmartDashboard.putString("Target","GREEN");
+
             // }else if(currPipeline.equals(PIPELINE.BLUE_BALL)){
             //     m_candle.setLEDs(0, 0, 255); //WHEN BLUE IS DETECTED, SET LED TO BLUE
             // }else if(currPipeline.equals(PIPELINE.RED_BALL)){
             //     m_candle.setLEDs(255, 0, 0); //WHEN RED IS DETECTED, SET LED TO RED
-            }else{
-                m_candle.setLEDs(255, 255, 0); //IF PIPELINE ERROR, SET COLOR TO yellow
+            }
+            else{
+                m_candle.setLEDs(0, 0, 255); //IF PIPELINE ERROR, SET COLOR TO yellow
+                SmartDashboard.putString("Target","BLUE");
             }
         }else{
             //Maybe decide to make brown regardless of targets, just dependent on pipeline
             m_candle.setLEDs(255, 0, 0); //IF NO VALID TARGETS, SET COLOR TO red
+            SmartDashboard.putString("Target","RED");
         }
         // System.out.println(Arrays.toString(getColorUnderCrosshair()));
     }
