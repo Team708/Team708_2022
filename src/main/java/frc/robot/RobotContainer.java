@@ -17,7 +17,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.auto.doNothingCommand;
 import frc.robot.commands.auto.oneBallAutoHigh;
 import frc.robot.commands.auto.twoBallAutoHigh;
-import frc.robot.commands.auto.twoBallAutoFar;
+// import frc.robot.commands.auto.twoBallAutoFar;
 import frc.robot.commands.auto.threeBallFeederAuto;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
 import frc.robot.commands.groups.Aim;
@@ -99,19 +99,19 @@ public class RobotContainer {
                 m_chooser.setDefaultOption("do nothing", new doNothingCommand());
                 m_chooser.addOption("Drive Past Tarmac", new DriveCurvatureToEncoder(.6, 0, false, 3.0, m_robotDrive));
                 
-                m_chooser.addOption("One Ball Auto High",       new oneBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("One Ball",       new oneBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 // m_chooser.addOption("One Ball Auto Low ",       new oneBallAutoLow(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 
-                m_chooser.addOption("Two   Ball Close High",    new twoBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("Two   Ball",    new twoBallAutoHigh(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 // m_chooser.addOption("Two   Ball Close Low ",    new twoBallAutoLow(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 // m_chooser.addOption("Three Ball Close ",        new threeBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
-                m_chooser.addOption("Three Ball Feeder ",        new threeBallFeederAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                m_chooser.addOption("Three Ball",        new threeBallFeederAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 // m_chooser.addOption("Five  Ball Close ",        new fiveBallAuto(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 
-                m_chooser.addOption("Two   Ball Far High  ",    new twoBallAutoFar(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
+                // m_chooser.addOption("Two   Ball Far High  ",    new twoBallAutoFar(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 // m_chooser.addOption("Two   Ball Far Low   ",    new twoBallAutoFarBumper(m_robotDrive, m_limelight, m_shooter, m_intakeFeeder) );
                 
-                m_chooser.addOption("Turn To Target", new  Aim(m_limelight, m_robotDrive));
+                // m_chooser.addOption("Turn To Target", new  Aim(m_limelight, m_robotDrive));
                 // m_chooser.addOption("curveDrive", new DriveCurvatureToEncoder(.4, .2, false, 1, m_robotDrive));
                 // m_chooser.addOption("s - curve w/coordinate ", Ramsete(TrajectoryConstants.makeSTrajectory()));
 

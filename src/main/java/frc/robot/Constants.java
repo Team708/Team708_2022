@@ -85,19 +85,19 @@ public final class Constants {
     public static int kFeederMotorPort = 23; // fix port number
 
     //INTAKE
-    public static final double kiP       = 0.053;
-    public static final double kiI       = 0.0;
-    public static final double kiD       = 0.00006; // .00006
-    public static final double kiFF      = 0.001;  //.0001
+    public static final double kiP       = 0.053;   
+    public static final double kiI       = 0.0;     
+    public static final double kiD       = 0.00006; 
+    public static final double kiFF      = 0.001;   
     public static final double kiIZone   = 0;
     public static final double kiMin     = -1;
     public static final double kiMax     = 1;
 
     //FEEDER
-    public static final double kfP       = 0.0005;
-    public static final double kfI       = 0.003;
-    public static final double kfD       = 0.0; // .00006
-    public static final double kfFF      = 0.000;
+    public static final double kfP       = 0.00060;  //.0006
+    public static final double kfI       = 0.001;    //.001
+    public static final double kfD       = 0.0007;   //.00006
+    public static final double kfFF      = 0.000;    //0.0
     public static final double kfIZone   = 0;
     public static final double kfMin     = -1;
     public static final double kfMax     = 1;
@@ -147,16 +147,16 @@ public final class Constants {
 
     public static final double kShooterLowClose       = 1500; //hood up  1450 
     public static final double kShooterHighFar        = 2900;  //hood down
-    public static final double kShooterHighBumper     = 2375;  //hood down
-    public static final double kShooterStafetyZone    = 3000;  //hood down
-    public static final double kShooterFeederStation  = 3600;  //hood up
+    public static final double kShooterHighBumper     = 2400;  //hood down  2375
+    public static final double kShooterStafetyZone    = 2800;  //hood up  3000
+    public static final double kShooterFeederStation  = 3450;  //hood up 3600
     
 
     public static final double kShooterReverseSpeed   = -4000; // -2000
     public static final double kThreshold             = 0.75;     // 0.98; at HH
 
     //PID Values
-    public static final double kP       = 0.00015;  //.0003 .0005
+    public static final double kP       = 0.00015;  //.00015
     public static final double kI       = 0.000001;
     public static final double kD       = 0.006; //.008 .0017 .00006
     public static final double kFF      = 0.000;  //.0002 TODO

@@ -161,7 +161,7 @@ public class Shooter extends SubsystemBase{
         settargetSpeed = SmartDashboard.getNumber("Set Shooter velocity", 0);
         SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());
         SmartDashboard.putBoolean("Shooter Target Speed Achieved", isShooterAtSpeed());
-        SmartDashboard.putNumber("Set Shooter velocity", settargetSpeed);
+        SmartDashboard.putNumber("Shooter velocity set to ", settargetSpeed);
     }
 
 }

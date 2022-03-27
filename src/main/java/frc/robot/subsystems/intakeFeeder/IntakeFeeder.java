@@ -195,8 +195,8 @@ public class IntakeFeeder extends SubsystemBase {
     }
     
     public void feederShoot(){
-        // m_feederMotor.set(.5);
-        m_feederMotor.getPIDController().setReference(2800, ControlType.kVelocity);
+        m_feederMotor.set(.5);
+        // m_feederMotor.getPIDController().setReference(2800, ControlType.kVelocity);
     }
 
     public void feederShootBumper(){
@@ -210,11 +210,11 @@ public class IntakeFeeder extends SubsystemBase {
 
 
     public void intakeForward(){
-        m_intakeMotor.set(.7);
+        m_intakeMotor.set(.6);
     }    
     
     public void intakeShoot(){
-        m_intakeMotor.set(.6);
+        m_intakeMotor.set(.7);
     }
 
     public void intakeBackward(){
