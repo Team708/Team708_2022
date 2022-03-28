@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
 import frc.robot.commands.drivetrain.DropOmnisCommand;
@@ -34,8 +35,11 @@ public class threeBallFeederAuto extends SequentialCommandGroup{
 
             new ParallelCommandGroup(
             // new IntakeFeederTillBall(m_if),
-            new IntakeFeederIn(m_if),
-            new DriveCurvatureToEncoder(.5, -.3, false, 1.5, m_robotDrive)
+              new ParallelRaceGroup(
+                new IntakeFeederIn(m_if),
+                new WaitCommand(4.0)
+                ),
+              new DriveCurvatureToEncoder(.5, -.3, false, 1.5, m_robotDrive)
             ),
             
             new WaitCommand(.2),

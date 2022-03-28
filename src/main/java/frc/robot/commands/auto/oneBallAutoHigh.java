@@ -26,7 +26,7 @@ public class oneBallAutoHigh extends SequentialCommandGroup{
     
     addCommands(
             new SetBrakeMode(m_robotDrive, true),
-            new DriveCurvatureToEncoder(.5, 0, false, 2.0, m_robotDrive),
+            new DriveCurvatureToEncoder(.5, 0, false, 1.5, m_robotDrive),
             new WaitCommand(1.0), //delay could come out
 
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
