@@ -27,33 +27,29 @@ public class threeBallFeederAuto extends SequentialCommandGroup{
     addCommands(
             new twoBallAutoHigh(m_robotDrive, m_Limelight, m_shooter, m_if),
             
-            new DriveCurvatureToEncoder(.5, .9, true, .45, m_robotDrive),  
+            new DriveCurvatureToEncoder(.5, .9, true, .45, m_robotDrive),  //turn towards feeder
             new WaitCommand(.1),
 
-            new DriveCurvatureToEncoder(.7, 0, false, 3.0, m_robotDrive),
+            new DriveCurvatureToEncoder(.7, 0, false, 3.0, m_robotDrive),  //drive to feeder
             new WaitCommand(.2),
 
-            new ParallelCommandGroup(
-            // new IntakeFeederTillBall(m_if),
-              new ParallelRaceGroup(
-                new IntakeFeederIn(m_if),
-                new WaitCommand(4.0)
-                ),
-              new DriveCurvatureToEncoder(.4, -.3, false, 1.2, m_robotDrive)
+            new ParallelCommandGroup(    //drive curve into feeder to get 2 balls
+                  new ParallelRaceGroup(
+                    new IntakeFeederIn(m_if),
+                    new WaitCommand(4.0)
+                  ),
+
+                  new DriveCurvatureToEncoder(.4, -.3, false, 1.2, m_robotDrive)  //turn to goal
             ),
             
             new WaitCommand(.2),
 
-            // new DriveCurvatureToEncoder(.5, .7, true, .1, m_robotDrive),
-            // new WaitCommand(.2),
-
-            new DriveCurvatureToEncoder(-.45, 0, false, -.7, m_robotDrive),
+            new DriveCurvatureToEncoder(-.45, 0, false, -.7, m_robotDrive),  //lets drive up a bit to goal
             
             new Aim(m_Limelight, m_robotDrive),
             new WaitCommand(1.0),
             new AimShootFeeder(m_Limelight, m_robotDrive, m_shooter, m_if)
 
-            // new DropOmnisCommand(m_robotDrive)
         );    
   }  
 }

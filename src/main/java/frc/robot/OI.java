@@ -43,6 +43,7 @@ public class OI {
 	public final static XboxController driverGamepad   = new XboxController(ControllerConstants.kDriverControllerPort); // Driver
 	public final static XboxController operatorGamepad = new XboxController(ControllerConstants.kOperatorControllerPort);
 	public final static XboxController climberGamepad  = new XboxController(ControllerConstants.kClimberControllerPort);
+	public final static XboxController adaptiveGamepad = new XboxController(ControllerConstants.kAdaptiveControllerPort);
 
 	/*
 	 * Driver JoystickButton
@@ -121,7 +122,7 @@ public class OI {
 		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
 				
 		new JoystickButton(driverGamepad, Button.kStart.value)
-				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive));
+				.whenPressed(new Aim(m_limeLight, m_robotDrive));
 		
 		new JoystickButton(driverGamepad, Button.kRightStick.value)
 				.whenPressed(new MoveTowardsTarget(m_limeLight, m_robotDrive));
@@ -184,5 +185,18 @@ public class OI {
 		new JoystickButton(climberGamepad, Button.kRightBumper.value)  //auto climb
 			.whenPressed(new Climb(m_robotDrive, m_climber));
 		
+		//Adaptive Controller
+
+		new JoystickButton(adaptiveGamepad, Button.kStart.value)
+			.whenPressed(new ReleasePTO(m_climber));
+		
+		new JoystickButton(adaptiveGamepad, Button.kBack.value)
+			.whenPressed(new ReleaseBreak(m_climber));
+			
+		new JoystickButton(climberGamepad, Button.kB.value)
+			.whenPressed(new EngageBreak(m_climber));
+		
+		new JoystickButton(adaptiveGamepad, Button.kA.value)  //auto climb
+			.whenPressed(new Climb(m_robotDrive, m_climber));
 	}
 }

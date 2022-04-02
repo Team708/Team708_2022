@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drivetrain.DriveCurvatureToEncoder;
 import frc.robot.commands.drivetrain.DriveStraightCommand;
 import frc.robot.commands.drivetrain.TurnTowardsTarget;
+import frc.robot.commands.drivetrain.TurnToTargetSetPoint;
 import frc.robot.commands.intakeFeeder.FeederReverse;
 import frc.robot.commands.intakeFeeder.IntakeFeederOut;
 import frc.robot.commands.intakeFeeder.ShootBall;
@@ -26,7 +27,7 @@ public class Aim extends SequentialCommandGroup{
     
     public Aim(Limelight m_limeLight, DriveSubsystem m_driveSubsystem){
         addCommands(
-                new TurnTowardsTarget(m_limeLight, m_driveSubsystem)
+                new TurnToTargetSetPoint(m_limeLight, m_driveSubsystem).withTimeout(1.0)
                 );
     }
 

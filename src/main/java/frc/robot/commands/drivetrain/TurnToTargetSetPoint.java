@@ -1,78 +1,72 @@
-// package frc.robot.commands.drivetrain;
+package frc.robot.commands.drivetrain;
 
-// import edu.wpi.first.math.geometry.Pose2d;
-// import edu.wpi.first.wpilibj2.command.CommandBase;
-// import frc.robot.subsystems.drive.*;
-// import frc.robot.subsystems.vision.*;
+import javax.lang.model.util.ElementScanner6;
 
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 
-// import frc.robot.Constants;
-// import edu.wpi.first.wpilibj.TimedRobot;
-// import com.revrobotics.RelativeEncoder;
-// import com.revrobotics.SparkMaxPIDController;
-// import com.revrobotics.CANSparkMax;
-// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-// /**
-//  *
-//  */
-// public class TurnToTargetSetPoint extends CommandBase {
-	
-// 	private double rotationSpeed;
-// 	private double goalDegrees;
-//     private double moveToSetPoint;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.OI;
+import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.subsystems.vision.Limelight;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-//     DriveSubsystem m_DriveSubsystem;
-//     Limelight m_Limelight;
+public class TurnToTargetSetPoint extends CommandBase{
+    
+    Limelight m_limeLight;
+    DriveSubsystem m_driveSubsystem;
+    PIDController m_controller;
 
-//     // private CANSparkMax           m_motor;
-//     // private SparkMaxPIDController m_pidController;
-//     // private RelativeEncoder       m_encoder;
+    double targetPosition;
+    boolean done;
+    int turn_dir;
 
-//     public TurnToTargetSetPoint(DriveSubsystem m_DriveSubsystem, Limelight m_Limelight) {
-//         this.m_DriveSubsystem = m_DriveSubsystem;
-//         this.m_Limelight = m_Limelight;
+    public TurnToTargetSetPoint(Limelight m_limeLight, DriveSubsystem m_driveSubsystem){
+        this.m_limeLight = m_limeLight;
+        this.m_driveSubsystem = m_driveSubsystem;
+        addRequirements(m_driveSubsystem);
+        addRequirements(m_limeLight);
+    }
 
-//         addRequirements(m_DriveSubsystem);
-//     }
-// //
-// //
-// // testing not in code
-// //
-// //
+    @Override
+    public void initialize(){
+        m_driveSubsystem.resetEncoders();
 
-//     // Called just before this Command runs the first time
-//     @Override
-//     public void initialize() {
-        
-//         m_DriveSubsystem.resetOdometry(new Pose2d());
-//         m_DriveSubsystem.resetEncoders();
-        
-//         this.goalDegrees = m_Limelight.turnToTarget() * 0.9;
-//         // this.goalDegrees = 10;
-//         SmartDashboard.putNumber("Goal Degress", goalDegrees);
-//     }
+        double targetAngle = m_limeLight.getX();
 
-//     // Called repeatedly when this Command is scheduled to run
-//     @Override
-//     public void execute() {
+        done = false;
+        if (targetAngle<0)
+          turn_dir = -1;
+        else 
+          turn_dir = 1;
+    }
 
-//         moveToSetPoint = (goalDegrees *.017);// * (Constants.DriveConstants.kCountsPerDegree));
-//         SmartDashboard.putNumber("SetPoint", moveToSetPoint);
+    @Override
+    public void execute(){
+        m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), turn_dir * .6);
 
-//         m_DriveSubsystem.gotToPosition(moveToSetPoint);
-//         // m_pidController.setReference(moveToSetPoint, CANSparkMax.ControlType.kSmartMotion);
-//     }
+        if (Math.abs(m_limeLight.getX()) <= 1.0) 
+            done = true;
+        else {
+            double targetAngle = m_limeLight.getX();
+            if (targetAngle<0)
+                turn_dir = -1;
+            else 
+                turn_dir = 1;
 
-//     // Make this return true when this Command no longer needs to run execute()
-//     @Override
-//     public boolean isFinished() {
-//     	return (false);
-//     }
+            done = false;
+        } 
+    }
 
-//     // Called once after isFinished returns true
-//     @Override
-//     public void end(boolean interrupted) {
-//     	// m_DriveSubsystem.arcadeDrive(0.0, 0.0);
-//     }
-// }
+    @Override
+    public boolean isFinished(){
+        return done;
+    }
+
+    @Override
+    public void end(boolean interrupted){
+    }
+
+}
