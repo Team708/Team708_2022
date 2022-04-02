@@ -45,9 +45,9 @@ public class TurnTowardsTarget extends CommandBase{
 
     @Override
     public void execute(){
-        m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), turn_dir * .42);
+        m_driveSubsystem.arcadeDrive(OI.getClimberLeftY(), turn_dir * .40);
 
-        if (Math.abs(m_limeLight.getX()) <= 1.5) 
+        if (Math.abs(m_limeLight.getX()) <= 1.0) 
             done = true;
         else {
             double targetAngle = m_limeLight.getX();

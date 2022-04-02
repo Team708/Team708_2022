@@ -46,8 +46,8 @@ public class EngageClimberArm extends CommandBase{
         
         SmartDashboard.putBoolean("Climb", go);
 
-        // if (go)
-        //     m_driveSubsystem.arcadeDrive(speed, 0.0);
+        if (go)
+            m_driveSubsystem.arcadeDrive(speed, 0.0);
 
     }
 

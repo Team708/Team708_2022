@@ -31,7 +31,7 @@ public class Climb extends SequentialCommandGroup{
 
             // pullup to bar
 
-            new EngageClimberArm(m_driveSubsystem, m_climber, -1000, .8), //-6000 no load 1.0    // switches or encoder value
+            new EngageClimberArm(m_driveSubsystem, m_climber, 2500, .9), //-1000 .8  no load 1.0    // switches or encoder value
             new WaitCommand(.1),
 
             // to next bar
@@ -41,13 +41,13 @@ public class Climb extends SequentialCommandGroup{
             new ExtendClimbingArm(m_climber),                                           //arm out               
             new WaitCommand(1.0),       //waiting for piston
 
-            new ClimberArmUp(m_driveSubsystem, m_climber, -30000, -2, false),  //-33000, -2  //noswing=false,  uses value for fully extended arm
+            new ClimberArmUp(m_driveSubsystem, m_climber, -38000, -2, false),  //-35000, -2  //noswing=false,  uses value for fully extended arm
             new WaitCommand(.2),        //springs do your thing                                  
-            
 
             new ActivatePTO(m_climber),
             new WaitCommand(.2),    // make sure arm doesn't fall 
-            new ClimberArmDown(m_driveSubsystem, m_climber, 8500, .8), //8000 .8 <=works           //delta off current position 
+
+            new ClimberArmDown(m_driveSubsystem, m_climber, 12000, .8), //8000 .8 <=works           //delta off current position 
             new WaitCommand(.2),  //.5
             new RetractClimbingArm(m_climber)                                         // arm in           
         );

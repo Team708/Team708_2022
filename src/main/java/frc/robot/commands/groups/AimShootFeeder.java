@@ -26,7 +26,7 @@ public class AimShootFeeder extends SequentialCommandGroup{
         m_if.directionIn();
         addCommands(
             new ParallelCommandGroup(
-                new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(1),
+                new TurnTowardsTarget(m_limeLight, m_driveSubsystem).withTimeout(3.0),
                 new FeederReverse(m_if) .withTimeout(0.4)
                                         .andThen(new StopFeeder(m_if)),
                 new ShootFeederStation(m_shooter)
