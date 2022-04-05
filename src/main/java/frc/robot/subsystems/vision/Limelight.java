@@ -188,12 +188,12 @@ public class Limelight extends SubsystemBase{
             //     m_candle.setLEDs(255, 0, 0); //WHEN RED IS DETECTED, SET LED TO RED
             }
             else{
-                m_candle.setLEDs(0, 0, 255); //IF PIPELINE ERROR, SET COLOR TO yellow
+                m_candle.setLEDs(0, 0, 255); //IF no target, set leds to blue
                 SmartDashboard.putString("Target","BLUE");
             }
         }else{
             //Maybe decide to make brown regardless of targets, just dependent on pipeline
-            m_candle.setLEDs(255, 0, 0); //IF NO VALID TARGETS, SET COLOR TO red
+            m_candle.setLEDs(255, 0, 0); //IF NO VALID TARGETS, SET COLOR TO Red (Orange)
             SmartDashboard.putString("Target","RED");
         }
         // System.out.println(Arrays.toString(getColorUnderCrosshair()));

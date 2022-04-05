@@ -26,11 +26,13 @@ public class IntakeFeederOut extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return true;
+        return false;
     }
 
     @Override
     public void end(boolean interrupted){
+        m_if.stopFeeder();
+        m_if.stopIntake();
     }
     
 }

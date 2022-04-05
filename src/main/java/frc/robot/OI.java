@@ -5,13 +5,13 @@ import frc.robot.commands.climber.ExtendClimbingArm;
 import frc.robot.commands.climber.ReleaseBreak;
 import frc.robot.commands.climber.ReleasePTO;
 import frc.robot.commands.climber.RetractClimbingArm;
-import frc.robot.commands.drivetrain.TurnTowardsTarget;
 import frc.robot.commands.drivetrain.MoveTowardsTarget;
 import frc.robot.commands.climber.ActivatePTO;
 import frc.robot.commands.climber.EngageBreak;
 import frc.robot.commands.intakeFeeder.FeederReverse;
 import frc.robot.commands.intakeFeeder.IntakeFeederIn;
 import frc.robot.commands.intakeFeeder.IntakeFeederOut;
+import frc.robot.commands.intakeFeeder.IntakeReverse;
 import frc.robot.commands.intakeFeeder.StopFeeder;
 import frc.robot.commands.intakeFeeder.StopIntake;
 import frc.robot.commands.intakeFeeder.ToggleIntakeSolenoid;
@@ -20,6 +20,7 @@ import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.shooter.ToggleHood;
 import frc.robot.commands.shooter.StopShooter;
 import frc.robot.commands.groups.AimShootTarmac;
+import frc.robot.commands.groups.BumperEjectHigh;
 import frc.robot.commands.groups.Aim;
 import frc.robot.commands.groups.AimShootBumper;
 import frc.robot.commands.groups.AimShootBumperHigh;
@@ -32,9 +33,10 @@ import frc.robot.subsystems.intakeFeeder.IntakeFeeder;
 import frc.robot.subsystems.shooter.Shooter;
 
 import frc.robot.subsystems.vision.Limelight;
+import frc.robot.util.DPadButton;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.simulation.JoystickSim;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class OI {
@@ -126,6 +128,12 @@ public class OI {
 		
 		new JoystickButton(driverGamepad, Button.kRightStick.value)
 				.whenPressed(new MoveTowardsTarget(m_limeLight, m_robotDrive));
+			
+		new DPadButton(driverGamepad, DPadButton.Direction.UP)
+				.whenPressed(new BumperEjectHigh(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));
+
+		new DPadButton(driverGamepad, DPadButton.Direction.DOWN)
+				.whileHeld(new IntakeReverse(m_intakeFeeder));
 
 
 		//OPERATOR//
@@ -193,7 +201,7 @@ public class OI {
 		new JoystickButton(adaptiveGamepad, Button.kBack.value)
 			.whenPressed(new ReleaseBreak(m_climber));
 			
-		new JoystickButton(climberGamepad, Button.kB.value)
+		new JoystickButton(adaptiveGamepad, Button.kB.value)
 			.whenPressed(new EngageBreak(m_climber));
 		
 		new JoystickButton(adaptiveGamepad, Button.kA.value)  //auto climb
