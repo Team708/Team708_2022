@@ -36,7 +36,7 @@ public class Climb extends SequentialCommandGroup{
 
             // to next bar
 
-            new ClimberArmUp(m_driveSubsystem, m_climber, -2000, -.3, true),  //5500, -.6   //noswing=true,  delta off current position
+            new ClimberArmUp(m_driveSubsystem, m_climber, -2500, -.3, true),  //5500, -.6   //noswing=true,  delta off current position
             new WaitCommand(.2),        //springs do your thing                                  
             new ExtendClimbingArm(m_climber),                                           //arm out               
             new WaitCommand(1.0),       //waiting for piston
