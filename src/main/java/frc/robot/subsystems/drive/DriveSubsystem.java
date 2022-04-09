@@ -102,10 +102,10 @@ public class DriveSubsystem extends SubsystemBase {
     liftWheels();
     shiftGearLow();
 
-    m_leftPrimary.setSmartCurrentLimit(40);
-    m_leftSecondary.setSmartCurrentLimit(40);
-    m_rightPrimary.setSmartCurrentLimit(40);
-    m_rightSecondary.setSmartCurrentLimit(40);
+    m_leftPrimary.setSmartCurrentLimit(60); //they were 40
+    m_leftSecondary.setSmartCurrentLimit(60);
+    m_rightPrimary.setSmartCurrentLimit(60);
+    m_rightSecondary.setSmartCurrentLimit(60);
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's

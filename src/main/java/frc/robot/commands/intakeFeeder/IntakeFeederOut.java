@@ -12,6 +12,7 @@ public class IntakeFeederOut extends CommandBase {
 
     public IntakeFeederOut(IntakeFeeder m_if){
         this.m_if = m_if;
+        addRequirements(m_if);
     }
 
     @Override

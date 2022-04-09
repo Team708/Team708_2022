@@ -30,7 +30,7 @@ public class threeBallFeederAuto extends SequentialCommandGroup{
             new DriveCurvatureToEncoder(.5, .9, true, .45, m_robotDrive),  //turn towards feeder
             new WaitCommand(.1),
 
-            new DriveCurvatureToEncoder(.7, 0, false, 3.0, m_robotDrive),  //drive to feeder
+            new DriveCurvatureToEncoder(.7, 0, false, 3.0, m_robotDrive),  // 3.0 red 3.1 blue  //drive to feeder
             new WaitCommand(.2),
 
             new ParallelCommandGroup(    //drive curve into feeder to get 2 balls
@@ -39,7 +39,7 @@ public class threeBallFeederAuto extends SequentialCommandGroup{
                     new WaitCommand(4.0)
                   ),
 
-                  new DriveCurvatureToEncoder(.4, -.3, false, 1.2, m_robotDrive)  //turn to goal
+                  new DriveCurvatureToEncoder(.4, -.3, false, 1.2, m_robotDrive)  //1.2 red 1.1 blue    //turn to goal
             ),
             
             new WaitCommand(.2),

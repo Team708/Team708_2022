@@ -121,7 +121,8 @@ public class OI {
 		        .whenPressed(new IntakeFeederIn(m_intakeFeeder));
 
 		new JoystickButton(driverGamepad, Button.kB.value)
-		        .whileHeld(new IntakeFeederOut(m_intakeFeeder));
+		        .whileHeld(new IntakeFeederOut(m_intakeFeeder))
+				.whenReleased(new IntakeFeederIn(m_intakeFeeder));
 				
 		new JoystickButton(driverGamepad, Button.kStart.value)
 				.whenPressed(new Aim(m_limeLight, m_robotDrive));
