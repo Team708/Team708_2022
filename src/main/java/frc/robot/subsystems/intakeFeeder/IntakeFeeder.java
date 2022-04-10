@@ -302,8 +302,8 @@ public class IntakeFeeder extends SubsystemBase {
     public void sendToDashboard(){
         SmartDashboard.putBoolean("Feeder Sensor", feederContactingBall());
         SmartDashboard.putBoolean("Intake Sensor", intakeContactingBall());
-        SmartDashboard.putNumber("Feeder Speed", m_feederMotor.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Intake Speed", m_intakeMotor.getEncoder().getVelocity());
+        // SmartDashboard.putNumber("Feeder Speed", m_feederMotor.getEncoder().getVelocity());
+        // SmartDashboard.putNumber("Intake Speed", m_intakeMotor.getEncoder().getVelocity());
     }
 
 }

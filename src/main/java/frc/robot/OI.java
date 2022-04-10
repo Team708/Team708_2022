@@ -6,6 +6,7 @@ import frc.robot.commands.climber.ReleaseBreak;
 import frc.robot.commands.climber.ReleasePTO;
 import frc.robot.commands.climber.RetractClimbingArm;
 import frc.robot.commands.drivetrain.MoveTowardsTarget;
+import frc.robot.commands.drivetrain.TurnTowardsTarget;
 import frc.robot.commands.climber.ActivatePTO;
 import frc.robot.commands.climber.EngageBreak;
 import frc.robot.commands.intakeFeeder.FeederReverse;
@@ -127,8 +128,11 @@ public class OI {
 		new JoystickButton(driverGamepad, Button.kStart.value)
 				.whenPressed(new Aim(m_limeLight, m_robotDrive));
 		
-		new JoystickButton(driverGamepad, Button.kRightStick.value)
-				.whenPressed(new MoveTowardsTarget(m_limeLight, m_robotDrive));
+		// new JoystickButton(driverGamepad, Button.kRightStick.value)
+		// 		.whenPressed(new MoveTowardsTarget(m_limeLight, m_robotDrive));
+				
+		new JoystickButton(driverGamepad, Button.kLeftStick.value)
+				.whenPressed(new TurnTowardsTarget(m_limeLight, m_robotDrive));
 			
 		new DPadButton(driverGamepad, DPadButton.Direction.UP)
 				.whenPressed(new BumperEjectHigh(m_limeLight, m_robotDrive, m_shooter, m_intakeFeeder));

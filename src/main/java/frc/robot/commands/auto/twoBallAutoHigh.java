@@ -31,13 +31,15 @@ public class twoBallAutoHigh extends SequentialCommandGroup{
     addCommands(
             new SetBrakeMode(m_robotDrive, true),
             new DeployIntake(m_if),
-            
+            new WaitCommand(.2),
+
             new ParallelCommandGroup(
               new IntakeFeederIn(m_if),
-              new DriveCurvatureToEncoder(.5, 0.0, false, 1.5, m_robotDrive),   //.3
-              new WaitCommand(1.0) //delay could come out
-            ),
-
+              new DriveCurvatureToEncoder(.5, 0.0, false, 1.5, m_robotDrive)   //.3
+              // new WaitCommand(1.0) //delay could come out
+              ),
+              
+            new WaitCommand(.5),
             // new DriveCurvatureToEncoder(-.5, -1.0, true, -.4, m_robotDrive),
             new AimShootTarmac(m_Limelight, m_robotDrive, m_shooter, m_if)
 

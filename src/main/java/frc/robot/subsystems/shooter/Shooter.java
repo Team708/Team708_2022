@@ -158,10 +158,10 @@ public class Shooter extends SubsystemBase{
     }
 
     public void sendToDashboard() {
-        settargetSpeed = SmartDashboard.getNumber("Set Shooter velocity", 0);
-        SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());
-        SmartDashboard.putBoolean("Shooter Target Speed Achieved", isShooterAtSpeed());
-        SmartDashboard.putNumber("Shooter velocity set to ", settargetSpeed);
+        // settargetSpeed = SmartDashboard.getNumber("Set Shooter velocity", 0);
+        // SmartDashboard.putNumber("Shooter velocity", shooterEncoder.getVelocity());
+        // SmartDashboard.putBoolean("Shooter Target Speed Achieved", isShooterAtSpeed());
+        // SmartDashboard.putNumber("Shooter velocity set to ", settargetSpeed);
     }
 
 }

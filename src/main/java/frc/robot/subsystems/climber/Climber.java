@@ -110,13 +110,13 @@ public class Climber extends SubsystemBase{
     }
 
     public void sendToDashboard(){
-        SmartDashboard.putBoolean("Climber - Arm Switch 2", hangSwitch2_engaged());
-        SmartDashboard.putBoolean("Climber - Arm Switch 3",  hangSwitch3_engaged());
+        // SmartDashboard.putBoolean("Climber - Arm Switch 2", hangSwitch2_engaged());
+        // SmartDashboard.putBoolean("Climber - Arm Switch 3",  hangSwitch3_engaged());
 
-        SmartDashboard.putBoolean("Climber - Brake Engaged", climberBrakeEngaged);
+        // SmartDashboard.putBoolean("Climber - Brake Engaged", climberBrakeEngaged);
 
-        SmartDashboard.putBoolean("Climber - PTO Engaged", PTOEngaged);
-        SmartDashboard.putBoolean("Climber - Arm Out", climbingArmOut);
+        // SmartDashboard.putBoolean("Climber - PTO Engaged", PTOEngaged);
+        // SmartDashboard.putBoolean("Climber - Arm Out", climbingArmOut);
 
         SmartDashboard.putNumber("Climber - True Encoder", m_encoderA.getRaw());
         // SmartDashboard.putNumber("Climber: encoder full extension", climber_fully_extended);
